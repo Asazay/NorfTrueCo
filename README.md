@@ -5,7 +5,7 @@
 
 ![db-schema]
 
-[db-schema]: ./images/ntc-db-schema-img.png
+![db-schema]: ./images/ntc-db-schema-img.png
 
 ## API Documentation
 ```
