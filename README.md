@@ -1,4 +1,3 @@
-```markdown
 # [Norf True Co. Wbsite]
 
 ## Database Schema Design
@@ -8,4 +7,3 @@
 ![]:https://i.imgur.com/bMinRf3.png
 
 ## API Documentation
-```
