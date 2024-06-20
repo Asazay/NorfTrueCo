@@ -5,7 +5,7 @@
 
 ![db-schema]
 
-![]:(/images/ntc-db-schema-img.png)
+![]:(https://i.imgur.com/bMinRf3.png)
 
 ## API Documentation
 ```
