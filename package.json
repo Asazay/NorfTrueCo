@@ -24,6 +24,7 @@
     "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "redux-logger": "^3.0.6"
   }
 }
