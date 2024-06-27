@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      unique: true,
       validate: {
         isNumeric: true,
         isProperLength(value){
@@ -49,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: true,
     },
     city: {
