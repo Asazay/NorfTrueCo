@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('order_items', {
+    await queryInterface.createTable('Order_Items', {
       order_number: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -33,7 +33,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'order_items'
+    options.tableName = 'Order_Items'
     await queryInterface.dropTable(options)
   }
 };

@@ -31,7 +31,7 @@ module.exports = {
       comment: 'I really love this snapback. It has such a good quality!',
       stars: 5
     },
-   ], options)
+   ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -41,7 +41,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'reviews';
+    options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       user_id: {[Op.in]: [1, 2]}

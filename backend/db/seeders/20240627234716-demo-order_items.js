@@ -54,7 +54,7 @@ module.exports = {
       item_id: 9,
       item_quantity: 1
     },
-   ], options)
+   ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -64,7 +64,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'order_items';
+    options.tableName = 'Order_Items';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       order_number: {[Op.in]: [2024001, 2024002]}
