@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         through: 'favorites'
       });
 
+      Item.belongsToMany(models.Order, {
+        through: 'order_items'
+      })
+
       Item.hasMany(models.Review, {
         foreignKey: 'item_id'
       })
