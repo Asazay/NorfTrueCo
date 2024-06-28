@@ -17,7 +17,7 @@ function SignupFormModal() {
 
  useEffect(() => {
     if (sessionUser) return navigate('/')
- }, [])
+ }, [navigate, sessionUser])
 
   const handleSubmit = (e) => {
     e.preventDefault();
