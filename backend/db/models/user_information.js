@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User_Information.belongsTo(models.User, {
-        foreignKey: 'id',
+        foreignKey: 'user_id',
       });
 
       User_Information.belongsTo(models.Order, {
