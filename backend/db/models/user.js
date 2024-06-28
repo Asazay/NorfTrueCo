@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.User_Information, {
-        as: 'user_information'
+        foreignKey: 'user_id'
       });
 
       User.belongsToMany(models.Favorite, {
