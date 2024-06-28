@@ -36,7 +36,7 @@ module.exports = {
         last_name: 'User2',
         phone: 4443335555
       },
-    ])
+    ], options)
   },
 
   async down (queryInterface, Sequelize) {

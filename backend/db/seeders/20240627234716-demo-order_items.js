@@ -54,7 +54,7 @@ module.exports = {
       item_id: 9,
       item_quantity: 1
     },
-   ])
+   ], options)
   },
 
   async down (queryInterface, Sequelize) {

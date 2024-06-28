@@ -31,7 +31,7 @@ module.exports = {
       comment: 'I really love this snapback. It has such a good quality!',
       stars: 5
     },
-   ])
+   ], options)
   },
 
   async down (queryInterface, Sequelize) {

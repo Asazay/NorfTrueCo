@@ -32,7 +32,7 @@ module.exports = {
       registered: true,
       status: 'shipped'
     }
-   ])
+   ], options)
   },
 
   async down (queryInterface, Sequelize) {

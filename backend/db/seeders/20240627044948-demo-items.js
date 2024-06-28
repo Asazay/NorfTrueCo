@@ -99,7 +99,7 @@ module.exports = {
         gender: 'unisex',
         quantity: 10
       },
-    ])
+    ], options)
   },
 
   async down(queryInterface, Sequelize) {
