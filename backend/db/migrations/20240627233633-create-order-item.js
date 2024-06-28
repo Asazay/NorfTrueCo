@@ -1,33 +1,19 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('reviews', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      user_id: {
+    await queryInterface.createTable('order_items', {
+      order_number: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
       item_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      stars: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      comment: {
-        type: Sequelize.STRING,
         allowNull: false,
       },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      item_quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +28,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('reviews');
+    await queryInterface.dropTable('order_items');
   }
 };

@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id'
       });
 
+      Order.belongsToMany(models.Item, {
+        through: 'order_items'
+      })
+
       Order.hasOne(models.User_Information, {
         as: 'user_information'
       });
