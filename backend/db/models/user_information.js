@@ -72,10 +72,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    userInformationId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    }
   }, {
     sequelize,
     modelName: 'User_Information',
