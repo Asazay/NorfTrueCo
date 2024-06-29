@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User_Information.belongsTo(models.User)
 
-      User_Information.belongsTo(models.Order, {
-        foreignKey: 'user_info'
-      })
+      // User_Information.belongsTo(models.Order, {
+      //   foreignKey: 'user_info'
+      // })
     }
   }
   User_Information.init({
