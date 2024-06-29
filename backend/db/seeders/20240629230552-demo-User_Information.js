@@ -19,18 +19,18 @@ module.exports = {
      * }], {});
     */
    await User_Information.bulkCreate([
-    {
-      user_id: 1,
-      first_name: 'Demo',
-      last_name: 'Lition',
-      phone: 5551112222,
-    },
-    {
-      user_id: 2,
-      first_name: 'Fake',
-      last_name: 'User',
-      phone: 2229992222,
-    },
+    // {
+    //   user_id: 1,
+    //   first_name: 'Demo',
+    //   last_name: 'Lition',
+    //   phone: 5551112222,
+    // },
+    // {
+    //   user_id: 2,
+    //   first_name: 'Fake',
+    //   last_name: 'User',
+    //   phone: 2229992222,
+    // },
 
    ])
   },
