@@ -13,9 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User_Information.hasOne(models.User, {
-        foreignKey: 'user_id'
-      });
+      User_Information.belongsTo(models.User)
 
       User_Information.belongsTo(models.Order, {
         foreignKey: 'user_info'
@@ -23,9 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User_Information.init({
-    user_id: {
-      type: DataTypes.INTEGER
-    },
+    // user_id: {
+    //   type: DataTypes.INTEGER
+    // },
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
