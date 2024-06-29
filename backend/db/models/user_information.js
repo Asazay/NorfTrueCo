@@ -73,7 +73,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     userInformationId: {
-      type: DataTypes.Integer
+      type: DataTypes.INTEGER,
+      allowNull: true,
     }
   }, {
     sequelize,
