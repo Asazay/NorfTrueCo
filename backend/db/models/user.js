@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.User_Information, {
         foreignKey: {
           name: 'user_id'
-        }
+        },
+        sourceKey: 'id'
       })
 
       User.belongsToMany(models.Favorite, {
