@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: 'user_id'
         },
-        targetKey: 'id'
       })
 
       User_Information.belongsTo(models.Order, {
