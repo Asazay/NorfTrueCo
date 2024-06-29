@@ -71,6 +71,9 @@ module.exports = (sequelize, DataTypes) => {
           if(value.toString().length !== 5) throw new Error('Zip code must be 5 digits, Ex: "12345"')
         }
       }
+    },
+    userInformationId: {
+      type: DataTypes.Integer
     }
   }, {
     sequelize,
