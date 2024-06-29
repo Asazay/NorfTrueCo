@@ -19,16 +19,16 @@ module.exports = {
      * }], {});
     */
    await User_Information.bulkCreate([
-    // {
-    //   user_id: 1,
-    //   first_name: 'Demo',
-    //   last_name: 'Lition',
-    //   phone: 5551112222,
-    //   address: '1234 Driven Way',
-    //   city: 'Atlanta',
-    //   state: 'GA',
-    //   zip_code: 12345
-    // },
+    {
+      user_id: 1,
+      first_name: 'Demo',
+      last_name: 'Lition',
+      phone: 5551112222,
+      address: '1234 Driven Way',
+      city: 'Atlanta',
+      state: 'GA',
+      zip_code: 12345
+    },
     // {
     //   user_id: 2,
     //   first_name: 'Fake',
