@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.User_Information, {
         foreignKey: {
-          name: 'user_id'
+          name: 'user_id',
+          allowNull: false
         },
         sourceKey: 'id'
       })
