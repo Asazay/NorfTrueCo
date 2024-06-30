@@ -71,4 +71,12 @@ const requireAuth = function (req, _res, next) {
     return next(err);
   }
 
+  const checkAuth = (userId, ownerId) => {
+    if (userId !== ownerId){
+      return false;
+    }
+  
+    return true;
+  }
+
   module.exports = { setTokenCookie, restoreUser, requireAuth };
