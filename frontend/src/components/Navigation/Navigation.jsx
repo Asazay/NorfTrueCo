@@ -8,7 +8,7 @@ import OpenModalButton from '../OpenModalButton'
 import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal/SignupFormModal'
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   // const dispatch = useDispatch();
 
@@ -40,12 +40,22 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div id='nav'>
+      <div id="user-icons">
+        <div id='nav-icon'>
+          <button>Favorites</button>
+        </div>
+          {/* <ul>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            {isLoaded && sessionLinks}
+          </ul> */}
+        <div id='nav-icon'>
+          <button>Shopping cart</button>
+        </div>
+      </div>
+    </div>
   );
 }
 

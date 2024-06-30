@@ -1,7 +1,29 @@
-.auth-form-modal-text {
+/* .auth-form-modal-text {
     color: white;
+} */
+
+#user-icons{
+    border: cyan 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    grid-area: userIcons;
+    width: max-content;
+    justify-self: flex-end;
 }
 
+#nav-icon{
+    display: flex;
+    border: solid magenta 1px;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+}
 .hidden {
     display: none;
+}
+
+#nav ul{
+    text-decoration: none;
+    list-style: none;
 }

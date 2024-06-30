@@ -1,1 +1,33 @@
 /* TODO Add site wide styles */
+html{
+    background-color: #EDF0DA;
+    box-sizing: border-box;
+    font-family: serif;
+}
+
+#root{
+    display: grid;
+    grid-template-rows: 15vh 80vh 5vh;
+    grid-template-areas: 
+    'header'
+    'body'
+    'footer';
+    background-color: whitesmoke;
+}
+
+#nav{
+    grid-area: header;
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-areas: "menu companyName userIcons";
+    border: solid gold 2px;
+    width: 100%;
+    margin: 5px;
+    background-color: #620000;
+}
+
+#body{
+    grid-area: body;
+    border: solid pink 2px;
+    margin: 0 50px;
+}
