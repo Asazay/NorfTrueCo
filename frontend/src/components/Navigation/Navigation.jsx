@@ -45,12 +45,12 @@ function Navigation({ isLoaded }) {
         <div id='nav-icon'>
           <button>Favorites</button>
         </div>
-          {/* <ul>
-            <li>
+          <div id='nav-icon'>
+            {/* <li>
               <NavLink to="/">Home</NavLink>
-            </li>
+            </li> */}
             {isLoaded && sessionLinks}
-          </ul> */}
+          </div>
         <div id='nav-icon'>
           <button>Shopping cart</button>
         </div>
