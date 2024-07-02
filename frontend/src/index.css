@@ -1,29 +1,43 @@
 /* TODO Add site wide styles */
+
+*{
+  font-family: "Domine", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+}
 html{
-    background-color: #EDF0DA;
+    background-color: black;
     box-sizing: border-box;
-    font-family: serif;
+    font-family: 'Domine';
+}
+
+body{
+    margin: 5px 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 #root{
-    display: grid;
+    /* display: grid;
     grid-template-rows: 15vh 80vh 5vh;
     grid-template-areas: 
     'header'
     'body'
-    'footer';
+    'footer'; */
+
     background-color: whitesmoke;
 }
 
 #nav{
     grid-area: header;
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
-    grid-template-areas: "menu companyName userIcons";
-    border: solid gold 2px;
+    display: flex;
+    justify-content: space-between;
+    border: solid #F0EDEE 3px;
     width: 100%;
-    margin: 5px;
-    background-color: #620000;
+    background-color: #A70000;
 }
 
 #body{

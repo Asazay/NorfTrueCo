@@ -9,6 +9,7 @@
 #featured-p{
     border: solid green 2px;
     justify-self: flex-start;
+    max-width: 300px;
 }
 
 #featured-btn-div {

@@ -41,7 +41,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" style={{fontSize: 18}}/>
+        <i class="fa-solid fa-user" style={{color: "#ffffff", fontSize: 24}}></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

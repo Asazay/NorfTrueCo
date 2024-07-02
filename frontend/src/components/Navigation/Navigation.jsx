@@ -41,18 +41,29 @@ function Navigation({ isLoaded }) {
 
   return (
     <div id='nav'>
+      <div id='user-icons'>
+        <div id='nav-icon'>
+          <button>
+            <i class="fa-solid fa-bars" style={{ color: "#ffffff", fontSize: 24 }}></i>
+          </button>
+          <p>Menu</p>
+        </div>
+      </div>
+      <div id='companyName'><h2>Norf True Co.</h2></div>
       <div id="user-icons">
         <div id='nav-icon'>
-          <button>Favorites</button>
+          <button>
+            <i class="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 24 }}></i>
+          </button>
         </div>
-          <div id='nav-icon'>
-            {/* <li>
+        <div id='nav-icon'>
+          {/* <li>
               <NavLink to="/">Home</NavLink>
             </li> */}
-            {isLoaded && sessionLinks}
-          </div>
+          {isLoaded && sessionLinks}
+        </div>
         <div id='nav-icon'>
-          <button>Shopping cart</button>
+          <button><i class="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 24 }}></i></button>
         </div>
       </div>
     </div>
