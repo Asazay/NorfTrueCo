@@ -3,7 +3,7 @@ import './Homepage.css'
 function Homepage() {
     return (
         <div id='body'>
-            <h1>Welcome to the Home Page!</h1>
+            <div id='h2-div'><h2>Fall-Winter 2024 Collection</h2></div>
             <div id='main-page'>
                 <div id='featured-div'>
                     <img src='https://i.imgur.com/muMtVYW.png?1' height={250} width={250} />

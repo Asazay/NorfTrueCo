@@ -1,9 +1,16 @@
-
+#h2-div{
+    display: flex;
+    justify-content: center;
+    border: solid lightgray 1px;
+    color: white;
+    background-color: #A70000;
+    margin-bottom: 5px;
+}
 #main-page{
     display: flex;
     flex-direction: row;
-    border: solid yellow 3px;
     justify-content: space-around;
+     background-color: white;
 }
 
 #featured-p{
@@ -16,11 +23,11 @@
     display: flex;
     align-items: end;
     justify-content: center;
-    border: solid purple 2px;
+    margin: 10px 0;
 }
 
 #featured-div{
-    border: solid orange 2px;
+    border: solid lightgray 2px;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */

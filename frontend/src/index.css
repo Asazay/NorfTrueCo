@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 html{
-    background-color: black;
+    background-color: rgb(249, 249, 249);
     box-sizing: border-box;
     font-family: 'Domine';
 }
@@ -37,11 +37,12 @@ body{
     justify-content: space-between;
     border: solid #F0EDEE 3px;
     width: 100%;
+    height: 75px;
     background-color: #A70000;
 }
 
 #body{
     grid-area: body;
-    border: solid pink 2px;
+    border: solid azure 2px;
     margin: 0 50px;
 }

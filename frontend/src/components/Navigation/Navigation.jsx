@@ -51,11 +51,13 @@ function Navigation({ isLoaded }) {
       </div>
       <div id='companyName'><h2>Norf True Co.</h2></div>
       <div id="user-icons">
+        {sessionUser && 
         <div id='nav-icon'>
           <button>
-            <i class="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 24 }}></i>
+            <i class="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
           </button>
         </div>
+        }
         <div id='nav-icon'>
           {/* <li>
               <NavLink to="/">Home</NavLink>
@@ -63,7 +65,7 @@ function Navigation({ isLoaded }) {
           {isLoaded && sessionLinks}
         </div>
         <div id='nav-icon'>
-          <button><i class="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 24 }}></i></button>
+          <button><i class="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i></button>
         </div>
       </div>
     </div>

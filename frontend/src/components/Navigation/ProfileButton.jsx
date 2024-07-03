@@ -41,18 +41,22 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={toggleMenu}>
-        <i class="fa-solid fa-user" style={{color: "#ffffff", fontSize: 24}}></i>
+        <i class="fa-solid fa-user" style={{ color: "#ffffff", fontSize: 20 }}></i>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
+          <div id="user-info">
+            <div><p style={{padding: 10}}>{'Hello, ' + user.username}</p></div>
+            {/* <li>{user.firstName} {user.lastName}</li> */}
+            <div id="menu-clickable"><li><button>My Profile</button></li></div>
+            <div id="menu-clickable"><li><button>My Orders</button></li></div>
+            <div id="menu-clickable"><li><button>My Wishlist</button></li></div>
+            <div id="menu-clickable">
+              <li>
+                <button onClick={logout}>Log Out</button>
+              </li>
+            </div>
+          </div>
         ) : (
           <>
             <OpenModalMenuItem
