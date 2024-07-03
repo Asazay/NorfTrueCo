@@ -1,0 +1,22 @@
+.itemTile{
+    border: solid gold 2px;
+    padding: 10px;
+}
+
+#shop-page{
+    display: flex;
+    width: 100%;
+}
+
+#shop-page #filter-form{
+    width: min-content;
+}
+
+#shop-page #item-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 15vw));
+    gap: calc(5%);
+    padding: 10px 0;
+    margin: 1% 4%;
+}

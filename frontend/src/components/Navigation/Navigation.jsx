@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
       <div id='user-icons'>
         <div id='nav-icon'>
           <button>
-            <i class="fa-solid fa-bars" style={{ color: "#ffffff", fontSize: 24 }}></i>
+            <i className="fa-solid fa-bars" style={{ color: "#ffffff", fontSize: 24 }}></i>
           </button>
           <p>Menu</p>
         </div>
@@ -54,7 +54,7 @@ function Navigation({ isLoaded }) {
         {sessionUser && 
         <div id='nav-icon'>
           <button>
-            <i class="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
+            <i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
           </button>
         </div>
         }
@@ -65,7 +65,7 @@ function Navigation({ isLoaded }) {
           {isLoaded && sessionLinks}
         </div>
         <div id='nav-icon'>
-          <button><i class="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i></button>
+          <button><i className="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i></button>
         </div>
       </div>
     </div>

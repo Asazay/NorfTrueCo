@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isIn: ['xs', 'small', 'medium', 'large', 'xl', 'xxl', '3xl']
+        isIn: ['small', 'medium', 'large', 'xl', 'xxl', '3xl']
       }
     },
     color: {

@@ -1,6 +1,15 @@
 import './Homepage.css'
+import { useNavigate } from 'react-router-dom';
 
 function Homepage() {
+    const navigate = useNavigate();
+
+    const handleShopAll = (e) => {
+        e.preventDefault();
+        navigate('/shop/products/all');
+    }
+
+
     return (
         <div id='body'>
             <div id='h2-div'><h2>Fall-Winter 2024 Collection</h2></div>
@@ -19,7 +28,7 @@ function Homepage() {
                         </p>
                     </div>
                     <div id='featured-btn-div'>
-                        <button id='shopAll-btn'>Shop All</button>
+                        <button  onClick={handleShopAll} id='shopAll-btn'>Shop All</button>
                     </div>
                 </div>
                 <div id='featured-div'>
