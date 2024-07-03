@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import { useNavigate } from 'react-router-dom';
 // import * as sessionActions from '../../redux/session';
 import './Navigation.css';
 import OpenModalButton from '../OpenModalButton'
@@ -10,6 +11,7 @@ import SignupFormModal from '../SignupFormModal/SignupFormModal'
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
+  const navigate = useNavigate()
   // const dispatch = useDispatch();
 
   // const logout = (e) => {
@@ -49,7 +51,7 @@ function Navigation({ isLoaded }) {
           <p>Menu</p>
         </div>
       </div>
-      <div id='companyName'><h2>Norf True Co.</h2></div>
+      <div id='companyName'><button onClick={() => navigate('/')}><h2>Norf True Co.</h2></button></div>
       <div id="user-icons">
         {sessionUser && 
         <div id='nav-icon'>

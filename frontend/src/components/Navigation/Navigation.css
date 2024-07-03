@@ -80,7 +80,7 @@
     font-size: 14px;
 }
 
-#nav-icon button{
+#nav-icon button, #companyName button{
     background-color: transparent;
     border: none;
     color: white;
@@ -93,7 +93,7 @@
     color: azure;
 }
 
-#nav-icon button:hover{
+#nav-icon button:hover, #companyName button:hover{
     cursor: pointer;
 }
 
