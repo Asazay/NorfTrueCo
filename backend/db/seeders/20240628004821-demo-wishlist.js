@@ -1,6 +1,6 @@
 'use strict';
 
-const {Favorite} = require('../models')
+const {Wishlist} = require('../models')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -18,7 +18,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await Favorite.bulkCreate([
+   await Wishlist.bulkCreate([
     {
       user_id: 1,
       item_id: 4
@@ -45,7 +45,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'Favorites';
+    options.tableName = 'Wishlist';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       user_id: {[Op.in]: [1,2,3]}
