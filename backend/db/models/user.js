@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'id'
       })
 
-      User.belongsToMany(models.Favorite, {
+      User.belongsToMany(models.Wishlist, {
         through: 'favorites'
       });
 
