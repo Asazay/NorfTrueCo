@@ -45,4 +45,6 @@ body{
     grid-area: body;
     border: solid azure 2px;
     margin: 0 50px;
+    overflow-y: scroll;
+    height: 100vh;
 }

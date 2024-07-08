@@ -51,14 +51,15 @@ function Navigation({ isLoaded }) {
           <p>Menu</p>
         </div>
       </div>
-      <div id='companyName'><button onClick={() => navigate('/')}><h2>Norf True Co.</h2></button></div>
+      <div id='companyName'><button onClick={() => navigate('/')}><h2>Norf True Co.</h2></button>
+      </div>
       <div id="user-icons">
-        {sessionUser && 
-        <div id='nav-icon'>
-          <button>
-            <i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
-          </button>
-        </div>
+        {sessionUser &&
+          <div id='nav-icon'>
+            <button>
+              <i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
+            </button>
+          </div>
         }
         <div id='nav-icon'>
           {/* <li>

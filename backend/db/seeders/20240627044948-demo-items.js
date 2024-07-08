@@ -27,7 +27,7 @@ module.exports = {
         category: 'hats',
         gender: 'men',
         quantity: 3,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
       {
         name: 'Norf True 2024',
@@ -47,7 +47,7 @@ module.exports = {
         category: 'shirts',
         gender: 'unisex',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
       {
         name: 'Norf Diva',
@@ -67,7 +67,7 @@ module.exports = {
         category: 'pants',
         gender: 'men',
         quantity: 9,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
       {
         name: 'Blue Dreamer',
@@ -87,7 +87,7 @@ module.exports = {
         category: 'socks',
         gender: 'unisex',
         quantity: 20,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
       {
         name: 'Norf True Messenger',
@@ -107,7 +107,7 @@ module.exports = {
         category: 'accessories',
         gender: 'unisex',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
     ])
   },
