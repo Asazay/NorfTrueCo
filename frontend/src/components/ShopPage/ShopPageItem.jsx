@@ -4,11 +4,11 @@ const ShopPageItem = ({item}) => {
 
     return (
         <div id={item.id} className="itemTile">
-            <span>{item.image}</span>
            <NavLink to={`/shop/products/${item.id}`}>
            <div>
-            <div>{item.name}</div>
-            <div>{item.price}</div>
+           <div id="imgDiv"><img src={item.image} alt="Item image"></img></div>
+            <div id='nameDiv'>{item.name}</div>
+            <div id="priceDiv">${item.price}</div>
            </div>
            </NavLink>
         </div>

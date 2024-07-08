@@ -1,6 +1,36 @@
 .itemTile{
-    border: solid gold 2px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border: solid azure 1px;
+    width: max-content;
+    height: max-content;
+    background-color: white;
+    /* padding: 10px; */
+}
+
+.itemTile a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#nameDiv, #priceDiv{
+    padding: 5px 5px;
+    font-weight: bold;
+}
+
+#priceDiv{
+    color: #A70000;
+}
+
+#imgDiv{
+    width: 200px;
+    height: 200px;
+}
+
+#imgDiv img{
+    width: 100%;
+    height: 100%;
 }
 
 #shop-page{
@@ -10,6 +40,7 @@
 
 #shop-page #filter-form{
     width: min-content;
+    background-color: white;
 }
 
 #shop-page #item-grid{
@@ -19,4 +50,13 @@
     gap: calc(5%);
     padding: 10px 0;
     margin: 1% 4%;
+    overflow-y: scroll;
+}
+
+#colorFilter p {
+    color: red;
+}
+
+#colorsArray, #colorFilter button{
+    margin: 5px 0;
 }

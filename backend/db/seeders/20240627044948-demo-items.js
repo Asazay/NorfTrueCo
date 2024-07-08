@@ -16,7 +16,8 @@ module.exports = {
         price: 24.99,
         category: 'hats',
         gender: 'men',
-        quantity: 5
+        quantity: 5,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Stay True Snapback',
@@ -25,7 +26,8 @@ module.exports = {
         price: 24.99,
         category: 'hats',
         gender: 'men',
-        quantity: 3
+        quantity: 3,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Norf True 2024',
@@ -34,7 +36,8 @@ module.exports = {
         price: 29.99,
         category: 'shirts',
         gender: 'unisex',
-        quantity: 10
+        quantity: 10,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'World Peace',
@@ -43,7 +46,8 @@ module.exports = {
         price: 21.99,
         category: 'shirts',
         gender: 'unisex',
-        quantity: 10
+        quantity: 10,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Norf Diva',
@@ -52,7 +56,8 @@ module.exports = {
         price: 24.99,
         category: 'shirts',
         gender: 'women',
-        quantity: 10
+        quantity: 10,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Ripped Elegant',
@@ -61,7 +66,8 @@ module.exports = {
         price: 24.99,
         category: 'pants',
         gender: 'men',
-        quantity: 9
+        quantity: 9,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Blue Dreamer',
@@ -70,7 +76,8 @@ module.exports = {
         price: 39.99,
         category: 'pants',
         gender: 'women',
-        quantity: 7
+        quantity: 7,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Norf Socks',
@@ -79,7 +86,8 @@ module.exports = {
         price: 9.99,
         category: 'socks',
         gender: 'unisex',
-        quantity: 20
+        quantity: 20,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Norf True Messenger',
@@ -88,7 +96,8 @@ module.exports = {
         price: 49.99,
         category: 'accessories',
         gender: 'men',
-        quantity: 12
+        quantity: 12,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {
         name: 'Norf True Scarf',
@@ -97,7 +106,8 @@ module.exports = {
         price: 24.99,
         category: 'accessories',
         gender: 'unisex',
-        quantity: 10
+        quantity: 10,
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
     ])
   },
