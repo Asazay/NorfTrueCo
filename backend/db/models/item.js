@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Item.belongsToMany(models.Wishlist, {
-        through: 'favorites'
+        through: 'item_id'
       });
 
       Item.belongsToMany(models.Order, {

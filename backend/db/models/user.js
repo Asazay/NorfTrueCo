@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       User.belongsToMany(models.Wishlist, {
-        through: 'favorites'
+        through: 'user_id'
       });
 
       User.hasMany(models.Review, {
