@@ -1,9 +1,9 @@
 import './ShopPage.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getItemsThunk } from '../../redux/session';
+import { getItemsThunk, getFilteredItemsThunk } from '../../redux/session';
 import ShopPageItem from './ShopPageItem';
-import { createPath } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ShopPage() {
     const items = useSelector(state => state.session.items);
@@ -22,8 +22,57 @@ function ShopPage() {
     const [colors, setColors] = useState({});
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
-    const [category, setCategory] = useState('');
+    const [categories, setCategories] = useState({});
+    const [checked, setChecked] = useState({
+        hats: false,
+        shirts: false,
+        hoodies: false,
+        pants: false,
+        shorts: false,
+        socks: false,
+        accessories: false,
+    })
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate();
+
+    const filterSubmit = (e) => {
+        e.preventDefault();
+
+        const filterQuery = new URLSearchParams({
+            gender: gender,
+            itemSize: Object.values(sizes).length > 0 ? Object.values(sizes) : "",
+            color: color,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            category: Object.values(categories).length > 0 ? Object.values(categories) : ""
+        }).toString();
+
+        navigate('/shop/products/?' + filterQuery)
+        dispatch(getFilteredItemsThunk(filterQuery)).catch(async res => {
+            const data = res.json();
+            if (data && data.errors) console.log(data.errors)
+        })
+        // console.log(filterQuery)
+    }
+
+    const resetFilter = (e) => {
+        e.preventDefault()
+        setCategories({});
+        setColor("");
+        setColors({});
+        setGender("");
+        setMaxPrice("");
+        setMinPrice("");
+        setSizes({})
+        setChecked(false)
+        setErrors({})
+        document.getElementById('male').checked = false;
+        document.getElementById('female').checked = false;
+        dispatch(getItemsThunk()).catch(async res => {
+            const data = res.json();
+            if (data && data.errors) console.log(data.errors)
+        })
+    }
 
     const customSetSizes = (e) => {
         console.log(document.getElementById('filterColor').value)
@@ -34,6 +83,26 @@ function ShopPage() {
 
         else newSizes[e.target.value] = e.target.value;
         setSizes(newSizes)
+    }
+
+    const customSetCategories = (e) => {
+        const val = e.target.value;
+        const newChecked = {...checked}
+
+        let newCategories = {...categories};
+
+        if(newCategories[val] && !newChecked[e.target.id] === false) {
+            delete newCategories[val]
+            newChecked[e.target.id] = !newChecked[e.target.id]
+        }
+
+        else {
+            newCategories[val] = val;
+            if(newChecked[e.target.id] === false) newChecked[e.target.id] = true
+        }
+        setCategories(newCategories)
+        setChecked(newChecked)
+    
     }
 
     const AddColor = (e) => {
@@ -57,9 +126,10 @@ function ShopPage() {
         }
     }
 
+
     useEffect(() => {
-        console.log(gender, sizes, colors)
-    }, [gender, sizes, colors])
+        console.log(gender, sizes, colors, minPrice, maxPrice, categories)
+    }, [gender, sizes, colors, minPrice, maxPrice, categories])
 
     return (
         <div id='body'>
@@ -70,11 +140,11 @@ function ShopPage() {
                             <legend>Filter:</legend>
                             <div>
                                 Gender:<br />
-                                <input name='gender' id='male' type='radio' value='male' onChange={(e) => setGender(e.target.value)} />
+                                <input name='gender' id='male' type='radio' value='men' onChange={(e) => setGender(e.target.value)} />
                                 <label htmlFor='male'>Men</label>
                             </div>
                             <div>
-                                <input name='gender' id='female' type='radio' value='female' onChange={(e) => setGender(e.target.value)} />
+                                <input name='gender' id='female' type='radio' value='women' onChange={(e) => setGender(e.target.value)} />
                                 <label htmlFor='male'>Women</label>
                             </div>
                             <br />
@@ -117,45 +187,49 @@ function ShopPage() {
                             <div>
                                 Min Price(USD):<br />
                                 <label htmlFor='minPrice'></label>
-                                <input type='number' id='minPrice' />
+                                <input type='number' id='minPrice' onChange={e => setMinPrice(e.target.value)}/>
                             </div>
                             <br />
                             <div>
                                 Max Price(USD):<br />
                                 <label htmlFor='maxPrice'></label>
-                                <input type='number' id='maxPrice' />
+                                <input type='number' id='maxPrice' onChange={e => setMaxPrice(e.target.value)}/>
                             </div>
                             <br />
                             <div>
                                 Category:<br />
                                 <div>
-                                    <input type='checkbox' id='hats' value='hats' />
+                                    <input type='checkbox' id='hats' value='hats' checked={checked['hats']}  onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='hats'>Hats</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='shirts' value='shirts' />
+                                    <input type='checkbox' id='shirts' value='shirts'  checked={checked['shirts']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='shirts'>Shirts</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='hoodies' value='hoodies' />
+                                    <input type='checkbox' id='hoodies' value='hoodies' checked={checked['hoodies']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='large'>Hoodies</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='pants' value='pants' />
+                                    <input type='checkbox' id='pants' value='pants' checked={checked['pants']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='pants'>Pants</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='shorts' value='shorts' />
+                                    <input type='checkbox' id='shorts' value='shorts' checked={checked['shorts']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='shorts'>Shorts</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='socks' value='socks' />
+                                    <input type='checkbox' id='socks' value='socks' checked={checked['socks']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='socks'>Socks</label>
                                 </div>
                                 <div>
-                                    <input type='checkbox' id='accessories' value='accessories' />
+                                    <input type='checkbox' id='accessories' value='accessories' checked={checked['accessories']} onChange={e => customSetCategories(e)}/>
                                     <label htmlFor='accessories'>Accssories</label>
                                 </div>
+                            </div>
+                            <div id='filterBtnDiv'>
+                                <button onClick={(e) => filterSubmit(e)}>Filter</button>
+                                <button onClick={e => resetFilter(e)}>Reset</button>
                             </div>
                         </fieldset>
                     </div>
