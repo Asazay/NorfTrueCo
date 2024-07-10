@@ -30,19 +30,28 @@ const router = express.Router();
 
 router.get('/', allItemsQueryVal, async (req, res, next) => {
     let { page, size, itemSize, color, minPrice, maxPrice, category, gender } = req.query;
+    console.log(category)
     let where = {};
 
     if (!page) page = 1;
     if (!size) size = 16;
 
-    if (itemSize) where.size = { [Op.in]: size }
+    if (itemSize) {
+      if(itemSize.includes(',')) itemSize = itemSize.split(',');
+      else itemSize = [itemSize];
+      where.size = { [Op.in]: itemSize }
+    }
     if (color) where.color = { [Op.eq]: color }
 
     if (minPrice && maxPrice) where.price = { [Op.between]: [Number(minPrice), Number(maxPrice)] };
     else if (minPrice) where.price = { [Op.gte]: Number(minPrice) }
     else if (maxPrice) where.price = { [Op.lte]: Number(maxPrice) };
 
-    if(category) where.category = {[Op.in]: category}
+    if(category) {
+      if(category.includes(',')) category = category.split(",")
+      else category = [category]
+      where.category = {[Op.in]: category}
+    }
     if(gender) where.gender = {[Op.eq]: gender}
 console.log(where)
     let allItems = await Item.findAll({
