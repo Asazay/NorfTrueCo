@@ -1,0 +1,26 @@
+#shopping-cart{
+    width: 500px;
+    border: solid #A00000 1px;
+}
+
+#itemGrid{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+#columnTitles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.cartItem{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: solid azure 1px;
+    padding: 0 20px;
+}

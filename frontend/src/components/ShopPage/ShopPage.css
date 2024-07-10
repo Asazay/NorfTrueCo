@@ -18,6 +18,8 @@
 #priceDiv {
     padding: 5px 5px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 #priceDiv {
@@ -27,6 +29,7 @@
 #imgDiv {
     width: 200px;
     height: 200px;
+    border: solid #A70000 1px;
 }
 
 #imgDiv img {
@@ -66,4 +69,10 @@
 #no-results {
     justify-self: center;
     color: red;
+}
+
+#selectOptsDiv{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
