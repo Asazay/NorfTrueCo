@@ -35,7 +35,7 @@ module.exports = {
         color: 'black',
         price: 29.99,
         category: 'shirts',
-        gender: 'unisex',
+        gender: 'men',
         quantity: 10,
         image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
@@ -45,7 +45,7 @@ module.exports = {
         color: 'pink',
         price: 21.99,
         category: 'shirts',
-        gender: 'unisex',
+        gender: 'men',
         quantity: 10,
         image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },
@@ -105,7 +105,7 @@ module.exports = {
         color: 'pink',
         price: 24.99,
         category: 'accessories',
-        gender: 'unisex',
+        gender: 'women',
         quantity: 10,
         image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
       },

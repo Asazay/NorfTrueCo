@@ -9,19 +9,13 @@ function ShopPage() {
     const items = useSelector(state => state.session.items);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getItemsThunk()).catch(async res => {
-            const data = res.json();
-            if (data && data.errors) console.log(data.errors)
-        })
-    }, [dispatch])
-
     const [gender, setGender] = useState('');
     const [sizes, setSizes] = useState({});
     const [color, setColor] = useState('')
     const [colors, setColors] = useState({});
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    const [lockFilter, setLockFilter] = useState(false)
     const [categories, setCategories] = useState({});
 
     const initialCheckedVal = {
@@ -44,14 +38,14 @@ function ShopPage() {
     const [errors, setErrors] = useState({})
     const navigate = useNavigate();
 
-    const filterSubmit = (e) => {
-        e.preventDefault();
+    const filterSubmit = (e = null) => {
+        if(e) e.preventDefault();
 
         const queryObj = {}
 
         if (gender) queryObj['gender'] = gender;
         if (Object.values(sizes).length > 0) queryObj.itemSize = Object.values(sizes);
-        if (color) queryObj.color = color;
+        if (Object.values(colors).length > 0) queryObj.color = Object.values(colors);
         if (minPrice) queryObj.minPrice = minPrice;
         if (maxPrice) queryObj.maxPrice = maxPrice;
         if (Object.values(categories).length > 0) queryObj.category = Object.values(categories);
@@ -143,9 +137,22 @@ function ShopPage() {
         }
     }
 
+    useEffect(() => {
+        if(window.location.href.includes('?')) {
+            navigate('/shop/products/')
+        }
+        else {
+            dispatch(getItemsThunk()).catch(async res => {
+                const data = res.json();
+                if (data && data.errors) console.log(data.errors)
+            })
+        }
+    }, [dispatch])
+
 
     useEffect(() => {
         console.log(gender, sizes, colors, minPrice, maxPrice, categories)
+
     }, [gender, sizes, colors, minPrice, maxPrice, categories])
 
     return (
@@ -249,7 +256,7 @@ function ShopPage() {
                                 </div>
                             </div>
                             <div id='filterBtnDiv'>
-                                <button onClick={(e) => filterSubmit(e)}>Filter</button>
+                                <button disabled={minPrice < 0 || maxPrice < 0 || Object.keys(errors).length? true: false} onClick={(e) => filterSubmit(e)}>Filter</button>
                                 <button onClick={e => resetFilter(e)}>Reset</button>
                             </div>
                         </fieldset>
