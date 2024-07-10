@@ -112,6 +112,21 @@ export const getItemsThunk = () => async (dispatch) => {
   }
 }
 
+export const getFilteredItemsThunk = (query) => async (dispatch) => {
+  console.log(query)
+  const res = await csrfFetch('/api/items/' + "?" + query)
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(getItems(data));
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
 
 const initialState = { user: null, items: null };
 

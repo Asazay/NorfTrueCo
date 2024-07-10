@@ -35,16 +35,28 @@ router.get('/', allItemsQueryVal, async (req, res, next) => {
     if (!page) page = 1;
     if (!size) size = 16;
 
-    if (itemSize) where.size = { [Op.eq]: size }
-    if (color) where.color = { [Op.eq]: color }
+    if (itemSize) {
+      if(itemSize.includes(',')) itemSize = itemSize.split(',');
+      else itemSize = [itemSize];
+      where.size = { [Op.in]: itemSize }
+    }
+    if (color) {
+      if(color.includes(',')) color = color.split(',')
+      else color = [color]
+      where.color = { [Op.in]: color }
+    }
 
     if (minPrice && maxPrice) where.price = { [Op.between]: [Number(minPrice), Number(maxPrice)] };
     else if (minPrice) where.price = { [Op.gte]: Number(minPrice) }
     else if (maxPrice) where.price = { [Op.lte]: Number(maxPrice) };
 
-    if(category) where.category = {[Op.eq]: category}
+    if(category) {
+      if(category.includes(',')) category = category.split(",")
+      else category = [category]
+      where.category = {[Op.in]: category}
+    }
     if(gender) where.gender = {[Op.eq]: gender}
-
+console.log(where)
     let allItems = await Item.findAll({
         where,
         offset: size * (page - 1),
