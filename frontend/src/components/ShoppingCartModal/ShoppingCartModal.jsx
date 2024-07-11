@@ -23,16 +23,24 @@ function ShoppingCartModal() {
 
     return (
         <div id="shopping-cart">
-            <div id='h2-div'><h2>Shopping Cart</h2></div>
+            <div id='h2'><h2>Shopping Cart</h2></div>
             <div id="columnTitles">
-                <div><p>Product Image</p></div>
-                <div><p>Name</p></div>
-                <div><p>Unit Price</p></div>
-                <div><p>Qty</p></div>
+                <div className='itemEl'><span>Product Image</span></div>
+                <div className='itemEl'><span>Name</span></div>
+                <div className='itemEl'><span>Unit Price</span></div>
+                <div className='itemEl'><span>Qty</span></div>
             </div>
             <div id="itemGrid">
                 {cart && cart.map(item => (<ShoppingCartItem item={item} />))}
                 {!cart && <h3>Shopping cart empty</h3>}
+            </div>
+            <div id='total-div'>
+                <h2>Total: ${total}</h2>
+            </div>
+            <div id='cart-btns'>
+                <div><button>CONTINUE SHOPPING</button></div>
+                <div><button>CLEAR CART</button></div>
+                <div><button>CHECKOUT</button></div>
             </div>
         </div>
     )

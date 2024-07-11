@@ -5,6 +5,7 @@ import { getItemsThunk, getFilteredItemsThunk } from '../../redux/session';
 import ShopPageItem from './ShopPageItem';
 import { useNavigate } from 'react-router-dom';
 
+
 function ShopPage() {
     const items = useSelector(state => state.session.items);
     const dispatch = useDispatch();

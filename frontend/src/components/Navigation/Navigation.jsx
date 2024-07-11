@@ -8,8 +8,8 @@ import './Navigation.css';
 import OpenModalButton from '../OpenModalButton'
 import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal/SignupFormModal'
-import ShoppingCartModal from '../ShoppingCartModal/ShoppingCartModal';
-import OpenModalNavItem from '../ShoppingCartModal/OpenModalNavItem';
+import ShoppingCartModal from '../ShoppingCartModal/ShoppingCartModal.jsx';
+import OpenModalNavItem from '../ShoppingCartModal/OpenModalNavItem.jsx';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);

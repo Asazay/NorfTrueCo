@@ -71,4 +71,13 @@ console.log(where)
       res.json({items: allItems, page: page, size:size});
 })
 
+router.get('/:itemId', async (req, res, next) => {
+  const {itemId} = req.params;
+
+  const item = await Item.findByPk(parseInt(itemId))
+
+  if(item) res.json({item})
+
+  else res.json({error: 'Item not found'})
+})
 module.exports = router;

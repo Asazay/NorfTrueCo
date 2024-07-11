@@ -6,6 +6,7 @@ const REMOVE_USER = 'session/removeUser';
 
 //Items
 const GET_ITEMS = 'session/getItems'
+const GET_ITEM_BY_ID = 'sessions/getItemById'
 
 
 //User actions
@@ -23,6 +24,11 @@ const getItems = (items) => ({
   type: GET_ITEMS,
   payload: items
 });
+
+const getItemById = (item) => ({
+  type: GET_ITEM_BY_ID,
+  payload: item
+})
 
 //User thunk actions
 export const thunkAuthenticate = () => async (dispatch) => {
@@ -112,6 +118,19 @@ export const getItemsThunk = () => async (dispatch) => {
   }
 }
 
+export const getItemByIdThunk = (itemId) => async dispatch => {
+  const res = await csrfFetch(`/api/items/${itemId}`);
+  if(res.ok){
+    const data = await res.json();
+    dispatch(getItemById(data))
+    return data
+  }
+  else if (res.status < 500) {
+    const errorMessages = await res.json();
+    return errorMessages
+  }
+}
+
 export const getFilteredItemsThunk = (query) => async (dispatch) => {
   console.log(query)
   const res = await csrfFetch('/api/items/' + "?" + query)
@@ -138,6 +157,8 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: null };
     case GET_ITEMS:
       return { ...state, items: action.payload.items }
+    case GET_ITEM_BY_ID:
+      return {...state, items: action.payload.item}
     default:
       return state;
   }
