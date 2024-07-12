@@ -31,40 +31,79 @@
 } */
 
 /* setting up page */
+
+h2{
+    font-size: 36px;
+}
 h3{
     display: inline;
 }
 
 #item-page{
     display: flex;
-    border: solid green 1px;
-    width: 100%;
-    height: 100%
+    flex-direction: column;
+    border: solid antiquewhite 1px;
 }
 
 #image-div{
-    border: solid yellow 1px;
+    border: solid whitesmoke 1px;
     width: 40%;
     height: min-content;
 }
 
 #image-div img{
     width: 100%;
-    height: 50%;
+    height: min-content;
 }
 
+#item-content{
+    display: flex;
+}
 #item-info{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border: solid pink 1px;
-    background-color: aqua;
+    align-items: flex-start;
+    padding: 0 20px;
+    color: whitesmoke;
+    background-color: #A70000;
     width: 60%;
-    height: 400px;
+    height: auto;
+    border: solid lightgray 2px;
+}
+
+#item-info button{
+    width: 200px;
+    height: 40px;
 }
 
 #item-info div{
-    border: solid gold 1px;
+    stroke: white;
     width: max-content;
     margin: 10px 0;
 }
+
+.inline-btn{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#reviews-heading{
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+#reviewDiv{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: max-content;
+}
+
+#reviewTile{
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: solid #A70000 1px;
+}
+
