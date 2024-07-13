@@ -1,5 +1,5 @@
 const express = require('express');
-const { Op, json } = require('sequelize');
+const { Op } = require('sequelize');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Item, Review, User } = require('../../db/models');
 const { checkAuth } = require('../../utils/auth');

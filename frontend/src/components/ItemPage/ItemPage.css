@@ -107,3 +107,10 @@ h3{
     border: solid #A70000 1px;
 }
 
+#edit-delete-review{
+    display: flex;
+}
+
+#edit-delete-review button{
+    margin: 0 5px;
+}

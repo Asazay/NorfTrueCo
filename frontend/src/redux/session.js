@@ -1,12 +1,19 @@
 import { csrfFetch } from './csrf';
+import {createSelector} from 'reselect';
 
 //User
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
 //Items
-const GET_ITEMS = 'session/getItems'
-const GET_ITEM_BY_ID = 'sessions/getItemById'
+const GET_ITEMS = 'session/getItems';
+const GET_ITEM_BY_ID = 'sessions/getItemById';
+
+//Reviews
+const GET_REVIEWS_BY_ID = 'session/getReviewsById';
+const CREATE_REVIEW = 'session/createReview';
+const EDIT_REVIEW = 'session/editReview';
+const DELETE_REVIEW = 'session/deleteReview';
 
 
 //User actions
@@ -29,6 +36,27 @@ const getItemById = (item) => ({
   type: GET_ITEM_BY_ID,
   payload: item
 })
+
+//Review actions 
+const getReviewsById = (reviews) => ({
+  type: GET_REVIEWS_BY_ID,
+  payload: reviews
+})
+
+const createReview = (review) => ({
+  type: CREATE_REVIEW,
+  payload: review
+});
+
+const editReview = (review) => ({
+  type: EDIT_REVIEW,
+  payload: review
+});
+
+const deleteReview = (review) => ({
+  type: DELETE_REVIEW,
+  payload: review
+});
 
 //User thunk actions
 export const thunkAuthenticate = () => async (dispatch) => {
@@ -146,19 +174,126 @@ export const getFilteredItemsThunk = (query) => async (dispatch) => {
   }
 }
 
+//Reviews action thunk
+export const getReviewsByIdThunk = (itemId) => async dispatch => {
+  const res = await csrfFetch(`/api/reviews/${itemId}`);
 
-const initialState = { user: null, items: null };
+  if(res.ok){
+    const data = await res.json()
+    dispatch(getReviewsById(data))
+    return data
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const createReviewThunk = (itemId, reviewInfo) => async dispatch => {
+  reviewInfo.item_id = itemId;
+
+  let reqBody = {
+    reviewInfo
+  }
+
+  const res = await csrfFetch(`/api/reviews/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reqBody)
+  })
+
+  if(res.ok){
+    const data = await res.json();
+    dispatch(createReview(data));
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const editReviewThunk = (reviewId) => async dispatch => {
+  const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if(res.ok){
+    const data = res.json(data);
+    dispatch(editReview(data))
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const deleteReviewThunk = (reviewId) => async dispatch => {
+  const res = await csrfFetch(`/reviews/${reviewId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if(res.ok){
+    const data = res.json(data);
+    dispatch(deleteReview(data))
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+// Selectors
+const getReviews = (state) => state.session.reviews
+export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
+  if(reviews) return Object.values(reviews)
+})
+
+
+const initialState = { user: null, items: null, reviews: null};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload.user };
+
     case REMOVE_USER:
       return { ...state, user: null };
+
     case GET_ITEMS:
-      return { ...state, items: action.payload.items }
+      return { ...state, items: action.payload.items 
+      }
+
     case GET_ITEM_BY_ID:
       return {...state, items: action.payload.item}
+
+    case GET_REVIEWS_BY_ID:
+      let newReviews = {};
+      action.payload.forEach(review => {
+        newReviews[review.id] = review;
+      })
+      return {...state, reviews: newReviews}
+
+    case EDIT_REVIEW:
+      return {...state, reviews: action.payload.review}
+
+    case DELETE_REVIEW:
+      return {...state, reviews: action.payload.review}
+
     default:
       return state;
   }

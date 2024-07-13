@@ -264,7 +264,7 @@ function ShopPage() {
                     </div>
                 </div>
                 <div id='item-grid'>
-                    {items &&
+                    {items && items.length > 0 &&
                         <>
                             {items?.map((item) => {
                                 return (

@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
       <div id='companyName'><button onClick={() => navigate('/')}><h2>Norf True Co.</h2></button>
       </div>
       <div id="user-icons">
-        {sessionUser &&
+        {
           <div id='nav-icon'>
             <OpenModalNavItem 
             iconEl={<i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>}

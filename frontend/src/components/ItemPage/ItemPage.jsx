@@ -2,20 +2,46 @@ import './ItemPage.css'
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
+import { getReviewsByIdThunk } from '../../redux/session';
+import { getReviewsArraySelector } from '../../redux/session';
 import { useParams } from "react-router-dom";
 import ReviewTile from './ReviewTitle';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import CreateReviewModal from '../CreateReviewModal/CreateReviewModal';
 
 function ItemPage() {
-    const item = useSelector(state => state.session.items)
+    const item = useSelector(state => state.session.items);
+    const user = useSelector(state => state.session.user);
+    const reviews = useSelector(getReviewsArraySelector)
     const dispatch = useDispatch()
     const { itemId } = useParams()
-
+console.log(reviews)
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
             const data = res.json();
             if (data && data.errors) console.log(data.errors)
         })
+
+        dispatch(getReviewsByIdThunk(itemId)).catch(async res => {
+            const data = res.json();
+            if (data && data.errors) console.log(data.errors)
+        })
     }, [dispatch])
+
+    const userCommented = () => {
+        let value = false;
+
+        if(item && item.Reviews){
+            item.Reviews.forEach(review => {
+                if (review && user && review.User.id === user.id) {
+                    value = true;
+                    return;
+                }
+            })
+        }
+
+        return value;
+    };
 
     return (
         item && <div id='item-page'>
@@ -53,7 +79,8 @@ function ItemPage() {
                     <span style={{ display: 'inline', paddingLeft: 10, color: '#A70000' }}>({item.reviewCount} reviews)</span>
                 </div>
                 <div id='review-tiles-div'>
-                    {item.Reviews && item.Reviews.length && item.Reviews.map(review => (<ReviewTile key={review.id} review={review} avgStars={item.avgStars}/>))}
+                {user && userCommented() === false && <div><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id}/>}/></div>}
+                {reviews && reviews.length > 0 && reviews.map(review => (<ReviewTile key={review.id} review={review} avgStars={item.avgStars} userCommented={userCommented}/>))}
                 </div>
             </div>
         </div>
