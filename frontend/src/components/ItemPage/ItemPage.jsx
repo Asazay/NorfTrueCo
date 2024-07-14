@@ -47,6 +47,44 @@ function ItemPage() {
         return value;
     };
 
+    const addToCart = (e) => {
+        e.preventDefault();
+
+        let cart;
+
+        if (localStorage.getItem('cart')) {
+            console.log('getItem ran')
+            cart = JSON.parse(localStorage.getItem('cart'))
+            if (!cart.items[item.id]) {
+                cart.items[item.id] = {
+                    image: item.image,
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1
+                }
+            }
+
+            else if(cart.items[item.id]){
+                cart.items[item.id].quantity += 1
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+
+        else localStorage.setItem('cart', JSON.stringify({
+            items: {
+                [item.id]: {
+                    image: item.image,
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1
+                }
+            }
+        }))
+
+        console.log(localStorage.getItem('cart'))
+    }
+
     return (
         item && <div id='item-page'>
             <div id='item-content'>
@@ -72,7 +110,7 @@ function ItemPage() {
                         </select>}
                     </div>
                     <div>
-                        <button>Add to cart</button>
+                        <button onClick={e => addToCart(e)}>Add to cart</button>
                         <button className='inline-btn'>Continue shopping</button>
                     </div>
                 </div>
@@ -80,7 +118,7 @@ function ItemPage() {
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews.avgStars} ({reviews && reviews.totalReviews} reviews)</span>
+                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars} ({reviews && reviews.totalReviews} reviews)</span>
                 </div>
                 <div id='review-tiles-div'>
                     {user && userCommented() === false && <div><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}

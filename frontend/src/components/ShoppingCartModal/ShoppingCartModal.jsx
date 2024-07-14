@@ -1,25 +1,35 @@
 import './ShoppingCart.css'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/modal";
 import ShoppingCartItem from "./ShoppingCartItem";
+import { json } from 'react-router-dom';
 
-let cart = localStorage.getItem('cart');
-console.log(cart)
-if (cart) cart = JSON.parse(cart)
-if (!cart){
-    cart = [
-        {
-            image: '',
-            name: 'Item 1',
-            price: 9.99,
-            quantity: 2,
-        }
-    ]
-}
 
 function ShoppingCartModal() {
-    const [total, setTotal] = useState(cart.slice().reduce((acc, item )=> acc += item.price, 0))
+    const [empty, setEmpty] = useState(true)
+    const [cart, setCart] = useState(null)
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+    if(localStorage.getItem('cart') !== null){
+        let userCart = JSON.parse(localStorage.getItem('cart'))
+        let cartTotal = Object.values(userCart.items).slice().reduce((acc, item )=> acc += item.price, 0);
+        setCart(userCart)
+        setEmpty(false)
+        setTotal(cartTotal)
+    }
+    }, [localStorage])
+
+    const clearCart = (e) => {
+        e.preventDefault();
+
+        if(cart){
+            localStorage.removeItem('cart')
+            setCart(null)
+            if(empty === false) setEmpty(true)
+        }
+    }
 
     return (
         <div id="shopping-cart">
@@ -30,16 +40,16 @@ function ShoppingCartModal() {
                 <div className='itemEl'><span>Unit Price</span></div>
                 <div className='itemEl'><span>Qty</span></div>
             </div>
-            <div id="itemGrid">
-                {cart && cart.map(item => (<ShoppingCartItem item={item} />))}
+            {cart !== null && <div id="itemGrid">
+                {cart !== null && Object.values(cart.items).map(item => (<ShoppingCartItem key={item.id} item={item} />))}
                 {!cart && <h3>Shopping cart empty</h3>}
-            </div>
-            <div id='total-div'>
+            </div> || <div><h1 style={{alignSelf: 'center', display: 'flex', justifyContent: 'center' }}>Cart is empty</h1></div>}
+            {cart && <div id='total-div'>
                 <h2>Total: ${total}</h2>
-            </div>
+            </div>}
             <div id='cart-btns'>
                 <div><button>CONTINUE SHOPPING</button></div>
-                <div><button>CLEAR CART</button></div>
+                <div><button onClick={e => clearCart(e)}>CLEAR CART</button></div>
                 <div><button>CHECKOUT</button></div>
             </div>
         </div>

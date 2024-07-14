@@ -3,20 +3,23 @@
 }
 
 #shopping-cart{
-    width: 700px;
+    width: max-content;
     border: solid #A70000 1px;
     background-color: transparent;
     border-radius: 15px;
 }
 
+h2{
+    font-size: 20px;
+}
+
 #h2 {
     display: flex;
     justify-content: center;
-    width: 100%;
+    /* width: 100%;
+    height: min-content;
     background-color: #A70000;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    color: white;
+    color: white; */
 }
 
 #itemGrid{
