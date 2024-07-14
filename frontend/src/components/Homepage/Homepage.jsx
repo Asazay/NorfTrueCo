@@ -6,7 +6,7 @@ function Homepage() {
 
     const handleShopAll = (e) => {
         e.preventDefault();
-        navigate('/shop/products/all');
+        navigate('/shop/products/');
     }
 
 

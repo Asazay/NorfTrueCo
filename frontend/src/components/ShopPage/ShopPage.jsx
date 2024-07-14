@@ -5,6 +5,7 @@ import { getItemsThunk, getFilteredItemsThunk } from '../../redux/session';
 import ShopPageItem from './ShopPageItem';
 import { useNavigate } from 'react-router-dom';
 
+
 function ShopPage() {
     const items = useSelector(state => state.session.items);
     const dispatch = useDispatch();
@@ -263,7 +264,7 @@ function ShopPage() {
                     </div>
                 </div>
                 <div id='item-grid'>
-                    {items &&
+                    {items && items.length > 0 &&
                         <>
                             {items?.map((item) => {
                                 return (

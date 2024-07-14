@@ -8,6 +8,8 @@ import './Navigation.css';
 import OpenModalButton from '../OpenModalButton'
 import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal/SignupFormModal'
+import ShoppingCartModal from '../ShoppingCartModal/ShoppingCartModal.jsx';
+import OpenModalNavItem from '../ShoppingCartModal/OpenModalNavItem.jsx';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -54,11 +56,11 @@ function Navigation({ isLoaded }) {
       <div id='companyName'><button onClick={() => navigate('/')}><h2>Norf True Co.</h2></button>
       </div>
       <div id="user-icons">
-        {sessionUser &&
+        {
           <div id='nav-icon'>
-            <button>
-              <i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
-            </button>
+            <OpenModalNavItem 
+            iconEl={<i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>}
+            />
           </div>
         }
         <div id='nav-icon'>
@@ -68,7 +70,10 @@ function Navigation({ isLoaded }) {
           {isLoaded && sessionLinks}
         </div>
         <div id='nav-icon'>
-          <button><i className="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i></button>
+          <OpenModalNavItem
+            iconEl={<i className="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i>}
+            modalComponent={<ShoppingCartModal/>}
+          />
         </div>
       </div>
     </div>
