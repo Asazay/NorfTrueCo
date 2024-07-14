@@ -1,0 +1,21 @@
+#deleteRevMod{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: max-content;
+}
+
+h2{
+    padding: 10px;
+}
+
+#buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+#buttons button{
+    margin: 0 5px;
+}

@@ -78,12 +78,6 @@ router.get('/:itemId', async (req, res, next) => {
     where: {
       id: { [Op.eq]: itemId }
     },
-    include: [{
-      model: Review,
-      include: [{
-        model: User
-      }]
-    }],
   })
 
   // let reviewCount;
@@ -91,20 +85,20 @@ router.get('/:itemId', async (req, res, next) => {
   // let avg;
 
   if (item) {
-    item = item.toJSON()
-    if (item.Reviews && item.Reviews.length > 0) {
-      let reviewCount = item.Reviews.length;
-      let starCount = 0;
-      item.Reviews.forEach((review, i) => {
-        console.log(i)
-        let formattedDate = new Date(review.createdAt)
-        review.createdAt = `${formattedDate.getMonth() + 1}/${formattedDate.getDay()}/${formattedDate.getFullYear()}`
-        return starCount += review.stars
-      })
-      let avg = parseFloat(starCount / reviewCount)
-      item.reviewCount = reviewCount;
-      item.avgStars = avg;
-    }
+    // item = item.toJSON()
+    // if (item.Reviews && item.Reviews.length > 0) {
+    //   let reviewCount = item.Reviews.length;
+    //   let starCount = 0;
+    //   item.Reviews.forEach((review, i) => {
+    //     console.log(i)
+    //     let formattedDate = new Date(review.createdAt)
+    //     review.createdAt = `${formattedDate.getMonth() + 1}/${formattedDate.getDay()}/${formattedDate.getFullYear()}`
+    //     return starCount += review.stars
+    //   })
+    //   let avg = parseFloat(starCount / reviewCount)
+    //   item.reviewCount = reviewCount;
+    //   item.avgStars = avg;
+    // }
 
     res.json({ item })
   }

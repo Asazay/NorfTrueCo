@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 //User
 const SET_USER = 'session/setUser';
@@ -11,6 +11,7 @@ const GET_ITEM_BY_ID = 'sessions/getItemById';
 
 //Reviews
 const GET_REVIEWS_BY_ID = 'session/getReviewsById';
+const GET_REVIEW_BY_ID = 'session/getReviewById'
 const CREATE_REVIEW = 'session/createReview';
 const EDIT_REVIEW = 'session/editReview';
 const DELETE_REVIEW = 'session/deleteReview';
@@ -43,6 +44,11 @@ const getReviewsById = (reviews) => ({
   payload: reviews
 })
 
+const getReviewById = (review) => ({
+  type: GET_REVIEW_BY_ID,
+  payload: review
+})
+
 const createReview = (review) => ({
   type: CREATE_REVIEW,
   payload: review
@@ -53,9 +59,9 @@ const editReview = (review) => ({
   payload: review
 });
 
-const deleteReview = (review) => ({
+const deleteReview = (reviewId) => ({
   type: DELETE_REVIEW,
-  payload: review
+  payload: reviewId
 });
 
 //User thunk actions
@@ -148,7 +154,7 @@ export const getItemsThunk = () => async (dispatch) => {
 
 export const getItemByIdThunk = (itemId) => async dispatch => {
   const res = await csrfFetch(`/api/items/${itemId}`);
-  if(res.ok){
+  if (res.ok) {
     const data = await res.json();
     dispatch(getItemById(data))
     return data
@@ -178,9 +184,25 @@ export const getFilteredItemsThunk = (query) => async (dispatch) => {
 export const getReviewsByIdThunk = (itemId) => async dispatch => {
   const res = await csrfFetch(`/api/reviews/${itemId}`);
 
-  if(res.ok){
+  if (res.ok) {
     const data = await res.json()
     dispatch(getReviewsById(data))
+    return data
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const getReviewByIdThunk = (itemId, reviewId) => async dispatch => {
+  const res = await csrfFetch(`/api/reviews/${itemId}/${reviewId}`);
+
+  if(res.ok){
+    const data = await res.json();
+    console.log(data)
+    dispatch(getReviewById(data))
     return data
   }
 
@@ -197,7 +219,7 @@ export const createReviewThunk = (itemId, reviewInfo) => async dispatch => {
     reviewInfo
   }
 
-  const res = await csrfFetch(`/api/reviews/`, {
+  const res = await csrfFetch(`/api/reviews/${itemId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -205,7 +227,7 @@ export const createReviewThunk = (itemId, reviewInfo) => async dispatch => {
     body: JSON.stringify(reqBody)
   })
 
-  if(res.ok){
+  if (res.ok) {
     const data = await res.json();
     dispatch(createReview(data));
     return data;
@@ -217,16 +239,17 @@ export const createReviewThunk = (itemId, reviewInfo) => async dispatch => {
   }
 }
 
-export const editReviewThunk = (reviewId) => async dispatch => {
-  const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+export const editReviewThunk = (itemId, reviewId, editedReview) => async dispatch => {
+  const res = await csrfFetch(`/api/reviews/${itemId}/${reviewId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: JSON.stringify(editedReview)
   });
 
-  if(res.ok){
-    const data = res.json(data);
+  if (res.ok) {
+    const data = await res.json();
     dispatch(editReview(data))
     return data;
   }
@@ -237,18 +260,18 @@ export const editReviewThunk = (reviewId) => async dispatch => {
   }
 }
 
-export const deleteReviewThunk = (reviewId) => async dispatch => {
-  const res = await csrfFetch(`/reviews/${reviewId}`, {
+export const deleteReviewThunk = (itemId, reviewId) => async dispatch => {
+  const res = await csrfFetch(`/api/reviews/${itemId}/${reviewId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     }
   });
 
-  if(res.ok){
-    const data = res.json(data);
-    dispatch(deleteReview(data))
-    return data;
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(deleteReview(data.reviewId))
+    return data.message;
   }
 
   else if (res.status < 500) {
@@ -260,11 +283,14 @@ export const deleteReviewThunk = (reviewId) => async dispatch => {
 // Selectors
 const getReviews = (state) => state.session.reviews
 export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
-  if(reviews) return Object.values(reviews)
+  if (reviews) {
+    let newObj = { ...reviews }
+    return Object.values(newObj)
+  }
 })
 
 
-const initialState = { user: null, items: null, reviews: null};
+const initialState = { user: null, items: null, reviews: null };
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -275,24 +301,50 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: null };
 
     case GET_ITEMS:
-      return { ...state, items: action.payload.items 
+      return {
+        ...state, items: action.payload.items
       }
 
     case GET_ITEM_BY_ID:
-      return {...state, items: action.payload.item}
+      return { ...state, items: action.payload.item }
 
     case GET_REVIEWS_BY_ID:
       let newReviews = {};
-      action.payload.forEach(review => {
-        newReviews[review.id] = review;
+      newReviews.reviews = {}
+      action.payload.reviews.forEach(review => {
+        newReviews.reviews[review.id] = review
       })
-      return {...state, reviews: newReviews}
+
+      newReviews.totalReviews = action.payload.totalReviews;
+      newReviews.avgStars = action.payload.avgStars;
+
+      return { ...state, reviews: newReviews }
+
+    case GET_REVIEW_BY_ID:
+      return {...state, review: action.payload}
+
+    case CREATE_REVIEW:
+      const addedReview = {...state.reviews};
+      addedReview.reviews[action.payload.id] = action.payload;
+      addedReview.totalReviews += 1;
+      let newTotalStars = 0;
+      Object.values(addedReview.reviews).forEach(rev => newTotalStars += rev.stars)
+      addedReview.avgStars = newTotalStars / addedReview.totalReviews
+      return { ...state, reviews: addedReview }
+      // return {...state}
 
     case EDIT_REVIEW:
-      return {...state, reviews: action.payload.review}
+      const editReview = {...state.reviews};
+      editReview.reviews[action.payload.id] = action.payload;
+      editReview.avgStars = Object.values(editReview.reviews).reduce((acc, rev) => acc += rev.stars, 0) / editReview.totalReviews
+      return { ...state, reviews: editReview }
 
     case DELETE_REVIEW:
-      return {...state, reviews: action.payload.review}
+      const newState = { ...state.reviews }
+      delete newState.reviews[action.payload]
+      newState.totalReviews -= 1;
+      newState.avgStars = Object.values(newState.reviews).reduce((acc, rev) => acc += rev.stars, 0) / newState.totalReviews
+      return {...state, reviews: newState}
 
     default:
       return state;

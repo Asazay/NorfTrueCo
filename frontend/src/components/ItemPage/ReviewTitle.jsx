@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import UpdateReviewModal from "../UpdateReviewModa;/UpdateReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 
-function ReviewTile({ review, avgStars, userCommented }) {
+function ReviewTile({ review, userCommented }) {
+    const user = useSelector(state => state.session.user);
     let amtStars = [];
-    if (avgStars) {
-        for (let i = 0; i < avgStars; i++) {
+
+    if (review.stars) {
+        for (let i = 0; i < review.stars; i++) {
             amtStars.push(i + 1)
         }
     }
@@ -14,7 +19,7 @@ function ReviewTile({ review, avgStars, userCommented }) {
             {review && <div id="reviewTile">
                 <div id="review-stars-date">
                     <div style={{ display: "inline" }}>
-                        {avgStars && amtStars.map((i) => (<span key={i}>⭐</span>))}
+                        {review.stars && amtStars.map((i) => (<span key={i}>⭐</span>))}
                     </div>
                     <span style={{ paddingLeft: 10 }}>
                         {review.createdAt}
@@ -25,10 +30,10 @@ function ReviewTile({ review, avgStars, userCommented }) {
                         {review.comment}
                     </p>
                 </div>
-                {userCommented() === true && 
+                {userCommented === true && user.id === review.user_id &&
                 <div id="edit-delete-review">
-                    <div><button>Edit Review</button></div>
-                    <div><button>Delete Review</button></div>
+                    <div><OpenModalButton itemText={'Update'} modalComponent={<UpdateReviewModal reviewId={review.id} itemId={review.item_id}/>}/></div>
+                    <div><OpenModalButton itemText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} itemId={review.item_id}/>}/></div>
                 </div>
                 }
             </div>}
