@@ -53,7 +53,8 @@ h2{
     flex-direction: column;
     /* justify-content: center; */
     width: 100%;
-    height: 350px;
+    height: min-content;
+    max-height: 300px;
     background-color: whitesmoke;
     overflow-y: scroll;
 }
