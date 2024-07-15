@@ -1,9 +1,8 @@
 import './ItemPage.css'
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
-import { getReviewsArraySelector } from '../../redux/session';
 import { useParams } from "react-router-dom";
 import ReviewTile from './ReviewTitle';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
@@ -38,7 +37,7 @@ function ItemPage() {
 
         if (reviews) {
             Object.values(reviews.reviews).forEach(review => {
-                if (user && review.user_id == user.id) {
+                if (user && review.user_id === user.id) {
                     value = true;
                 }
             });
@@ -55,8 +54,9 @@ function ItemPage() {
         if (localStorage.getItem('cart')) {
             console.log('getItem ran')
             cart = JSON.parse(localStorage.getItem('cart'))
-            if (!cart.items[item.id]) {
+            if (cart && !cart.items[item.id]) {
                 cart.items[item.id] = {
+                    itemId: item.id,
                     image: item.image,
                     name: item.name,
                     price: item.price,
@@ -64,7 +64,7 @@ function ItemPage() {
                 }
             }
 
-            else if(cart.items[item.id]){
+            else if(cart && cart.items[item.id]){
                 cart.items[item.id].quantity += 1
             }
 
@@ -74,6 +74,7 @@ function ItemPage() {
         else localStorage.setItem('cart', JSON.stringify({
             items: {
                 [item.id]: {
+                    itemId: item.id,
                     image: item.image,
                     name: item.name,
                     price: item.price,
@@ -82,14 +83,14 @@ function ItemPage() {
             }
         }))
 
-        console.log(localStorage.getItem('cart'))
+        alert("Item added to cart")
     }
 
     return (
         item && <div id='item-page'>
             <div id='item-content'>
                 <div id='image-div'>
-                    <img src={item.image} alt='image' />
+                    <img src={item.image} alt='' />
                 </div>
                 <div id='item-info'>
                     <div><h2>{item.name}</h2></div>
@@ -118,7 +119,7 @@ function ItemPage() {
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars} ({reviews && reviews.totalReviews} reviews)</span>
+                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
                 </div>
                 <div id='review-tiles-div'>
                     {user && userCommented() === false && <div><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}

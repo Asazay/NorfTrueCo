@@ -2,8 +2,32 @@
     border-radius: 15px;
 }
 
+#itemQuantity{
+    display: flex;
+    height: min-content;
+}
+
+#itemQuantity button {
+    background-color: transparent;
+    border: none;
+}
+
+#itemQuantity button:hover, #cart-btns button:hover{
+    cursor: pointer;
+    color: #A70000;
+    border-color: azure;
+}
+
+#itemQuantity input{
+    text-align: right;
+}
+
+#itemQuantity input[type='number']{
+    width: 40px;
+}
+
 #shopping-cart{
-    width: max-content;
+    width: 600px;
     border: solid #A70000 1px;
     background-color: transparent;
     border-radius: 15px;
@@ -28,6 +52,7 @@ h2{
     justify-content: center;
     width: 100%;
     background-color: whitesmoke;
+    overflow-y: scroll;
 }
 
 #columnTitles{

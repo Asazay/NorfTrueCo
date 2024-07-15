@@ -1,25 +1,32 @@
 import './ShoppingCart.css'
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useModal } from "../../context/modal";
 import ShoppingCartItem from "./ShoppingCartItem";
-import { json } from 'react-router-dom';
+
 
 
 function ShoppingCartModal() {
-    const [empty, setEmpty] = useState(true)
-    const [cart, setCart] = useState(null)
-    const [total, setTotal] = useState(0)
+    const [empty, setEmpty] = useState(true);
+    const [cart, setCart] = useState(null);
+    const [total, setTotal] = useState(0);
+    const {closeModal} = useModal()
 
     useEffect(() => {
     if(localStorage.getItem('cart') !== null){
         let userCart = JSON.parse(localStorage.getItem('cart'))
-        let cartTotal = Object.values(userCart.items).slice().reduce((acc, item )=> acc += item.price, 0);
+        let cartTotal = Object.values(userCart.items).reduce((acc, item )=> acc += item.price * item.quantity, 0);
+        userCart.total = cartTotal;
         setCart(userCart)
         setEmpty(false)
         setTotal(cartTotal)
     }
-    }, [localStorage])
+    }, []);
+
+    useEffect(() => {
+        let cartTotal;
+         if(cart) cartTotal = Object.values(cart.items).reduce((acc, item )=> acc += item.price * item.quantity, 0);
+         setTotal(cartTotal)
+    }, [cart])
 
     const clearCart = (e) => {
         e.preventDefault();
@@ -40,15 +47,15 @@ function ShoppingCartModal() {
                 <div className='itemEl'><span>Unit Price</span></div>
                 <div className='itemEl'><span>Qty</span></div>
             </div>
-            {cart !== null && <div id="itemGrid">
-                {cart !== null && Object.values(cart.items).map(item => (<ShoppingCartItem key={item.id} item={item} />))}
-                {!cart && <h3>Shopping cart empty</h3>}
-            </div> || <div><h1 style={{alignSelf: 'center', display: 'flex', justifyContent: 'center' }}>Cart is empty</h1></div>}
-            {cart && <div id='total-div'>
-                <h2>Total: ${total}</h2>
+            {(cart !== null && <div id="itemGrid">
+                {cart.items && Object.values(cart.items).map(item => (<ShoppingCartItem key={item.id} item={item} cart={cart} setCart={setCart}/>))}
+                {!Object.values(cart.items).length && <div><h1 style={{alignSelf: 'center', display: 'flex', justifyContent: 'center' }}>Cart is empty</h1></div>}
+            </div>) || <div id='itemGrid'><h1 style={{alignSelf: 'center', display: 'flex', justifyContent: 'center' }}>Cart is empty</h1></div>}
+            {cart && cart.items && Object.values(cart.items).length > 0 && <div id='total-div'>
+                <h3>Total: ${total && total.toFixed(2)}</h3>
             </div>}
             <div id='cart-btns'>
-                <div><button>CONTINUE SHOPPING</button></div>
+                <div><button onClick={closeModal}>CONTINUE SHOPPING</button></div>
                 <div><button onClick={e => clearCart(e)}>CLEAR CART</button></div>
                 <div><button>CHECKOUT</button></div>
             </div>
