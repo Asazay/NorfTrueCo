@@ -1,5 +1,5 @@
 import './ItemPage.css'
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
@@ -14,6 +14,7 @@ function ItemPage() {
     const reviews = useSelector(state => state.session.reviews)
     const dispatch = useDispatch()
     const { itemId } = useParams()
+    const [itemSize, setItemSize] = useState('small')
 
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
@@ -28,9 +29,8 @@ function ItemPage() {
     }, [dispatch])
 
     useEffect(() => {
-        // console.log('Reviews causes re-render')
-
-    }, [reviews])
+        if(item && item.size && item.size === 'universal') setItemSize('universal')
+    }, [item])
 
     const userCommented = () => {
         let value = false;
@@ -59,6 +59,8 @@ function ItemPage() {
                     itemId: item.id,
                     image: item.image,
                     name: item.name,
+                    size: itemSize,
+                    color: item.color,
                     price: item.price,
                     quantity: 1
                 }
@@ -77,6 +79,8 @@ function ItemPage() {
                     itemId: item.id,
                     image: item.image,
                     name: item.name,
+                    size: itemSize,
+                    color: item.color,
                     price: item.price,
                     quantity: 1
                 }
@@ -101,7 +105,7 @@ function ItemPage() {
                     </div>
                     <div>
                         <label htmlFor='size'><h3>Size: </h3></label>
-                        {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes'>
+                        {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes' onChange={e => setItemSize(e.target.value)}>
                             <option value='small'>SMALL</option>
                             <option value='medium'>MEDIUM</option>
                             <option value='large'>LARGE</option>

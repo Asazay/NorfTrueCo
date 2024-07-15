@@ -44,6 +44,8 @@ function ShoppingCartModal() {
             <div id="columnTitles">
                 <div className='itemEl'><span>Product Image</span></div>
                 <div className='itemEl'><span>Name</span></div>
+                <div className='itemEl'><span>Size</span></div>
+                <div className='itemEl'><span>Color</span></div>
                 <div className='itemEl'><span>Unit Price</span></div>
                 <div className='itemEl'><span>Qty</span></div>
             </div>

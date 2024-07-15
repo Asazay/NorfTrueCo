@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 
 function ShoppingCartItem({ item, cart, setCart }) {
-    const [quantity, setQuantity] = useState(item ? item.quantity: 0);
+    const [quantity, setQuantity] = useState(item ? item.quantity: "");
 
     useEffect(() => {
         if (item && item.quantity) setQuantity(item.quantity)
@@ -18,7 +18,7 @@ function ShoppingCartItem({ item, cart, setCart }) {
     }
 
     useEffect(() => {
-        if (quantity === 0) {
+        if (quantity == 0) {
             removeItem()
         }
         else setNewQuantity(quantity)
@@ -39,7 +39,9 @@ function ShoppingCartItem({ item, cart, setCart }) {
         <>
             <div className="cartItem">
                 <div id="itemImage" className="itemEl"><img src={item.image} width={50} height={50} alt="" /></div>
-                <div id="itemName-size" className="itemEl"><span>{item.name}</span></div>
+                <div id="itemName-name" className="itemEl"><span>{item.name}</span></div>
+                <div id="itemName-size" className="itemEl"><span>{item && item.size && item.size.toUpperCase()}</span></div>
+                <div id="itemName-color" className="itemEl"><span>{item && item.color && item.color.toUpperCase()}</span></div>
                 <div id="itemPrice" className="itemEl"><span>${item.price}</span></div>
                 <div id="itemQuantity" className="itemEl">
                     <input type='number' value={quantity} min={0} max={25} onChange={(e) => setQuantity(e.target.value)} />
