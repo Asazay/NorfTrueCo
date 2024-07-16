@@ -15,13 +15,15 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id'
       });
 
-      Order.belongsToMany(models.Item, {
-        through: 'order_items'
+      Order.hasOne(models.Order_Information, {
+        foreignKey: 'order_number',
+        onDelete: 'CASCADE',
       })
 
-      Order.hasOne(models.User_Information, {
-        as: 'user_information'
-      });
+      Order.hasMany(models.Order_Item, {
+        foreignKey: 'order_number',
+        onDelete: 'CASCADE'
+      })
     }
   }
   Order.init({
@@ -35,10 +37,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isInt: true
       }
-    },
-    user_info: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     },
     registered: {
       type: DataTypes.BOOLEAN,

@@ -22,10 +22,6 @@ module.exports = {
         type: Sequelize.INTEGER,
          allowNull: false,
       },
-      user_info: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-      },
       registered: {
         type: Sequelize.BOOLEAN,
          allowNull: false,

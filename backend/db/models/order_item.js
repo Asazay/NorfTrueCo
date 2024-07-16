@@ -11,37 +11,44 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Order_Item.belongsTo(models.Order, {
+        foreignKey: 'order_number'
+      })
     }
   }
   Order_Item.init({
     order_number: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      allowNull: false
     },
-    item_id: {
-      type: DataTypes.INTEGER,
+    image: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    item_quantity: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    size: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // validate: {
-      //   isInt: true,
-      //   isGreaterThanZero(value){
-      //     if(parseInt(value) < 0) throw new Error('Quantity can not be less than 0')
-      //   }
-      // }
     }
   }, {
     sequelize,
     modelName: 'Order_Item',
-    // indexes: [
-    //   {
-    //     name: 'unique_order_items',
-    //     unique: true,
-    //     fields: ['order_number', 'item_id']
-    //   }
-    // ]
   });
   return Order_Item;
 };

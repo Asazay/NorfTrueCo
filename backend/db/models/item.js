@@ -12,14 +12,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Item.belongsToMany(models.Wishlist, {
-        through: 'item_id'
-      });
-
-      Item.belongsToMany(models.Order, {
-        through: 'order_items'
-      })
-
       Item.hasMany(models.Review, {
         foreignKey: 'item_id'
       })

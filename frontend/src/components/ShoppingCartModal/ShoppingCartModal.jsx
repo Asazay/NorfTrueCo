@@ -2,6 +2,7 @@ import './ShoppingCart.css'
 import React, { useEffect, useState } from "react";
 import { useModal } from "../../context/modal";
 import ShoppingCartItem from "./ShoppingCartItem";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,6 +11,7 @@ function ShoppingCartModal() {
     const [cart, setCart] = useState(null);
     const [total, setTotal] = useState(0);
     const {closeModal} = useModal()
+    const navigate = useNavigate();
 
     useEffect(() => {
     if(localStorage.getItem('cart') !== null){
@@ -59,7 +61,7 @@ function ShoppingCartModal() {
             <div id='cart-btns'>
                 <div><button onClick={closeModal}>CONTINUE SHOPPING</button></div>
                 <div><button onClick={e => clearCart(e)}>CLEAR CART</button></div>
-                <div><button>CHECKOUT</button></div>
+            <div><button onClick={() => {navigate('/checkout'); closeModal()}}>CHECKOUT</button></div>
             </div>
         </div>
     )
