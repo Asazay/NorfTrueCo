@@ -12,6 +12,18 @@
     width: 40%;
 }
 
+#customer-info{
+  
+}
+
+#cartTotal{
+    align-self: flex-start;
+}
+
+p{
+    padding: 0 10px;
+}
+
 /* form{
     display: flex;
     flex-direction: column;

@@ -10,6 +10,7 @@ function ShoppingCartModal() {
     const [empty, setEmpty] = useState(true);
     const [cart, setCart] = useState(null);
     const [total, setTotal] = useState(0);
+    const [locked, setLocked] = useState(false)
     const {closeModal} = useModal()
     const navigate = useNavigate();
 
@@ -22,12 +23,18 @@ function ShoppingCartModal() {
         setEmpty(false)
         setTotal(cartTotal)
     }
-    }, []);
+    else setLocked(true)
+    }, [localStorage]);
 
     useEffect(() => {
+        console.log(cart)
+        if(!cart || cart && JSON.stringify(cart.items) === '{}') setLocked(true)
+        else if(cart && locked === true) setLocked(false)
         let cartTotal;
          if(cart) cartTotal = Object.values(cart.items).reduce((acc, item )=> acc += item.price * item.quantity, 0);
          setTotal(cartTotal)
+        //  cart.total = cartTotal;
+        //  localStorage.setItem('cart', JSON.stringify(cart))
     }, [cart])
 
     const clearCart = (e) => {
@@ -61,7 +68,7 @@ function ShoppingCartModal() {
             <div id='cart-btns'>
                 <div><button onClick={closeModal}>CONTINUE SHOPPING</button></div>
                 <div><button onClick={e => clearCart(e)}>CLEAR CART</button></div>
-            <div><button onClick={() => {navigate('/checkout'); closeModal()}}>CHECKOUT</button></div>
+            <div><button disabled={locked} onClick={() => {navigate('/checkout'); closeModal()}}>CHECKOUT</button></div>
             </div>
         </div>
     )
