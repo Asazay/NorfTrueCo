@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     order_number: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
       validate: {
         isInt: true
       }
@@ -43,8 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate:{
         isBoolean(value){
-          value = value.toLowerCase()
-          if(value !== 'true' || value !== 'false') throw new Error('Registered must be true or false')
+          if(typeof value !== 'boolean') throw new Error('Registed field must be true or false')
         }
       }
     },
@@ -53,8 +53,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isValid(value){
+          console.log("Logging value: ", value === 'processing')
           value = value.toLowerCase()
-          if(value !== 'processing' || value !== 'shipped') throw new Error('Status must be "processing" or "shipped"')
+          if(value === 'processing' || value === 'shipped') return
+          else throw new Error('Status must be "processing" or "shipped"')
         }
       }
     }

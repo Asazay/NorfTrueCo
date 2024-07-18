@@ -17,6 +17,13 @@ const EDIT_REVIEW = 'session/editReview';
 const DELETE_REVIEW = 'session/deleteReview';
 
 
+//Orders
+const GET_ORDERS_BY_USER_ID = 'session/getOrdersByUserId';
+const CREATE_ORDER = 'session/createOrder';
+const GET_ORDER_BY_ORDER_NUMBER = 'session/getOrderByOrderNumber'
+const EDIT_ORDER = 'session/editOrder';
+const DELETE_ORDER = 'session/deleteOrder';
+
 //User actions
 const setUser = (user) => ({
   type: SET_USER,
@@ -63,6 +70,32 @@ const deleteReview = (reviewId) => ({
   type: DELETE_REVIEW,
   payload: reviewId
 });
+
+// Order actions
+const getOrdersByUserId = (orders) => ({
+  type: GET_ORDERS_BY_USER_ID,
+  payload: orders
+});
+
+const getOrderByOrderNumber = (order) => ({
+  type: GET_ORDER_BY_ORDER_NUMBER,
+  payload: order
+})
+
+const createOrder = (order) => ({
+  type: CREATE_ORDER,
+  payload: order
+});
+
+const editOrder = (order) => ({
+  type: EDIT_ORDER,
+  payload: order
+})
+
+const deleteOrder = (order_number) => ({
+  type: DELETE_ORDER,
+  payload: order_number
+})
 
 //User thunk actions
 export const thunkAuthenticate = () => async (dispatch) => {
@@ -280,6 +313,99 @@ export const deleteReviewThunk = (itemId, reviewId) => async dispatch => {
   }
 }
 
+// Order thunk action
+export const getOrdersByUserIdThunk = (userId) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}`);
+
+  if(res.ok){
+    const data = await res.json()
+    dispatch(getOrdersByUserId(data))
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+};
+
+export const getOrderByOrderNumberThunk = (userId, orderNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`);
+
+  if(res.ok){
+    const data = await res.json();
+    dispatch(getOrderByOrderNumber(data))
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+};
+
+export const createOrderThunk = (userId, order) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(order)
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    dispatch(createOrder(data))
+    return data;
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+};
+
+export const editOrderThunk = (userId, orderNumber, order) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(order)
+  });
+
+  if(res.ok){
+    const data = res.json();
+    dispatch(editOrder(data))
+    return data
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const deleteOrderThunk = (userId, orderNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if(res.ok){
+    const data = await res.json();
+    dispatch(deleteOrder(data));
+    return data
+  }
+
+  else if (res.status < 500) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
 // Selectors
 const getReviews = (state) => state.session.reviews
 export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
@@ -290,16 +416,19 @@ export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
 })
 
 
-const initialState = { user: null, items: null, reviews: null };
+const initialState = { user: null, items: null, reviews: null, orders: null };
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
+    //USER
     case SET_USER:
       return { ...state, user: action.payload.user };
 
     case REMOVE_USER:
       return { ...state, user: null };
 
+    
+    //ITEM
     case GET_ITEMS:
       return {
         ...state, items: action.payload.items
@@ -308,6 +437,7 @@ function sessionReducer(state = initialState, action) {
     case GET_ITEM_BY_ID:
       return { ...state, items: action.payload.item }
 
+    //REVIEW
     case GET_REVIEWS_BY_ID:
       let newReviews = {};
       newReviews.reviews = {}
@@ -345,6 +475,31 @@ function sessionReducer(state = initialState, action) {
       newState.totalReviews -= 1;
       newState.avgStars = Object.values(newState.reviews).reduce((acc, rev) => acc += rev.stars, 0) / newState.totalReviews
       return {...state, reviews: newState}
+
+    //ORDER
+    case GET_ORDERS_BY_USER_ID:
+      const theOrders = {};
+      theOrders.orders = {}
+      action.payload.orders.forEach(order => theOrders.orders[order.order_number] = order)
+      return {...state, orders: theOrders}
+
+    case GET_ORDER_BY_ORDER_NUMBER:
+      return {...state, orders: action.payload}
+
+    case CREATE_ORDER:
+      const addOrder = {}
+      addOrder[action.payload.order_number] = action.payload;
+      return {...state, orders: addOrder}
+
+    case EDIT_ORDER:
+      const editOrder = {...state.orders}
+      editOrder.orders[action.payload.order_number] = action.payload;
+      return {...state, orders: editOrder}
+
+    case DELETE_ORDER:
+      const deleteOrder = {...state.orders}
+      delete deleteOrder.orders[action.payload]
+      return {...state, orders: deleteOrder}
 
     default:
       return state;

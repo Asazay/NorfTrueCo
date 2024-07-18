@@ -21,6 +21,7 @@ module.exports = {
       order_number: {
         type: Sequelize.INTEGER,
          allowNull: false,
+         unique: true,
       },
       registered: {
         type: Sequelize.BOOLEAN,

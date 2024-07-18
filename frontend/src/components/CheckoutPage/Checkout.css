@@ -12,16 +12,16 @@
     width: 40%;
 }
 
-#customer-info{
+/* #customer-info{
   
-}
+} */
 
 #cartTotal{
     align-self: flex-start;
 }
 
-p{
-    padding: 0 10px;
+#customer-info p{
+    color: red;
 }
 
 /* form{
