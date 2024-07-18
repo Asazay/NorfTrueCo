@@ -12,10 +12,10 @@ const checkAuthorization = [requireAuth, handleValidationErrors];
 
 const validateCheckout = [
     check('email').exists({ checkFalsy: true }).notEmpty().isEmail()
-        .withMessage('Invalid email. Ex: Example@example.com'),
-    check('firstName').exists({ checkFalsy: true }).notEmpty().isAlpha()
+        .withMessage('Invalid email. (Ex: Example@example.com)'),
+    check('firstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
         .withMessage('First name is invalid. (Ex: James)'),
-    check('lastName').exists({ checkFalsy: true }).notEmpty().isAlpha()
+    check('lastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
         .withMessage('Last name is invalid. (Ex: Williams)'),
     check('billAddress').exists({ checkFalsy: true }).notEmpty()
         .custom(async (value) => {
@@ -45,6 +45,21 @@ const validateCheckout = [
         .custom(async value => {
             if (value.length !== 16 || typeof Number(value) !== 'number') throw new Error('Invalid card number. (Ex: 1234567891234567')
         }),
+    check('payFirstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
+    .withMessage('First name is invalid. (Ex: James)'),
+    check('payLastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
+        .withMessage('Last name is invalid. (Ex: Williams)'),
+    check('expDate').exists({ checkFalsy: true }).notEmpty().custom(async val => {
+        if(!val) throw new Error('Expiration date is invalid. (Ex. 11/25)')
+        if(val && !val.split('/')) throw new Error('Expiration date is invalid. (Ex. 11/25)')
+        if(val){
+            if(val.length !== 5) throw new Error('Expiration date is invalid. (Ex. 11/25)')
+            val = val.split('/');
+            if(typeof parseInt(val[0] !== 'number') || typeof parseInt(val[1] !== 'number')) throw new Error('Expiration date is invalid. (Ex. 11/25)') 
+        }
+    }),
+    check('cvv').exists({ checkFalsy: true }).notEmpty().not().custom(async val => typeof Number(val) === 'number')
+    .withMessage('CVV is invalid. (Ex: 123)'),
     handleValidationErrors
 ]
 

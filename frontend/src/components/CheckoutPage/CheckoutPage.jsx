@@ -101,7 +101,11 @@ function CheckoutPage() {
             shipCity,
             shipState,
             shipZipCode,
-            cardNumber
+            payFirstName,
+            payLastName,
+            cardNumber,
+            expDate,
+            cvv
         }
 
         dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
@@ -111,7 +115,10 @@ function CheckoutPage() {
                 data = await res.json();
             }
 
-            if (data && data.errors) setErrors(data.errors)
+            if (data && data.errors) {
+                setErrors(data.errors)
+                console.log(data.errors)
+            }
         });
     }
 
@@ -126,7 +133,7 @@ function CheckoutPage() {
                         <h2>My Information</h2>
                         <div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.email && <p>{errors.email}</p>}
+                                {(errors && Object.keys(errors).length > 0 && errors.email && <p>{errors.email}</p>) || <p id='hidden'>""</p>}
                                 <label htmlFor='email'>Email: </label>
                                 <input id='email' name='email' type='email' value={email} onChange={e => {
                                         setEmail(e.target.value)
@@ -140,7 +147,7 @@ function CheckoutPage() {
                         </div>
                         <div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.firstName && <p>{errors.firstName}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.firstName && <p>{errors.firstName}</p> || <p id='hidden'>""</p>}
                                 <label>First name: </label>
                                 <input id='firstName' name='first name' value={firstName} onChange={e => {
                                     setFirstName(e.target.value);
@@ -152,7 +159,7 @@ function CheckoutPage() {
                                 />
                             </div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.lastName && <p>{errors.lastName}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.lastName && <p>{errors.lastName}</p> || <p id='hidden'>""</p>}
                                 <label>Last name: </label>
                                 <input id='last Name' value={lastName} onChange={e => {
                                     setLastName(e.target.value)
@@ -169,7 +176,7 @@ function CheckoutPage() {
                         <h2>Shipping Address</h2>
                         <div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.shipAddress && <p>{errors.shipAddress}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.shipAddress && <p>{errors.shipAddress}</p> || <p id='hidden'>""</p>}
                                 <label>Address: </label>
                                 <input id='shipAddress' value={shipAddress} onChange={e => {
                                     setShipAddress(e.target.value)
@@ -182,7 +189,7 @@ function CheckoutPage() {
                             </div>
                             <div>
                                 <div>
-                                    {errors && Object.keys(errors).length > 0 && errors.shipCity && <p>{errors.shipCity}</p> || <p></p>}
+                                    {errors && Object.keys(errors).length > 0 && errors.shipCity && <p>{errors.shipCity}</p> || <p id='hidden'>""</p>}
                                     <label>City: </label>
                                     <input id='shipCity' value={shipCity} onChange={e => {
                                         setShipCity(e.target.value)
@@ -194,7 +201,7 @@ function CheckoutPage() {
                                     />
                                 </div>
                                 <div>
-                                    {errors && Object.keys(errors).length > 0 && errors.shipZipCode && <p>{errors.shipZipCode}</p> || <p></p>}
+                                    {errors && Object.keys(errors).length > 0 && errors.shipZipCode && <p>{errors.shipZipCode}</p> || <p id='hidden'>""</p>}
                                     <label>Zip code: </label>
                                     <input id='shipZipCode' type='text' value={shipZipCode} onChange={e => {
                                         setShipZipCode(e.target.value)
@@ -207,7 +214,7 @@ function CheckoutPage() {
                                 </div>
                             </div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.shipState && <p>{errors.shipState}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.shipState && <p>{errors.shipState}</p> || <p id='hidden'>""</p>}
                                 <label>State: </label>
                                 <select id='shipState' value={shipState} onChange={e => {
                                     setShipState(e.target.value)
@@ -226,7 +233,7 @@ function CheckoutPage() {
                         <h2>Billing Address</h2>
                         <div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.billAddress && <p>{errors.billAddress}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.billAddress && <p>{errors.billAddress}</p> || <p id='hidden'>""</p>}
                                 <label htmlFor='address'>Address: </label>
                                 <input id='billAddress' value={billAddress} onChange={e => {
                                     setBillAddress(e.target.value)
@@ -239,7 +246,7 @@ function CheckoutPage() {
                             </div>
                             <div>
                                 <div>
-                                    {errors && Object.keys(errors).length > 0 && errors.billCity && <p>{errors.billCity}</p> || <p></p>}
+                                    {errors && Object.keys(errors).length > 0 && errors.billCity && <p>{errors.billCity}</p> || <p id='hidden'>""</p>}
                                     <label htmlFor='city'>City: </label>
                                     <input id='billCity' value={billCity} onChange={e => {
                                         setBillCity(e.target.value)
@@ -251,7 +258,7 @@ function CheckoutPage() {
                                     />
                                 </div>
                                 <div>
-                                    {errors && Object.keys(errors).length > 0 && errors.billZipCode && <p>{errors.billZipCode}</p> || <p></p>}
+                                    {errors && Object.keys(errors).length > 0 && errors.billZipCode && <p>{errors.billZipCode}</p> || <p id='hidden'>""</p>}
                                     <label htmlFor='zipcode'>Zip code: </label>
                                     <input id='billZipCode' type='text' value={billZipCode} onChange={e => {
                                         setBillZipCode(e.target.value)
@@ -264,7 +271,7 @@ function CheckoutPage() {
                                 </div>
                             </div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.billState && <p>{errors.billState}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.billState && <p>{errors.billState}</p> || <p id='hidden'>""</p>}
                                 <label htmlFor='state'>State: </label>
                                 <select id='billState' value={billState} onChange={e => {
                                     setBillState(e.target.value)
@@ -283,6 +290,7 @@ function CheckoutPage() {
                         <h2>Payment</h2>
                         <div>
                             <div>
+                            {errors && Object.keys(errors).length > 0 && errors.payFirstName && <p>{errors.payFirstName}</p> || <p id='hidden'>""</p>}
                                 <label>First name: </label>
                                 <input id='payFirstName' value={payFirstName} onChange={e => {
                                     setPayFirstName(e.target.value)
@@ -293,6 +301,7 @@ function CheckoutPage() {
                                     } />
                             </div>
                             <div>
+                            {errors && Object.keys(errors).length > 0 && errors.payLastName && <p>{errors.payLastName}</p> || <p id='hidden'>""</p>}
                                 <label>Last name: </label>
                                 <input id='payLastName' value={payLastName} onChange={e => {
                                     setPayLastName(e.target.value)
@@ -305,7 +314,7 @@ function CheckoutPage() {
                         </div>
                         <div>
                             <div>
-                                {errors && Object.keys(errors).length > 0 && errors.cardNumber && <p>{errors.cardNumber}</p> || <p></p>}
+                                {errors && Object.keys(errors).length > 0 && errors.cardNumber && <p>{errors.cardNumber}</p> || <p id='hidden'>""</p>}
                                 <label>Card number: </label>
                                 <input id='cardNumber' type='text' value={cardNumber} onChange={e => {
                                     setCardNumber(e.target.value)
@@ -318,6 +327,7 @@ function CheckoutPage() {
                         </div>
                         <div>
                             <div>
+                            {errors && Object.keys(errors).length > 0 && errors.expDate && <p>{errors.expDate}</p> || <p id='hidden'>""</p>}
                                 <label>Expiration date: </label>
                                 <input id='expDate' type='text' value={expDate} onChange={e => {
                                     setExpDate(e.target.value)
@@ -328,6 +338,7 @@ function CheckoutPage() {
                                     } />
                             </div>
                             <div>
+                            {errors && Object.keys(errors).length > 0 && errors.cvv && <p>{errors.cvv}</p> || <p id='hidden'>""</p>}
                                 <label>CVV: </label>
                                 <input id='cvv' type='text' value={cvv} onChange={e => {
                                     setCvv(e.target.value)
@@ -353,9 +364,6 @@ function CheckoutPage() {
                             <p>Est. Taxes: {salesTax !== "" && salesTax >= 0 && `$${salesTax.toFixed(2)}` || 'TBD'}</p>
                         </div>
                         <div style={{ fontWeight: 'bold' }}>Total: ${total && total.toFixed(2) || cart && (cart.total + shipping).toFixed(2)}</div>
-                    </div>
-                    <div>
-                        <button>Place order</button>
                     </div>
                 </div>
             </div>
