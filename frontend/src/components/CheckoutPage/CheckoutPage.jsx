@@ -54,9 +54,10 @@ function CheckoutPage() {
             setCart(JSON.parse(localStorage.getItem('cart')))
         }
         else if (localStorage.getItem('cart') === null) {
-            navigate(`/cart`)
+            setCart(null)
+            navigate(`/`)
         }
-    }, [])
+    }, [localStorage])
 
     useEffect(() => {
         if (states.includes(shipState)) {
@@ -74,10 +75,6 @@ function CheckoutPage() {
             }
         }
     }, [shipState]);
-
-    useEffect(() => {
-
-    }, [errors])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -359,7 +356,7 @@ function CheckoutPage() {
                 <div>
                     <div>
                         <div>
-                            <p>Subtotal: {cart && cart.total}</p>
+                            <p>Subtotal: ${cart && cart.total && cart.total.toFixed(2)}</p>
                             <p>Shipping: ${shipping}</p>
                             <p>Est. Taxes: {salesTax !== "" && salesTax >= 0 && `$${salesTax.toFixed(2)}` || 'TBD'}</p>
                         </div>
