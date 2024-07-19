@@ -23,6 +23,10 @@ module.exports = {
          allowNull: false,
          unique: true,
       },
+      total_price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
       registered: {
         type: Sequelize.BOOLEAN,
          allowNull: false,

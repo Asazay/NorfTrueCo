@@ -21,12 +21,14 @@ module.exports = {
     {
       user_id: 1,
       order_number: 2024001,
+      total_price: 52.98,
       registered: true,
       status: 'shipped'
     },
     {
       user_id: 1,
       order_number: 2024002,
+      total_price: 64.98,
       registered: true,
       status: 'processing'
     }

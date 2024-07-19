@@ -1,10 +1,11 @@
 import './Checkout.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { createOrderThunk } from '../../redux/session';
 
 function CheckoutPage() {
+    const [cart, setCart] = useState(null)
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
@@ -29,7 +30,6 @@ function CheckoutPage() {
     const [total, setTotal] = useState(0)
     const [errors, setErrors] = useState({});
 
-    const [cart, setCart] = useState(null)
     const shipping = 5.99;
 
     const states = [
@@ -57,7 +57,11 @@ function CheckoutPage() {
             setCart(null)
             navigate(`/`)
         }
-    }, [localStorage])
+    }, [])
+
+    useEffect(() => {
+        if(cart && cart.total) console.log('cart Total changed to', cart.total)
+    }, [])
 
     useEffect(() => {
         if (states.includes(shipState)) {
@@ -80,13 +84,8 @@ function CheckoutPage() {
         e.preventDefault();
 
         const createOrderInfo = {
-            items: cart ? cart.items : {},
-            receiptInfo: {
-                subtotal: cart ? cart.total : 0,
-                shipping,
-                salesTax: salesTax ? salesTax.toFixed(2) : 0,
-                total: total ? total.toFixed(2) : 0
-            },
+            items: cart ? cart.items : null,
+            orderTotal: total ? total.toFixed(2) : 0,
             email,
             firstName,
             lastName,
@@ -105,7 +104,9 @@ function CheckoutPage() {
             cvv
         }
 
-        dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
+        console.log(createOrderInfo)
+
+        const order = await dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
             let data;
 
             if (res) {
@@ -117,9 +118,11 @@ function CheckoutPage() {
                 console.log(data.errors)
             }
         });
+
+        if(order && order.order_number){
+            navigate(`/Confirmation/?cfn=${order.order_number}`)
+        }
     }
-
-
 
     return (
         <div id='checkout-page'>

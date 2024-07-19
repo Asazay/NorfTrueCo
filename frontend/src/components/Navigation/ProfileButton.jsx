@@ -4,11 +4,13 @@ import * as sessionActions from '../../redux/session';
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { useNavigate } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const navigate = useNavigate()
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -49,7 +51,7 @@ function ProfileButton({ user }) {
             <div><p style={{padding: 10}}>{'Hello, ' + user.username}</p></div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <div id="menu-clickable"><li><button>My Profile</button></li></div>
-            <div id="menu-clickable"><li><button>My Orders</button></li></div>
+            <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/orders'); closeMenu()}}>My Orders</button></li></div>
             <div id="menu-clickable"><li><button>My Wishlist</button></li></div>
             <div id="menu-clickable">
               <li>

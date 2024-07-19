@@ -4,8 +4,6 @@ const { Order, Order_Item, Order_Information, User } = require('../../db/models'
 const { checkAuth, requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const order_information = require('../../db/models/order_information');
-const { IGNORE } = require('sequelize/lib/index-hints');
 
 
 const checkAuthorization = [requireAuth, handleValidationErrors];
@@ -13,9 +11,9 @@ const checkAuthorization = [requireAuth, handleValidationErrors];
 const validateCheckout = [
     check('email').exists({ checkFalsy: true }).notEmpty().isEmail()
         .withMessage('Invalid email. (Ex: Example@example.com)'),
-    check('firstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
+    check('firstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({ min: 3, max: 16 })
         .withMessage('First name is invalid. (Ex: James)'),
-    check('lastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
+    check('lastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({ min: 3, max: 16 })
         .withMessage('Last name is invalid. (Ex: Williams)'),
     check('billAddress').exists({ checkFalsy: true }).notEmpty()
         .custom(async (value) => {
@@ -45,21 +43,18 @@ const validateCheckout = [
         .custom(async value => {
             if (value.length !== 16 || typeof Number(value) !== 'number') throw new Error('Invalid card number. (Ex: 1234567891234567')
         }),
-    check('payFirstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
-    .withMessage('First name is invalid. (Ex: James)'),
-    check('payLastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({min: 3, max: 16})
+    check('payFirstName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({ min: 3, max: 16 })
+        .withMessage('First name is invalid. (Ex: James)'),
+    check('payLastName').exists({ checkFalsy: true }).notEmpty().isAlpha().isLength({ min: 3, max: 16 })
         .withMessage('Last name is invalid. (Ex: Williams)'),
     check('expDate').exists({ checkFalsy: true }).notEmpty().custom(async val => {
-        if(!val) throw new Error('Expiration date is invalid. (Ex. 11/25)')
-        if(val && !val.split('/')) throw new Error('Expiration date is invalid. (Ex. 11/25)')
-        if(val){
-            if(val.length !== 5) throw new Error('Expiration date is invalid. (Ex. 11/25)')
-            val = val.split('/');
-            if(typeof parseInt(val[0] !== 'number') || typeof parseInt(val[1] !== 'number')) throw new Error('Expiration date is invalid. (Ex. 11/25)') 
-        }
+        if (val.split('/').length < 2) throw new Error('Expiration date is invalid. (Ex. 11/25)')
+        if (val.length !== 5) throw new Error('Expiration date is invalid. (Ex. 11/25)')
+        val = val.split('/');
+        if (typeof parseInt(val[0]) !== 'number' || typeof parseInt(val[1]) !== 'number') throw new Error('Expiration date is invalid. (Ex. 11/25)')
     }),
-    check('cvv').exists({ checkFalsy: true }).notEmpty().not().custom(async val => typeof Number(val) === 'number')
-    .withMessage('CVV is invalid. (Ex: 123)'),
+    check('cvv').exists({ checkFalsy: true }).notEmpty().custom(async val => typeof Number(val) === 'number')
+        .withMessage('CVV is invalid. (Ex: 123)'),
     handleValidationErrors
 ]
 
@@ -72,35 +67,70 @@ router.get('/:userId', async (req, res, next) => {
         where: {
             user_id: {
                 [Op.eq]: parseInt(userId)
-            }
+            },
         },
-        include: 'Order_Information'
+        order: [['createdAt', 'DESC']]
     });
 
     if (orders) {
-        res.json(orders)
+        let orderArray = await Promise.all((orders.map(async order => {
+            order = await order.toJSON();
+            let orderInfo = await Order_Information.findOne({
+                where: {
+                    order_number: {
+                        [Op.eq]: parseInt(order.order_number)
+                    }
+                }
+            });
+
+            // let orderItems = await Order_Item.findAll({
+            //     where: {
+            //         order_number: {
+            //             [Op.eq]: parseInt(order.order_number)
+            //         }
+            //     }
+            // })
+
+            if(orderInfo){
+                orderInfo = await orderInfo.toJSON()
+                order.Order_Information = orderInfo;
+                // order.Order_Items = orderItems;
+                return order
+            }
+            else {
+                res.status(400)
+                res.json({error: 'Couldnt retrieve orders'})
+            }
+        })));
+        
+        res.json(orderArray)
     }
-    else res.json({ error: 'Orders for user not found' })
+    else {
+        res.status(400)
+        return res.json({ error: 'Orders for user not found' })
+    }
 });
 
 router.post('/:userId', validateCheckout, async (req, res, next) => {
 
     const { userId } = req.params;
-    const { items, recieptInfo, firstName, lastName, email, billAddress, billCity, billState,
-        billZipCode, shipAddress, shipCity, shipState, ShipZipCode, cardNumber } = req.body;
+  
+    const { items, firstName, lastName, email, billAddress, billCity, billState,
+        billZipCode, shipAddress, shipCity, shipState, ShipZipCode, cardNumber, orderTotal } = req.body;
 
-    if (!userId) {
+    if (JSON.parse(userId) === null) {
         const orderNum = parseInt('2024' + Math.floor(Math.random() * (999 - 1 + 1) + 1).toString());
 
         const unregCustOrder = await Order.create({
             user_id: null,
             order_number: orderNum,
             registered: false,
-            status: 'processing'
+            status: 'processing',
+            total_price: orderTotal
         });
 
         if (unregCustOrder) {
-            const unregOrderInfo = await unregCustOrder.createOrderInformation({
+            const unregOrderInfo = await Order_Information.create({
                 order_number: orderNum,
                 first_name: firstName,
                 last_name: lastName,
@@ -122,21 +152,21 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
                 const { image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                    image, name, size, color, price, quantity
+                    order_number: orderNum, image, name, size, color, price, quantity
                 }))
             });
 
             if (unregOrderInfo && !itemArr.some(item => item ? true : false)) {
-                res.json(unregCustOrder)
+                return res.json(unregCustOrder)
             }
 
-            else res.json({ error: 'Something went wrong when creating order info and items' })
+            else return res.json({ error: 'Something went wrong when creating order info and items' })
         }
 
-        else res.json({ error: 'Something went wrong when creating order' })
+        else return res.json({ error: 'Something went wrong when creating order' })
     }
 
-    const user = await User.findByPk(parseInt(userId));
+    const user = await User.findByPk(parseInt(userId))
 
     if (user) {
         const orderNum = parseInt('2024' + Math.floor(Math.random() * (999 - 1 + 1) + 1).toString());
@@ -144,7 +174,8 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
             user_id: parseInt(userId),
             order_number: orderNum,
             registered: true,
-            status: 'processing'
+            status: 'processing',
+            total_price: orderTotal
         })
 
         if (newOrder) {
@@ -170,7 +201,7 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
                 const { image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                   order_number: orderNum, image, name, size, color, price, quantity
+                    order_number: orderNum, image, name, size, color, price, quantity
                 }))
             });
 
@@ -186,23 +217,93 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
 
 router.get('/:userId/:orderNumber', async (req, res, next) => {
     const { userId, orderNumber } = req.params;
+    const where = {}
+
+    if (typeof Number(userId) !== 'number') {
+        where.user_id = { [Op.eq]: null }
+    }
+
+    else where.user_id = { [Op.eq]: parseInt(userId) }
+
+    where.order_number = {
+        [Op.eq]: parseInt(orderNumber)
+    };
+
+    let order = await Order.findOne({
+        where,
+    });
+
+    if (order) {
+        const theOrderInfo = await Order_Information.findOne({
+            where: {
+                order_number: {
+                    [Op.eq]: parseInt(orderNumber)
+                }
+            }
+        });
+
+        if (theOrderInfo) {
+            order = order.toJSON();
+            order.Order_Information = theOrderInfo;
+            return res.json(order)
+        }
+
+        else { res.status(400); return res.json({ order: 'The order could not be retrieved.' }) }
+    }
+
+    else { res.status(400); return res.json({ order: 'Order not found' }) }
+});
+
+router.delete('/:userId/:orderNumber', async (req, res, next) => {
+    const {userId, orderNumber} = req.params
 
     const order = await Order.findOne({
         where: {
             user_id: {
                 [Op.eq]: parseInt(userId)
             },
-            orderNumber: {
+            order_number: {
                 [Op.eq]: parseInt(orderNumber)
             }
         }
     });
 
-    if (order) {
-        res.json(order)
+    if(order){
+        await order.destroy()
+
+        const orderItems = await Order_Item.findAll({
+            where: {
+                order_number: {
+                    [Op.eq]: parseInt(orderNumber)
+                }
+            }
+        });
+
+        if(orderItems){
+            orderItems.forEach(async item => {
+                await item.destroy()
+            });
+        }
+
+        const orderInfo = await Order_Information.findOne({
+            where: {
+                order_number: {
+                    [Op.eq]: parseInt(orderNumber)
+                }
+            }
+        });
+
+        if(orderInfo){
+            await orderInfo.destroy()
+        }
+
+        return res.json(order.order_number)
     }
 
-    else res.json({ error: 'Order not found' })
-});
+    else if(!order) return res.json({error: 'Couldnt find order'})
+
+    return res.json(order.order_number)
+})
+
 
 module.exports = router;

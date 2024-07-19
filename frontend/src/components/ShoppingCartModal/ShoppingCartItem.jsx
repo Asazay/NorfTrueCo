@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
+
 function ShoppingCartItem({ item, cart, setCart }) {
     const [quantity, setQuantity] = useState(item ? item.quantity: "");
 
@@ -8,7 +9,7 @@ function ShoppingCartItem({ item, cart, setCart }) {
         if (item && item.quantity) setQuantity(item.quantity)
     }, []);
 
-    const setNewQuantity = (val) => {
+    const setNewQuantity = async (val) => {
         if (cart && cart.items && cart.items[item.itemId] && cart.items[item.itemId].price) {
             cart.items[item.itemId]['quantity'] = parseInt(val);
             let newCart = {...cart};

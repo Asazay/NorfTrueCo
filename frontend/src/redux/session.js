@@ -24,6 +24,11 @@ const GET_ORDER_BY_ORDER_NUMBER = 'session/getOrderByOrderNumber'
 const EDIT_ORDER = 'session/editOrder';
 const DELETE_ORDER = 'session/deleteOrder';
 
+//Order Items
+const GET_ORDER_ITEMS_BY_ORDER_NUMBER = 'session/getOrderItemsByOrderNumber';
+// const GET_ORDER_ITEM_BY_ITEM_ID = 'session/getOrderItemByOrderId';
+const DELETE_ORDER_ITEM_BY_ID = 'session/deleteOrderItem';
+
 //User actions
 const setUser = (user) => ({
   type: SET_USER,
@@ -95,6 +100,17 @@ const editOrder = (order) => ({
 const deleteOrder = (order_number) => ({
   type: DELETE_ORDER,
   payload: order_number
+})
+
+//Order Item Actions
+const getOrderItemsByOrderNumber = (orderItems) => ({
+  type: GET_ORDER_ITEMS_BY_ORDER_NUMBER,
+  payload: orderItems
+});
+
+const deleteOrderItemById = (orderItems) => ({
+  type: DELETE_ORDER_ITEM_BY_ID, 
+  payload: orderItems
 })
 
 //User thunk actions
@@ -287,7 +303,7 @@ export const editReviewThunk = (itemId, reviewId, editedReview) => async dispatc
     return data;
   }
 
-  else if (res.status < 500) {
+  else if (res.status >= 400) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -307,7 +323,7 @@ export const deleteReviewThunk = (itemId, reviewId) => async dispatch => {
     return data.message;
   }
 
-  else if (res.status < 500) {
+  else if (res.status >= 400) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -319,30 +335,37 @@ export const getOrdersByUserIdThunk = (userId) => async dispatch => {
 
   if(res.ok){
     const data = await res.json()
+    console.log(data)
     dispatch(getOrdersByUserId(data))
     return data;
   }
 
-  else if (res.status < 500) {
+  else if (res.status >= 400) {
     const errMsgs = await res.json()
     return errMsgs;
   }
 };
 
-export const getOrderByOrderNumberThunk = (userId, orderNumber) => async dispatch => {
-  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`);
+export const deleteOrderThunk = (userId, orderNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 
   if(res.ok){
     const data = await res.json();
-    dispatch(getOrderByOrderNumber(data))
-    return data;
+    dispatch(deleteOrder(data));
+    return data
   }
 
   else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
-};
+}
+
 
 export const createOrderThunk = (userId, order) => async dispatch => {
   const res = await csrfFetch(`/api/orders/${userId}`, {
@@ -386,8 +409,26 @@ export const editOrderThunk = (userId, orderNumber, order) => async dispatch => 
   }
 }
 
-export const deleteOrderThunk = (userId, orderNumber) => async dispatch => {
-  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`, {
+
+// Order item thunk action
+export const getOrderItemsByOrderNumberThunk = (orderNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/order-items/${orderNumber}`);
+
+  if(res.ok){
+    const data = await res.json();
+    console.log(data)
+    dispatch(getOrderItemsByOrderNumber(data))
+    return data
+  }
+
+  else if (res.status >= 400) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const deleteOrderItemByIdThunk = (orderNumber, itemNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/order-items/${orderNumber}/${itemNumber}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -396,15 +437,30 @@ export const deleteOrderThunk = (userId, orderNumber) => async dispatch => {
 
   if(res.ok){
     const data = await res.json();
-    dispatch(deleteOrder(data));
-    return data
+    dispatch(deleteOrderItemById(data));
+    return data;
+  }
+
+  else if (res.status >= 400) {
+    const errMsgs = await res.json()
+    return errMsgs;
+  }
+}
+
+export const getOrderByOrderNumberThunk = (userId, orderNumber) => async dispatch => {
+  const res = await csrfFetch(`/api/orders/${userId}/${orderNumber}`);
+
+  if(res.ok){
+    const data = await res.json();
+    dispatch(getOrderByOrderNumber(data))
+    return data;
   }
 
   else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
-}
+};
 
 // Selectors
 const getReviews = (state) => state.session.reviews
@@ -416,7 +472,7 @@ export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
 })
 
 
-const initialState = { user: null, items: null, reviews: null, orders: null };
+const initialState = { user: null, items: null, reviews: null, orders: null, order_items: null};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -479,15 +535,15 @@ function sessionReducer(state = initialState, action) {
     //ORDER
     case GET_ORDERS_BY_USER_ID:
       const theOrders = {};
-      theOrders.orders = {}
-      action.payload.orders.forEach(order => theOrders.orders[order.order_number] = order)
+      action.payload.forEach(order => theOrders[order.order_number] = order)
       return {...state, orders: theOrders}
 
     case GET_ORDER_BY_ORDER_NUMBER:
+      console.log(action.payload)
       return {...state, orders: action.payload}
 
     case CREATE_ORDER:
-      const addOrder = {}
+      const addOrder = {...state.orders}
       addOrder[action.payload.order_number] = action.payload;
       return {...state, orders: addOrder}
 
@@ -497,9 +553,16 @@ function sessionReducer(state = initialState, action) {
       return {...state, orders: editOrder}
 
     case DELETE_ORDER:
-      const deleteOrder = {...state.orders}
-      delete deleteOrder.orders[action.payload]
-      return {...state, orders: deleteOrder}
+      console.log(action.payload)
+      const deletedOrder = {...state.orders}
+      delete deletedOrder[action.payload]
+      return {...state, orders: deletedOrder}
+
+    case GET_ORDER_ITEMS_BY_ORDER_NUMBER:
+      // console.log(action.payload)
+      const theOrderItems = {}
+      action.payload.forEach(orderItem => theOrderItems[orderItem.id] = orderItem)
+      return {...state, order_items: theOrderItems}
 
     default:
       return state;

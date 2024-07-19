@@ -39,6 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true
       }
     },
+    total_price:{
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      validate: {
+        isNumeric: true
+      }
+    },
     registered: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -55,8 +62,8 @@ module.exports = (sequelize, DataTypes) => {
         isValid(value){
           console.log("Logging value: ", value === 'processing')
           value = value.toLowerCase()
-          if(value === 'processing' || value === 'shipped') return
-          else throw new Error('Status must be "processing" or "shipped"')
+          if(value === 'processing' || value === 'shipped' || value === 'delivered') return
+          else throw new Error('Status must be "processing", "shipped", or "delivered"')
         }
       }
     }

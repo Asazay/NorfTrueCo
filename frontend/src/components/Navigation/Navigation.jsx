@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector, } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import { useNavigate } from 'react-router-dom';
 // import * as sessionActions from '../../redux/session';
@@ -11,7 +11,7 @@ import SignupFormModal from '../SignupFormModal/SignupFormModal'
 import ShoppingCartModal from '../ShoppingCartModal/ShoppingCartModal.jsx';
 import OpenModalNavItem from '../ShoppingCartModal/OpenModalNavItem.jsx';
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded}) {
   const sessionUser = useSelector(state => state.session.user);
   const navigate = useNavigate()
   // const dispatch = useDispatch();
