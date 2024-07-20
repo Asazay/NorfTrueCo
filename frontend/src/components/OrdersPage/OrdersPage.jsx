@@ -1,7 +1,7 @@
 import './Orders.css'
 import { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { getOrdersByUserIdThunk } from '../../redux/session';
 import OrdersPageTile from './OrdersPageTile';
 
@@ -32,9 +32,13 @@ function OrdersPage(){
 
     return (
         <div id='orders-page'>
-            <div id='orders-h1'><h2>Order History</h2></div>
+            <div id='linkDiv'>
+                <NavLink to='/'>Home</NavLink>
+                <NavLink to='/shop/products'>Shop</NavLink>
+            </div>
+            <div id='orders-h1'><h2>Orders</h2></div>
             <div id='orders-div'>
-                {orders && Object.values(orders).length > 0 && Object.values(orders).map(order => (<OrdersPageTile key={order.order_number} order={order}/>))}
+                {orders && Object.values(orders).length > 0 && Object.values(orders).map(order => (<OrdersPageTile key={order.order_number} order={order} orders={orders}/>))}
             </div>
         </div>
     )

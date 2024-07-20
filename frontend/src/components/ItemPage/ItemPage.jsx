@@ -3,7 +3,7 @@ import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ReviewTile from './ReviewTitle';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import CreateReviewModal from '../CreateReviewModal/CreateReviewModal';
@@ -15,6 +15,7 @@ function ItemPage() {
     const dispatch = useDispatch()
     const { itemId } = useParams()
     const [itemSize, setItemSize] = useState('small')
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
@@ -116,7 +117,7 @@ function ItemPage() {
                     </div>
                     <div>
                         <button onClick={e => addToCart(e)}>Add to cart</button>
-                        <button className='inline-btn'>Continue shopping</button>
+                        <button className='inline-btn' onClick={() => navigate('/shop/products')}>Continue shopping</button>
                     </div>
                 </div>
             </div>

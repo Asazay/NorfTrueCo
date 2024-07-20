@@ -18,7 +18,8 @@ router.get('/:orderNumber', async (req, res, next) => {
         },
         attributes: ['id', 'order_number', 'image', 'name', 'size', 'color',
             'price', 'quantity'
-        ]
+        ],
+        order: [['name', 'DESC']]
     });
 
     if(orderItems){
@@ -43,22 +44,35 @@ router.delete('/:orderNumber/:itemId', async (req, res, next) => {
     });
 
     if(theOrderItem){
-        await theOrderItem.destroy()
+        await Order_Item.destroy({
+            where: {
+                order_number: {
+                    [Op.eq]: parseInt(orderNumber)
+                },
+                id: {
+                    [Op.eq]: parseInt(itemId)
+                }
+            },
+            attributes: ['id', 'order_number', 'image', 'name', 'size', 'color',
+                'price', 'quantity'
+            ],
+        })
     }
 
     else if(!theOrderItem) return res.json({error: 'The order item couldnt be retrieved'})
 
-    const newOrderItems = await Order_Item.findAll({
-        where: {
-            order_number: {
-                [Op.eq]: parseInt(orderNumber)
-            }
-        }
-    });
+    // const newOrderItems = await Order_Item.findAll({
+    //     where: {
+    //         order_number: {
+    //             [Op.eq]: parseInt(orderNumber)
+    //         },
+    //     }
+    // });
 
-    if(newOrderItems){
-        return res.json(newOrderItems)
-    }
+    // if(newOrderItems){
+    // }
+
+    return res.json({orderNumber, itemId})
 });
 
 module.exports = router;

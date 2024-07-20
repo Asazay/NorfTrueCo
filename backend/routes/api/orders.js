@@ -69,7 +69,7 @@ router.get('/:userId', async (req, res, next) => {
                 [Op.eq]: parseInt(userId)
             },
         },
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt']]
     });
 
     if (orders) {
@@ -80,21 +80,25 @@ router.get('/:userId', async (req, res, next) => {
                     order_number: {
                         [Op.eq]: parseInt(order.order_number)
                     }
-                }
+                },
             });
 
-            // let orderItems = await Order_Item.findAll({
-            //     where: {
-            //         order_number: {
-            //             [Op.eq]: parseInt(order.order_number)
-            //         }
-            //     }
-            // })
+            let orderItems = await Order_Item.findAll({
+                where: {
+                    order_number: {
+                        [Op.eq]: parseInt(order.order_number)
+                    }
+                },
+                attributes: ['id', 'order_number', 'image', 'name', 'size', 'color',
+                    'price', 'quantity'
+                ],
+                order:[['createdAt']]
+            })
 
-            if(orderInfo){
+            if(orderInfo && orderItems){
                 orderInfo = await orderInfo.toJSON()
                 order.Order_Information = orderInfo;
-                // order.Order_Items = orderItems;
+                order.Order_Items = orderItems;
                 return order
             }
             else {
@@ -219,7 +223,7 @@ router.get('/:userId/:orderNumber', async (req, res, next) => {
     const { userId, orderNumber } = req.params;
     const where = {}
 
-    if (typeof Number(userId) !== 'number') {
+    if (typeof Number(userId) !== 'number' || !userId) {
         where.user_id = { [Op.eq]: null }
     }
 

@@ -1,3 +1,13 @@
+h4 {
+    font-weight: bold;
+    font-size: large;
+}
+
+#h4-div{
+    min-width: 100px;
+    width: 100%;
+}
+
 #orders-page{
     display: flex;
     flex-direction: column;
@@ -24,7 +34,7 @@
     justify-content: flex-start;
     align-items: center;
     /* width: 80%; */
-    padding: 10px;
+    padding: 5px;
     margin: 1px;
     background-color: white;
 }
@@ -32,6 +42,7 @@
 #tile-column > div{
     width: max-content;
     height: min-content;
+    padding-right: 10px;
 }
 
 #tile-column div{
@@ -47,6 +58,11 @@
     margin: 5px;
 }
 
+#item-attributes{
+    min-width: 200px;
+    width: 100%;
+}
+
 #btn-div{
     display: flex;
 }
@@ -59,6 +75,34 @@
     padding: 5px;
 }
 
+#checkbox{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    flex: 1;
+}
+
 fieldset{
     border: none;
+    width: 50%;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+#linkDiv{
+    width: 80%;
+    text-decoration: none;
+    margin: 10px 0;
+    height: min-content;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid #A70000 1px;
+}
+
+#linkDiv a{
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
 }

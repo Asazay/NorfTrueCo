@@ -27,7 +27,7 @@ const DELETE_ORDER = 'session/deleteOrder';
 //Order Items
 const GET_ORDER_ITEMS_BY_ORDER_NUMBER = 'session/getOrderItemsByOrderNumber';
 // const GET_ORDER_ITEM_BY_ITEM_ID = 'session/getOrderItemByOrderId';
-const DELETE_ORDER_ITEM_BY_ID = 'session/deleteOrderItem';
+const DELETE_ORDER_ITEM_BY_ID = 'session/deleteOrderItemById';
 
 //User actions
 const setUser = (user) => ({
@@ -335,7 +335,7 @@ export const getOrdersByUserIdThunk = (userId) => async dispatch => {
 
   if(res.ok){
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     dispatch(getOrdersByUserId(data))
     return data;
   }
@@ -427,8 +427,8 @@ export const getOrderItemsByOrderNumberThunk = (orderNumber) => async dispatch =
   }
 }
 
-export const deleteOrderItemByIdThunk = (orderNumber, itemNumber) => async dispatch => {
-  const res = await csrfFetch(`/api/order-items/${orderNumber}/${itemNumber}`, {
+export const deleteOrderItemByIdThunk = (orderNumber, itemId) => async dispatch => {
+  const res = await csrfFetch(`/api/order-items/${orderNumber}/${itemId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -437,6 +437,7 @@ export const deleteOrderItemByIdThunk = (orderNumber, itemNumber) => async dispa
 
   if(res.ok){
     const data = await res.json();
+    console.log(data)
     dispatch(deleteOrderItemById(data));
     return data;
   }
@@ -535,7 +536,12 @@ function sessionReducer(state = initialState, action) {
     //ORDER
     case GET_ORDERS_BY_USER_ID:
       const theOrders = {};
-      action.payload.forEach(order => theOrders[order.order_number] = order)
+      action.payload.forEach(order => {
+        let arrToObjItems = {};
+        order.Order_Items.forEach(item => arrToObjItems[item.id] = item);
+        order.Order_Items = arrToObjItems;
+        theOrders[order.order_number] = order
+      })
       return {...state, orders: theOrders}
 
     case GET_ORDER_BY_ORDER_NUMBER:
@@ -563,6 +569,11 @@ function sessionReducer(state = initialState, action) {
       const theOrderItems = {}
       action.payload.forEach(orderItem => theOrderItems[orderItem.id] = orderItem)
       return {...state, order_items: theOrderItems}
+
+    case DELETE_ORDER_ITEM_BY_ID:
+      const deletedOrderItem = {...state.orders}
+      delete deletedOrderItem[action.payload.orderNumber]['Order_Items'][action.payload.itemId]
+      return {...state, orders: deletedOrderItem}
 
     default:
       return state;
