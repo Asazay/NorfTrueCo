@@ -21,39 +21,40 @@ module.exports = {
    await Order_Item.bulkCreate([
     {
       order_number: 2024001,
-      item_id: 3,
-      item_quantity: 1
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+      name: 'Norf True Snapback',
+      size: 'universal',
+      color: 'red',
+      price: 24.99,
+      quantity: 3,
     },
     {
       order_number: 2024001,
-      item_id: 2,
-      item_quantity: 1
-    },
-    {
-      order_number: 2024001,
-      item_id: 7,
-      item_quantity: 1
-    },
-    {
-      order_number: 2024002,
-      item_id: 4,
-      item_quantity: 1
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+      name: 'Stay True Snapback',
+      size: 'universal',
+      color: 'red',
+      price: 24.99,
+      quantity: 5
     },
     {
       order_number: 2024002,
-      item_id: 6,
-      item_quantity: 1
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+      name: 'World Peace',
+      size: 'small',
+      color: 'pink',
+      price: 21.99,
+      quantity: 2
     },
     {
       order_number: 2024002,
-      item_id: 10,
-      item_quantity: 1
-    },
-    {
-      order_number: 2024002,
-      item_id: 9,
-      item_quantity: 1
-    },
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+      name: 'Blue Dreamer',
+      size: 'small',
+      color: 'blue',
+      price: 39.99,
+      quantity: 1
+    }
    ])
   },
 

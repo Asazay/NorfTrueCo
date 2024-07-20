@@ -7,42 +7,52 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('User_Informations', {
+    await queryInterface.createTable('Order_Informations', {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        primaryKey: true,
+      },
+      order_number: {
+        type: Sequelize.INTEGER,
+        // primaryKey: true,
       },
       first_name: {
-        type: Sequelize.STRING(16)
+        type: Sequelize.STRING
       },
       last_name: {
-        type: Sequelize.STRING(16)
+        type: Sequelize.STRING
       },
-      phone: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+      email: {
+        type: Sequelize.STRING
       },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      bill_address: {
+        type: Sequelize.STRING
       },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      bill_city: {
+        type: Sequelize.STRING
       },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      bill_state: {
+        type: Sequelize.STRING
       },
-      zip_code: {
-        type: Sequelize.INTEGER,
-         allowNull: true,
+      bill_zip_code: {
+        type: Sequelize.STRING(5)
+      },
+      ship_address: {
+        type: Sequelize.STRING
+      },
+      ship_city: {
+        type: Sequelize.STRING
+      },
+      ship_state: {
+        type: Sequelize.STRING
+      },
+      ship_zip_code: {
+        type: Sequelize.STRING(5)
+      },
+      card_number: {
+        type: Sequelize.STRING(4)
       },
       createdAt: {
         allowNull: false,
@@ -54,10 +64,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    }, options);
+    });
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'User_Informations'
+    options.tableName = 'Order_Informations'
     await queryInterface.dropTable(options);
   }
 };

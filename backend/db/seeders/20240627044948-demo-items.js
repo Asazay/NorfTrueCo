@@ -16,7 +16,7 @@ module.exports = {
         price: 24.99,
         category: 'hats',
         gender: 'men',
-        quantity: 5,
+        quantity: 10,
         image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
       },
       {

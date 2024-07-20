@@ -8,15 +8,38 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Order_Items', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       order_number: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        // primaryKey: true,
       },
-      item_id: {
-        type: Sequelize.INTEGER,
+      image: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      item_quantity: {
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      size: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      color: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
+      quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

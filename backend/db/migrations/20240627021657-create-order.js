@@ -21,10 +21,11 @@ module.exports = {
       order_number: {
         type: Sequelize.INTEGER,
          allowNull: false,
+         unique: true,
       },
-      user_info: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+      total_price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
       },
       registered: {
         type: Sequelize.BOOLEAN,

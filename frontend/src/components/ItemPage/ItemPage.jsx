@@ -1,10 +1,9 @@
 import './ItemPage.css'
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
-import { getReviewsArraySelector } from '../../redux/session';
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ReviewTile from './ReviewTitle';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import CreateReviewModal from '../CreateReviewModal/CreateReviewModal';
@@ -15,6 +14,8 @@ function ItemPage() {
     const reviews = useSelector(state => state.session.reviews)
     const dispatch = useDispatch()
     const { itemId } = useParams()
+    const [itemSize, setItemSize] = useState('small')
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
@@ -26,15 +27,19 @@ function ItemPage() {
             const data = res.json();
             if (data && data.errors) console.log(data.errors)
         })
-
     }, [dispatch])
+
+    useEffect(() => {
+        if(item && item.size && item.size === 'universal') setItemSize('universal')
+    }, [item])
+
 
     const userCommented = () => {
         let value = false;
 
         if (reviews) {
             Object.values(reviews.reviews).forEach(review => {
-                if (user && review.user_id == user.id) {
+                if (user && review.user_id === user.id) {
                     value = true;
                 }
             });
@@ -43,11 +48,55 @@ function ItemPage() {
         return value;
     };
 
+    const addToCart = (e) => {
+        e.preventDefault();
+
+        let cart;
+
+        if (localStorage.getItem('cart')) {
+            console.log('getItem ran')
+            cart = JSON.parse(localStorage.getItem('cart'))
+            if (cart && !cart.items[item.id]) {
+                cart.items[item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    quantity: 1
+                }
+            }
+
+            else if(cart && cart.items[item.id]){
+                cart.items[item.id].quantity += 1
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+
+        else localStorage.setItem('cart', JSON.stringify({
+            items: {
+                [item.id]: {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    quantity: 1
+                }
+            }
+        }))
+
+        alert("Item added to cart")
+    }
+
     return (
         item && <div id='item-page'>
             <div id='item-content'>
                 <div id='image-div'>
-                    <img src={item.image} alt='image' />
+                    <img src={item.image} alt='' />
                 </div>
                 <div id='item-info'>
                     <div><h2>{item.name}</h2></div>
@@ -58,7 +107,7 @@ function ItemPage() {
                     </div>
                     <div>
                         <label htmlFor='size'><h3>Size: </h3></label>
-                        {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes'>
+                        {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes' onChange={e => setItemSize(e.target.value)}>
                             <option value='small'>SMALL</option>
                             <option value='medium'>MEDIUM</option>
                             <option value='large'>LARGE</option>
@@ -68,15 +117,16 @@ function ItemPage() {
                         </select>}
                     </div>
                     <div>
-                        <button>Add to cart</button>
-                        <button className='inline-btn'>Continue shopping</button>
+                        <button onClick={e => addToCart(e)}>Add to cart</button>
+                        <button className='inline-btn' onClick={() => navigate('/shop/products')}>Continue shopping</button>
                     </div>
                 </div>
             </div>
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+       <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+
                 </div>
                 <div id='review-tiles-div'>
                     {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}

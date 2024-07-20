@@ -15,13 +15,15 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id'
       });
 
-      Order.belongsToMany(models.Item, {
-        through: 'order_items'
+      Order.hasOne(models.Order_Information, {
+        foreignKey: 'order_number',
+        onDelete: 'CASCADE',
       })
 
-      Order.hasOne(models.User_Information, {
-        as: 'user_information'
-      });
+      Order.hasMany(models.Order_Item, {
+        foreignKey: 'order_number',
+        onDelete: 'CASCADE'
+      })
     }
   }
   Order.init({
@@ -32,21 +34,24 @@ module.exports = (sequelize, DataTypes) => {
     order_number: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
       validate: {
         isInt: true
       }
     },
-    user_info: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+    total_price:{
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+      validate: {
+        isNumeric: true
+      }
     },
     registered: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       validate:{
         isBoolean(value){
-          value = value.toLowerCase()
-          if(value !== 'true' || value !== 'false') throw new Error('Registered must be true or false')
+          if(typeof value !== 'boolean') throw new Error('Registed field must be true or false')
         }
       }
     },
@@ -55,8 +60,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isValid(value){
+          console.log("Logging value: ", value === 'processing')
           value = value.toLowerCase()
-          if(value !== 'processing' || value !== 'shipped') throw new Error('Status must be "processing" or "shipped"')
+          if(value === 'processing' || value === 'shipped' || value === 'delivered') return
+          else throw new Error('Status must be "processing", "shipped", or "delivered"')
         }
       }
     }

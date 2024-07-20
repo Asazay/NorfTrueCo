@@ -1,0 +1,108 @@
+h4 {
+    font-weight: bold;
+    font-size: large;
+}
+
+#h4-div{
+    min-width: 100px;
+    width: 100%;
+}
+
+#orders-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* box-sizing: border-box; */
+}
+
+#orders-div{
+    width: 80%;
+}
+
+#tile-header{
+    display: flex;
+    justify-content: space-around;
+    /* width: 80%; */
+    padding: 10px;
+    margin: 1px;
+    background-color: white;
+}
+
+#tile-column{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* width: 80%; */
+    padding: 5px;
+    margin: 1px;
+    background-color: white;
+}
+
+#tile-column > div{
+    width: max-content;
+    height: min-content;
+    padding-right: 10px;
+}
+
+#tile-column div{
+    margin: 5px;
+}
+
+#tile-div{
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    border: solid #A70000 1px;
+    width: 100%;
+    margin: 5px;
+}
+
+#item-attributes{
+    min-width: 200px;
+    width: 100%;
+}
+
+#btn-div{
+    display: flex;
+}
+
+#btn-div div{
+    margin: 5px;
+}
+
+#btn-div div button{
+    padding: 5px;
+}
+
+#checkbox{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    flex: 1;
+}
+
+fieldset{
+    border: none;
+    width: 50%;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+#linkDiv{
+    width: 80%;
+    text-decoration: none;
+    margin: 10px 0;
+    height: min-content;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid #A70000 1px;
+}
+
+#linkDiv a{
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
+}

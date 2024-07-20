@@ -6,21 +6,13 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
-      User.hasOne(models.User_Information, {
-        foreignKey: {
-          name: 'user_id',
-          allowNull: false
-        },
-        sourceKey: 'id'
-      })
-
-      User.belongsToMany(models.Wishlist, {
-        through: 'user_id'
-      });
-
       User.hasMany(models.Review, {
         foreignKey: 'user_id'
-      })
+      });
+
+      User.hasMany(models.Order, {
+        foreignKey: 'user_id'
+      });
     }
   };
 
@@ -47,6 +39,14 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 256],
           isEmail: true
         }
+      },
+      firstName: {
+        allowNull: false,
+        type: DataTypes.STRING(16),
+      },
+      lastName: {
+        type: DataTypes.STRING(16),
+        allowNull: false,
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,

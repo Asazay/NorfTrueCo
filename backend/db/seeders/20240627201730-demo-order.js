@@ -21,16 +21,16 @@ module.exports = {
     {
       user_id: 1,
       order_number: 2024001,
-      user_info: 1,
-      registered: true,
-      status: 'processing'
-    },
-    {
-      user_id: 2,
-      order_number: 2024002,
-      user_info: 2,
+      total_price: 52.98,
       registered: true,
       status: 'shipped'
+    },
+    {
+      user_id: 1,
+      order_number: 2024002,
+      total_price: 64.98,
+      registered: true,
+      status: 'processing'
     }
    ])
   },
@@ -45,7 +45,7 @@ module.exports = {
     options.tableName = 'Orders';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      user_id: {[Op.in]: [1,2,3]}
+      user_id: {[Op.in]: [1]}
     })
   }
 };
