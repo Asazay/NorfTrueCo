@@ -33,6 +33,7 @@ function ItemPage() {
         if(item && item.size && item.size === 'universal') setItemSize('universal')
     }, [item])
 
+
     const userCommented = () => {
         let value = false;
 
@@ -124,10 +125,11 @@ function ItemPage() {
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+       <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+
                 </div>
                 <div id='review-tiles-div'>
-                    {user && userCommented() === false && <div><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}
+                    {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}
                     {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews).map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} />))}
                 </div>
             </div>

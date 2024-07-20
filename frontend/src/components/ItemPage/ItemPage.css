@@ -114,3 +114,7 @@ h3{
 #edit-delete-review button{
     margin: 0 5px;
 }
+
+#submitReviewDiv{
+    padding: 10px;
+}
