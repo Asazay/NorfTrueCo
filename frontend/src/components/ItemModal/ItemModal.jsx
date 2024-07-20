@@ -68,6 +68,7 @@ function ItemModal({ itemId }) {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
@@ -88,6 +89,7 @@ function ItemModal({ itemId }) {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
@@ -122,6 +124,10 @@ function ItemModal({ itemId }) {
                             </select>}
                         </div>
                         <div>
+                            <label htmlFor='description'><h3>Description: </h3></label>
+                            <div><p>{item.description}</p></div>
+                        </div>
+                        <div>
                             <button onClick={e => addToCart(e)}>Add to cart</button>
                             <button className='inline-btn' onClick={() => closeModal()}>Continue shopping</button>
                         </div>
@@ -136,7 +142,9 @@ function ItemModal({ itemId }) {
                 </div>
                 <div id='review-tiles-div'>
                     {/* {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>} */}
-                    {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews).map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} isItemModal={isItemModal}/>))}
+                    {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews)
+                    .map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} isItemModal={isItemModal}/>)) || 
+                    <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}><h4 style={{justifySelf: 'center'}}>No Reviews</h4></div>}
                 </div>
             </div>
         </div>

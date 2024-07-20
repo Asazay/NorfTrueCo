@@ -39,6 +39,7 @@ const ShopPageItem = ({ item }) => {
                     size: item.size,
                     color: item.color,
                     price: item.price,
+                    description: item.description
                 }
             }
 
@@ -56,6 +57,7 @@ const ShopPageItem = ({ item }) => {
                         size: item.size,
                         color: item.color,
                         price: item.price,
+                        description: item.description
                     }
                 }
             }));

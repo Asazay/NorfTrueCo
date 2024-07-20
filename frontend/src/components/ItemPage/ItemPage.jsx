@@ -63,6 +63,7 @@ function ItemPage() {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
@@ -83,6 +84,7 @@ function ItemPage() {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
@@ -117,6 +119,10 @@ function ItemPage() {
                             </select>}
                         </div>
                         <div>
+                            <label htmlFor='description'><h3>Description: </h3></label>
+                            <div><p>{item.description}</p></div>
+                        </div>
+                        <div>
                             <button onClick={e => addToCart(e)}>Add to cart</button>
                             <button className='inline-btn' onClick={() => navigate('/shop/products')}>Continue shopping</button>
                         </div>
@@ -126,7 +132,7 @@ function ItemPage() {
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars == true && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
 
                 </div>
                 <div id='review-tiles-div'>
