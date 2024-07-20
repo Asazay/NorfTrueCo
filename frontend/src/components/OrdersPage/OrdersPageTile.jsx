@@ -78,7 +78,7 @@ function OrdersPageTile({ order }) {
             return setErrors(newErrors)
         }
 
-        if (selItems.length === 1 || (count > 0 && (count - selectedCount) < 1)) return await dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
+        if (count === 1 || (count > 0 && (count - selectedCount) < 1)) return await dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
             console.log(res)
             // let data;
 
@@ -183,7 +183,7 @@ function OrdersPageTile({ order }) {
                 <div id='btn-div'>
                     {order.status && order.status !== 'shipped' && order.status !== 'delivered' && <div>
                         <OpenModalButton modalComponent={<ConfirmModal title={'Confirm Cancel'}
-                            question={'Are you sure you want to cancel?'}
+                            question={'Are you sure you want to cancel the order?'}
                             bodyTxt={"Your order cancel will be procesed. You will be refunded to the payment method used at checkout"}
                             confirmTxt={'Confirm'}
                             cancelTxt={'Cancel'}

@@ -17,7 +17,8 @@ module.exports = {
         category: 'hats',
         gender: 'men',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+        description: 'A comfy hat stitched with compassion.'
       },
       {
         name: 'Stay True Snapback',
@@ -27,7 +28,8 @@ module.exports = {
         category: 'hats',
         gender: 'men',
         quantity: 3,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png',
+        description: 'This norf true hat is crafted with love.'
       },
       {
         name: 'Norf True 2024',
@@ -37,7 +39,8 @@ module.exports = {
         category: 'shirts',
         gender: 'men',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+        description: 'A 2024 exclusive made with the best cloth around.'
       },
       {
         name: 'World Peace',
@@ -47,7 +50,8 @@ module.exports = {
         category: 'shirts',
         gender: 'men',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png',
+        description: 'World peace is a important goal to strive for. Spread the message with this exclusive.'
       },
       {
         name: 'Norf Diva',
@@ -57,7 +61,8 @@ module.exports = {
         category: 'shirts',
         gender: 'women',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+        description: 'A shirt made truly for a diva. True to size.'
       },
       {
         name: 'Ripped Elegant',
@@ -67,7 +72,8 @@ module.exports = {
         category: 'pants',
         gender: 'men',
         quantity: 9,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png',
+        description: 'Exclusive ripped jeans designed and made to fit you perfectly.'
       },
       {
         name: 'Blue Dreamer',
@@ -77,7 +83,8 @@ module.exports = {
         category: 'pants',
         gender: 'women',
         quantity: 7,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+        description: 'A abstract design focused around creativity.'
       },
       {
         name: 'Norf Socks',
@@ -87,7 +94,8 @@ module.exports = {
         category: 'socks',
         gender: 'unisex',
         quantity: 20,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png',
+        description: 'Norf true logo socks.'
       },
       {
         name: 'Norf True Messenger',
@@ -97,7 +105,8 @@ module.exports = {
         category: 'accessories',
         gender: 'men',
         quantity: 12,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
+        description: 'Exclusive release Norf True Co. messenger bag.'
       },
       {
         name: 'Norf True Scarf',
@@ -107,7 +116,8 @@ module.exports = {
         category: 'accessories',
         gender: 'women',
         quantity: 10,
-        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png'
+        image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo-Alt.png',
+        description: 'A scarf made of the best cotton in the country. :)'
       },
     ])
   },

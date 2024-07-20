@@ -1,0 +1,103 @@
+#modal{
+    margin: 0 100px;
+}
+
+h2{
+    font-size: 36px;
+}
+h3{
+    display: inline;
+}
+
+#item-page{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#image-div{
+    border: solid black 1px;
+    width: 40%;
+    height: 100%;
+}
+
+#image-div img{
+    width: 100%;
+    height: 100%;
+}
+
+#item-content{
+    display: flex;
+}
+#item-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
+    padding: 0 20px;
+    color: black;
+    /* width: 60%; */
+    background-color: whitesmoke;
+    height: 100%;
+    border: solid lightgray 1px;
+}
+
+#item-info h2{
+    margin: 0;
+    padding: 0;
+}
+
+#item-info button{
+    width: 200px;
+    height: 40px;
+}
+
+#item-info div{
+    stroke: white;
+    width: max-content;
+    margin: 10px 0;
+}
+
+.inline-btn{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#reviews-heading-modal{
+    margin-top: 25px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+#review-tiles-div{
+    overflow-y: scroll;
+    padding: 0;
+    border-top: solid #A70000 1px;
+}
+
+#reviewDiv{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: max-content;
+}
+
+#reviewTile{
+    background-color: white;
+    padding: 10px;
+    background-color: rgb(235, 232, 232);
+    margin-bottom: 10px;
+}
+
+#edit-delete-review{
+    display: flex;
+}
+
+#edit-delete-review button{
+    margin: 0 5px;
+}
+
+#submitReviewDiv{
+    padding: 10px;
+}

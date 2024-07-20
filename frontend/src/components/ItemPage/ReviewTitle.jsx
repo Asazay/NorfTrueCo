@@ -4,7 +4,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import UpdateReviewModal from "../UpdateReviewModa;/UpdateReviewModal";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 
-function ReviewTile({ review, userCommented }) {
+function ReviewTile({ review, userCommented, isItemModal = false}) {
     const user = useSelector(state => state.session.user);
     let amtStars = [];
 
@@ -30,7 +30,7 @@ function ReviewTile({ review, userCommented }) {
                         {review.comment}
                     </p>
                 </div>
-                {userCommented === true && user.id === review.user_id &&
+                {userCommented === true && user.id === review.user_id && !isItemModal &&
                 <div id="edit-delete-review">
                     <div><OpenModalButton itemText={'Update'} modalComponent={<UpdateReviewModal reviewId={review.id} itemId={review.item_id}/>}/></div>
                     <div><OpenModalButton itemText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} itemId={review.item_id}/>}/></div>

@@ -473,7 +473,7 @@ export const getReviewsArraySelector = createSelector(getReviews, (reviews) => {
 })
 
 
-const initialState = { user: null, items: null, reviews: null, orders: null, order_items: null};
+const initialState = { user: null, items: null, item: null, reviews: null, orders: null, order_items: null};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -492,7 +492,7 @@ function sessionReducer(state = initialState, action) {
       }
 
     case GET_ITEM_BY_ID:
-      return { ...state, items: action.payload.item }
+      return { ...state, item: action.payload.item }
 
     //REVIEW
     case GET_REVIEWS_BY_ID:

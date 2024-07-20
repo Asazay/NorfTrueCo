@@ -42,18 +42,18 @@ h3{
 #item-page{
     display: flex;
     flex-direction: column;
-    border: solid antiquewhite 1px;
+    padding: 10px;
 }
 
 #image-div{
-    border: solid whitesmoke 1px;
+    border: solid black 1px;
     width: 40%;
-    height: min-content;
+    height: 100%;
 }
 
 #image-div img{
     width: 100%;
-    height: min-content;
+    height: 100%;
 }
 
 #item-content{
@@ -63,12 +63,18 @@ h3{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: end;
     padding: 0 20px;
-    color: whitesmoke;
-    background-color: #A70000;
-    width: 60%;
-    height: auto;
-    border: solid lightgray 2px;
+    color: black;
+    /* width: 60%; */
+    background-color: whitesmoke;
+    height: 100%;
+    border: solid lightgray 1px;
+}
+
+#item-info h2{
+    margin: 0;
+    padding: 0;
 }
 
 #item-info button{
@@ -88,9 +94,16 @@ h3{
 }
 
 #reviews-heading{
+    margin-top: 50px;
     padding: 0 10px;
     display: flex;
     align-items: center;
+}
+
+#review-tiles-div{
+    overflow-y: scroll;
+    padding: 0;
+    border-top: solid #A70000 1px;
 }
 
 #reviewDiv{
@@ -103,8 +116,8 @@ h3{
 #reviewTile{
     background-color: white;
     padding: 10px;
-    margin: 10px 0;
-    border: solid #A70000 1px;
+    background-color: rgb(235, 232, 232);
+    margin-bottom: 10px;
 }
 
 #edit-delete-review{

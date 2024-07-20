@@ -1,5 +1,5 @@
 import './ItemPage.css'
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
@@ -9,7 +9,7 @@ import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import CreateReviewModal from '../CreateReviewModal/CreateReviewModal';
 
 function ItemPage() {
-    const item = useSelector(state => state.session.items);
+    const item = useSelector(state => state.session.item);
     const user = useSelector(state => state.session.user);
     const reviews = useSelector(state => state.session.reviews)
     const dispatch = useDispatch()
@@ -30,7 +30,7 @@ function ItemPage() {
     }, [dispatch])
 
     useEffect(() => {
-        if(item && item.size && item.size === 'universal') setItemSize('universal')
+        if (item && item.size && item.size === 'universal') setItemSize('universal')
     }, [item])
 
 
@@ -54,7 +54,6 @@ function ItemPage() {
         let cart;
 
         if (localStorage.getItem('cart')) {
-            console.log('getItem ran')
             cart = JSON.parse(localStorage.getItem('cart'))
             if (cart && !cart.items[item.id]) {
                 cart.items[item.id] = {
@@ -64,11 +63,12 @@ function ItemPage() {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
 
-            else if(cart && cart.items[item.id]){
+            else if (cart && cart.items[item.id]) {
                 cart.items[item.id].quantity += 1
             }
 
@@ -84,6 +84,7 @@ function ItemPage() {
                     size: itemSize,
                     color: item.color,
                     price: item.price,
+                    description: item.description,
                     quantity: 1
                 }
             }
@@ -95,37 +96,43 @@ function ItemPage() {
     return (
         item && <div id='item-page'>
             <div id='item-content'>
-                <div id='image-div'>
-                    <img src={item.image} alt='' />
-                </div>
-                <div id='item-info'>
-                    <div><h2>{item.name}</h2></div>
-                    <div><h3>${item.price}</h3></div>
-                    <div>
-                        <label htmlFor='color'><h3>Color: </h3></label>
-                        <h3 name='color'>{item.color}</h3>
+                <div style={{display: 'flex' }}>
+                    <div id='image-div'>
+                        <img src={item.image} alt='' />
                     </div>
-                    <div>
-                        <label htmlFor='size'><h3>Size: </h3></label>
-                        {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes' onChange={e => setItemSize(e.target.value)}>
-                            <option value='small'>SMALL</option>
-                            <option value='medium'>MEDIUM</option>
-                            <option value='large'>LARGE</option>
-                            <option value='xl'>XL</option>
-                            <option value='xxl'>XXL</option>
-                            <option value='3xl'>3XL</option>
-                        </select>}
-                    </div>
-                    <div>
-                        <button onClick={e => addToCart(e)}>Add to cart</button>
-                        <button className='inline-btn' onClick={() => navigate('/shop/products')}>Continue shopping</button>
+                    <div id='item-info'>
+                        <div><h2>{item.name}</h2></div>
+                        <div><h3>${item.price}</h3></div>
+                        <div>
+                            <label htmlFor='color'><h3>Color: </h3></label>
+                            <h3 name='color'>{item.color}</h3>
+                        </div>
+                        <div>
+                            <label htmlFor='size'><h3>Size: </h3></label>
+                            {item.size === 'universal' ? <h3>{item.size}</h3> : <select name='sizes' id='sizes' onChange={e => setItemSize(e.target.value)}>
+                                <option value='small'>SMALL</option>
+                                <option value='medium'>MEDIUM</option>
+                                <option value='large'>LARGE</option>
+                                <option value='xl'>XL</option>
+                                <option value='xxl'>XXL</option>
+                                <option value='3xl'>3XL</option>
+                            </select>}
+                        </div>
+                        <div>
+                            <label htmlFor='description'><h3>Description: </h3></label>
+                            <div><p>{item.description}</p></div>
+                        </div>
+                        <div>
+                            <button onClick={e => addToCart(e)}>Add to cart</button>
+                            <button className='inline-btn' onClick={() => navigate('/shop/products')}>Continue shopping</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div id='reviewDiv'>
                 <div id='reviews-heading'>
                     <span style={{ fontSize: 36 }}>Reviews </span>
-       <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
+                    <span style={{ display: 'inline', paddingLeft: 10 }}>⭐{reviews && reviews.avgStars == true && reviews.avgStars.toFixed(1)} ({reviews && reviews.totalReviews} reviews)</span>
 
                 </div>
                 <div id='review-tiles-div'>
