@@ -151,10 +151,8 @@ function ShopPage() {
     }, [dispatch])
 
 
-    useEffect(() => {
-        console.log(gender, sizes, colors, minPrice, maxPrice, categories)
-
-    }, [gender, sizes, colors, minPrice, maxPrice, categories])
+    // useEffect(() => {
+    // }, [gender, sizes, colors, minPrice, maxPrice, categories])
 
     return (
         <div id='body'>
