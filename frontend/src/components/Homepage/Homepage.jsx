@@ -12,28 +12,29 @@ function Homepage() {
 
     return (
         <div id='body'>
-            <div id='h2-div'><h2>Fall-Winter 2024 Collection</h2></div>
+            <div id='h2-div'>
+                <h2>Fall-Winter 2024 Collection</h2>
+                <p>Coming soon!</p>
+            </div>
             <div id='main-page'>
                 <div id='featured-div'>
-                    <img src='https://i.imgur.com/muMtVYW.png?1' height={250} width={250} />
-                    <button>Shop Men's Collection</button>
+                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Men+Collection+Image.jpg' />
+                    <button onClick={() => navigate('/shop/products/query/?gender=men')}>Shop Men's</button>
                 </div>
                 <div id='featured-div'>
-                    <div>
+                    <div id='p-button'>
                         <p id='featured-p'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Norf True Co. is not just a brand its creativity, passion, and love.
+                            Check out our latest collections and styles to feed your fashion desires!
                         </p>
                     </div>
                     <div id='featured-btn-div'>
-                        <button  onClick={handleShopAll} id='shopAll-btn'>Shop All</button>
-                    </div>
+                            <button onClick={handleShopAll} id='shopAll-btn'>Shop All</button>
+                        </div>
                 </div>
                 <div id='featured-div'>
-                    <img src='https://i.imgur.com/muMtVYW.png?1' height={250} width={250} />
-                    <button>Shop Women's Collection</button>
+                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Women+Collection+Image.jpg' />
+                    <button onClick={() => navigate('/shop/products/query/?gender=women')}>Shop Women's</button>
                 </div>
             </div>
         </div>

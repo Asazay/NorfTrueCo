@@ -12,7 +12,8 @@ h4 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     /* box-sizing: border-box; */
 }
 
@@ -53,7 +54,7 @@ h4 {
     display: flex;
     flex-direction: column;
     justify-items: flex-start;
-    border: solid #A70000 1px;
+    border: solid #222222 1px;
     width: 100%;
     margin: 5px;
 }
@@ -105,4 +106,10 @@ fieldset{
     font-weight: bold;
     color: black;
     font-size: 16px;
+}
+
+#no-orders{
+    display: flex;
+    justify-content: center;
+    color: red;
 }

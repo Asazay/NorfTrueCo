@@ -1,6 +1,6 @@
-#modal{
-    margin: 0 100px;
-}
+/* #modal{
+    margin: 0 200px;
+} */
 
 h2{
     font-size: 36px;
@@ -9,10 +9,12 @@ h3{
     display: inline;
 }
 
-#item-page{
+#item-modal{
     display: flex;
     flex-direction: column;
     padding: 10px;
+    width: 60vw;
+    height: 85vh;
 }
 
 #image-div{
@@ -40,6 +42,7 @@ h3{
     background-color: whitesmoke;
     height: 100%;
     border: solid lightgray 1px;
+    width: 100%;
 }
 
 #item-info h2{
@@ -83,10 +86,9 @@ h3{
     height: max-content;
 }
 
-#reviewTile{
-    background-color: white;
+#review-tile-modal{
     padding: 10px;
-    background-color: rgb(235, 232, 232);
+    background-color: rgb(210, 206, 206);
     margin-bottom: 10px;
 }
 

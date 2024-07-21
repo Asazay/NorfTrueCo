@@ -43,6 +43,8 @@ h3{
     display: flex;
     flex-direction: column;
     padding: 10px;
+    width: 80;
+    margin: 20px 100px;
 }
 
 #image-div{
@@ -58,6 +60,9 @@ h3{
 
 #item-content{
     display: flex;
+    width: auto;
+    margin: 0;
+    padding: 0;
 }
 #item-info{
     display: flex;
@@ -67,9 +72,11 @@ h3{
     padding: 0 20px;
     color: black;
     /* width: 60%; */
-    background-color: whitesmoke;
+    background-color: white;
     height: 100%;
     border: solid lightgray 1px;
+    width: 70%;
+    margin-left: 1px;
 }
 
 #item-info h2{
@@ -116,7 +123,6 @@ h3{
 #reviewTile{
     background-color: white;
     padding: 10px;
-    background-color: rgb(235, 232, 232);
     margin-bottom: 10px;
 }
 

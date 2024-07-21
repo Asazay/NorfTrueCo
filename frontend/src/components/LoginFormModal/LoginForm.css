@@ -1,0 +1,54 @@
+#login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    width: 500px;
+    height: max-content;
+}
+
+#formDiv{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 100%;
+}
+
+#formDiv input{
+    width: 100%;
+    border: solid rgb(196, 194, 194) 1px;
+    height: 40px;
+    padding: 0 5px;
+}
+
+#formDiv div{
+    padding: 2px 0;
+}
+
+
+#formDiv h1{
+    align-self: center;
+    width: 100%;
+}
+
+#loginBtnDiv{
+    width: 100%;
+    padding: 0;
+}
+
+#loginBtnDiv button{
+    width: 100%;
+    height: 40px;
+    color: whitesmoke;
+    background-color: #222222;
+    border: none;
+}
+
+#loginBtnDiv button:hover{
+    background-color: #555555;
+    cursor: pointer;
+}
+
+#login-form form p{
+    color: red
+}

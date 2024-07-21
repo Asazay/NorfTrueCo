@@ -16,7 +16,7 @@ function OpenModalNavItem({
   };
 
   return (
-    <button disabled={window.location.href === '/checkout'} onClick={onClick}>{iconEl}</button>
+    <button disabled={window.location.href.split('/checkout')[1] === '/checkout'} onClick={onClick}>{iconEl}</button>
   );
 }
 

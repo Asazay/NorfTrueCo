@@ -11,7 +11,7 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     return dispatch(sessionActions.thunkLogin({ credential, password }))
@@ -20,38 +20,65 @@ function LoginFormModal() {
         const data = await res.json();
         if (data && data.errors) {
           setErrors(data.errors);
+          console.log(data.errors)
         }
       });
   };
 
+  const handleDemoLogin = async (e) => {
+    setCredential('demo@user.io');
+    setPassword('password');
+
+    return dispatch(sessionActions.thunkLogin('demo@user.io', 'password'))
+    .then(closeModal)
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+        console.log(data.errors)
+      }
+    });
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
+    <div id='login-form'>
+      <div id='formDiv'><h1>Log In</h1></div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
+        <div id='formDiv'>
+          <div><label>Username/Email:</label></div>
+          <div>
+            <input
+              type="text"
+              value={credential}
+              onChange={(e) => {
+                setCredential(e.target.value)
+                if(errors.credential) setErrors({})
+              }}
+              required
+            />
+          </div>
+        </div>
+        <div id='formDiv'>
+          <div><label>Password: </label></div>
+          <div><input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              if(errors.credential) setErrors({})
+            }
+          }
             required
           />
-        </label>
+        </div>
+        </div>
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <div id="loginBtnDiv"><button type="submit">Log In</button></div>
+        <div id="loginBtnDiv"><button id='demo-btn' type="submit" onClick={e => handleDemoLogin(e)}>Demo</button></div>
       </form>
-    </>
+    </div>
   );
 }
 

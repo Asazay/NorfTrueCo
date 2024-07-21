@@ -1,0 +1,18 @@
+.choiceDiv{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 75%;
+}
+
+#confirmModal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#choiceBtn button{
+    width: 100px;
+}

@@ -16,7 +16,7 @@ function ReviewTile({ review, userCommented, isItemModal = false}) {
 
     return (
         <div>
-            {review && <div id="reviewTile">
+            {review && <div id={isItemModal ? 'review-tile-modal' : "reviewTile"}>
                 <div id="review-stars-date">
                     <div style={{ display: "inline" }}>
                         {review.stars && amtStars.map((i) => (<span key={i}>⭐</span>))}

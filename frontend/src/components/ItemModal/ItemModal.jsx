@@ -99,7 +99,7 @@ function ItemModal({ itemId }) {
     }
 
     return (
-        item && <div id='item-page'>
+        item && <div id='item-modal'>
             <div id='item-content'>
                 <div style={{display: 'flex' }}>
                     <div id='image-div'>

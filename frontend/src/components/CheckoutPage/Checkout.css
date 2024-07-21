@@ -4,40 +4,66 @@
 
 #checkoutForm input{
     margin: 0;
-    border: solid #A70000 1px;
+    border: solid #555555 1px;
+    height: 40px;
+    width: 100%;
+}
+
+#checkoutForm div{
+    width: 100%;
+    margin: 5px 0;
+}
+
+#checkout-submit-btn{
+    width: 50%;
+    margin: 10px 0;
 }
 
 #checkoutForm div div{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    border: solid gold 1px;
-    height: min-content;
+    /* justify-content: space-around; */
+    /* border: solid gold 1px; */
+    height: auto;
     padding: 0;
-    margin: 5px;
+    width: 500px;
+}
+
+form h2{
+    margin: 0 auto;
 }
 
 #checkout-page{
     display: flex;
     justify-content: center;
-    width: 100%;
-    border: solid red 3px;
+    margin: 0 100px;
     align-items: center;
+    background-color: white;
 }
 
 #checkout-page > div{
-    border: solid green 2px;
-    margin: 0 10px;
-    width: 40%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 10px 20px;
+    align-self: flex-start;
 }
 
 
-/* #customer-info{
-  
-} */
+#customer-info h1{
+  font-size: 60px;
+  justify-self: center;
+}
 
-#cartTotal{
-    align-self: flex-start;
+#customer-info select{
+    height: 40px;
+}
+
+.cartTotal{
+    position: sticky;
+    font-size: 30px;
+    top: -10px;
+    right: -600px;
 }
 
 #customer-info p{

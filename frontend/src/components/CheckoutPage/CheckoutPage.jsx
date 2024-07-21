@@ -60,7 +60,7 @@ function CheckoutPage() {
     }, [])
 
     useEffect(() => {
-        if(cart && cart.total) console.log('cart Total changed to', cart.total)
+        if (cart && cart.total) console.log('cart Total changed to', cart.total)
     }, [])
 
     useEffect(() => {
@@ -115,11 +115,10 @@ function CheckoutPage() {
 
             if (data && data.errors) {
                 setErrors(data.errors)
-                console.log(data.errors)
             }
         });
 
-        if(order && order.order_number){
+        if (order && order.order_number) {
             navigate(`/Confirmation/?cfn=${order.order_number}`)
         }
     }
@@ -136,11 +135,11 @@ function CheckoutPage() {
                                 {(errors && Object.keys(errors).length > 0 && errors.email && <p>{errors.email}</p>) || <p id='hidden'>""</p>}
                                 <label htmlFor='email'>Email: </label>
                                 <input id='email' name='email' type='email' value={email} onChange={e => {
-                                        setEmail(e.target.value)
-                                        const newErrors = {...errors}
-                                        if(newErrors.email) delete newErrors.email;
-                                        setErrors(newErrors)
-                                    }
+                                    setEmail(e.target.value)
+                                    const newErrors = { ...errors }
+                                    if (newErrors.email) delete newErrors.email;
+                                    setErrors(newErrors)
+                                }
                                 }
                                 />
                             </div>
@@ -151,11 +150,11 @@ function CheckoutPage() {
                                 <label>First name: </label>
                                 <input id='firstName' name='first name' value={firstName} onChange={e => {
                                     setFirstName(e.target.value);
-                                    const newErrors = {...errors}
-                                        if(newErrors.firstName) delete newErrors.firstName;
-                                        setErrors(newErrors)
+                                    const newErrors = { ...errors }
+                                    if (newErrors.firstName) delete newErrors.firstName;
+                                    setErrors(newErrors)
                                 }
-                            }
+                                }
                                 />
                             </div>
                             <div>
@@ -163,11 +162,11 @@ function CheckoutPage() {
                                 <label>Last name: </label>
                                 <input id='last Name' value={lastName} onChange={e => {
                                     setLastName(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.lastName) delete newErrors.lastName;
-                                        setErrors(newErrors)
+                                    const newErrors = { ...errors }
+                                    if (newErrors.lastName) delete newErrors.lastName;
+                                    setErrors(newErrors)
                                 }
-                            }
+                                }
                                 />
                             </div>
                         </div>
@@ -180,11 +179,11 @@ function CheckoutPage() {
                                 <label>Address: </label>
                                 <input id='shipAddress' value={shipAddress} onChange={e => {
                                     setShipAddress(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.shipAddress) delete newErrors.shipAddress;
-                                        setErrors(newErrors)
+                                    const newErrors = { ...errors }
+                                    if (newErrors.shipAddress) delete newErrors.shipAddress;
+                                    setErrors(newErrors)
                                 }
-                            }
+                                }
                                 />
                             </div>
                             <div>
@@ -193,11 +192,11 @@ function CheckoutPage() {
                                     <label>City: </label>
                                     <input id='shipCity' value={shipCity} onChange={e => {
                                         setShipCity(e.target.value)
-                                        const newErrors = {...errors}
-                                        if(newErrors.shipCity) delete newErrors.shipCity;
+                                        const newErrors = { ...errors }
+                                        if (newErrors.shipCity) delete newErrors.shipCity;
                                         setErrors(newErrors)
                                     }
-                                }
+                                    }
                                     />
                                 </div>
                                 <div>
@@ -205,11 +204,11 @@ function CheckoutPage() {
                                     <label>Zip code: </label>
                                     <input id='shipZipCode' type='text' value={shipZipCode} onChange={e => {
                                         setShipZipCode(e.target.value)
-                                        const newErrors = {...errors}
-                                        if(newErrors.shipZipCode) delete newErrors.shipZipCode;
+                                        const newErrors = { ...errors }
+                                        if (newErrors.shipZipCode) delete newErrors.shipZipCode;
                                         setErrors(newErrors)
                                     }
-                                }
+                                    }
                                     />
                                 </div>
                             </div>
@@ -218,11 +217,11 @@ function CheckoutPage() {
                                 <label>State: </label>
                                 <select id='shipState' value={shipState} onChange={e => {
                                     setShipState(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.shipState) delete newErrors.shipState;
-                                        setErrors(newErrors)
-                                    }
-                                    }>
+                                    const newErrors = { ...errors }
+                                    if (newErrors.shipState) delete newErrors.shipState;
+                                    setErrors(newErrors)
+                                }
+                                }>
                                     <option value=''>Select a state</option>
                                     {states.map((state, i) => (<option key={`${i}-state`} value={state}>{state}</option>))}
                                 </select>
@@ -237,11 +236,11 @@ function CheckoutPage() {
                                 <label htmlFor='address'>Address: </label>
                                 <input id='billAddress' value={billAddress} onChange={e => {
                                     setBillAddress(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.billAddress) delete newErrors.billAddress;
-                                        setErrors(newErrors)
+                                    const newErrors = { ...errors }
+                                    if (newErrors.billAddress) delete newErrors.billAddress;
+                                    setErrors(newErrors)
                                 }
-                            }
+                                }
                                 />
                             </div>
                             <div>
@@ -250,11 +249,11 @@ function CheckoutPage() {
                                     <label htmlFor='city'>City: </label>
                                     <input id='billCity' value={billCity} onChange={e => {
                                         setBillCity(e.target.value)
-                                        const newErrors = {...errors}
-                                        if(newErrors.billCity) delete newErrors.billCity;
+                                        const newErrors = { ...errors }
+                                        if (newErrors.billCity) delete newErrors.billCity;
                                         setErrors(newErrors)
                                     }
-                                }
+                                    }
                                     />
                                 </div>
                                 <div>
@@ -262,11 +261,11 @@ function CheckoutPage() {
                                     <label htmlFor='zipcode'>Zip code: </label>
                                     <input id='billZipCode' type='text' value={billZipCode} onChange={e => {
                                         setBillZipCode(e.target.value)
-                                        const newErrors = {...errors}
-                                        if(newErrors.billZipCode) delete newErrors.billZipCode;
+                                        const newErrors = { ...errors }
+                                        if (newErrors.billZipCode) delete newErrors.billZipCode;
                                         setErrors(newErrors)
                                     }
-                                }
+                                    }
                                     />
                                 </div>
                             </div>
@@ -275,11 +274,11 @@ function CheckoutPage() {
                                 <label htmlFor='state'>State: </label>
                                 <select id='billState' value={billState} onChange={e => {
                                     setBillState(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.billState) delete newErrors.billState;
-                                        setErrors(newErrors)
-                                    }
-                                    }>
+                                    const newErrors = { ...errors }
+                                    if (newErrors.billState) delete newErrors.billState;
+                                    setErrors(newErrors)
+                                }
+                                }>
                                     <option value=''>Select a state</option>
                                     {states.map((state, i) => (<option key={`${i}-state`} value={state}>{state}</option>))}
                                 </select>
@@ -290,26 +289,26 @@ function CheckoutPage() {
                         <h2>Payment</h2>
                         <div>
                             <div>
-                            {errors && Object.keys(errors).length > 0 && errors.payFirstName && <p>{errors.payFirstName}</p> || <p id='hidden'>""</p>}
+                                {errors && Object.keys(errors).length > 0 && errors.payFirstName && <p>{errors.payFirstName}</p> || <p id='hidden'>""</p>}
                                 <label>First name: </label>
                                 <input id='payFirstName' value={payFirstName} onChange={e => {
                                     setPayFirstName(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.payFirstName) delete newErrors.payFirstName;
-                                        setErrors(newErrors)
-                                    }
-                                    } />
+                                    const newErrors = { ...errors }
+                                    if (newErrors.payFirstName) delete newErrors.payFirstName;
+                                    setErrors(newErrors)
+                                }
+                                } />
                             </div>
                             <div>
-                            {errors && Object.keys(errors).length > 0 && errors.payLastName && <p>{errors.payLastName}</p> || <p id='hidden'>""</p>}
+                                {errors && Object.keys(errors).length > 0 && errors.payLastName && <p>{errors.payLastName}</p> || <p id='hidden'>""</p>}
                                 <label>Last name: </label>
                                 <input id='payLastName' value={payLastName} onChange={e => {
                                     setPayLastName(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.payLastName) delete newErrors.payLastName;
-                                        setErrors(newErrors)
-                                    }
-                                    } />
+                                    const newErrors = { ...errors }
+                                    if (newErrors.payLastName) delete newErrors.payLastName;
+                                    setErrors(newErrors)
+                                }
+                                } />
                             </div>
                         </div>
                         <div>
@@ -318,44 +317,44 @@ function CheckoutPage() {
                                 <label>Card number: </label>
                                 <input id='cardNumber' type='text' value={cardNumber} onChange={e => {
                                     setCardNumber(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.cardNumber) delete newErrors.cardNumber;
-                                        setErrors(newErrors)
-                                    }
-                                    } />
+                                    const newErrors = { ...errors }
+                                    if (newErrors.cardNumber) delete newErrors.cardNumber;
+                                    setErrors(newErrors)
+                                }
+                                } />
                             </div>
                         </div>
                         <div>
                             <div>
-                            {errors && Object.keys(errors).length > 0 && errors.expDate && <p>{errors.expDate}</p> || <p id='hidden'>""</p>}
+                                {errors && Object.keys(errors).length > 0 && errors.expDate && <p>{errors.expDate}</p> || <p id='hidden'>""</p>}
                                 <label>Expiration date: </label>
                                 <input id='expDate' type='text' value={expDate} onChange={e => {
                                     setExpDate(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.expDate) delete newErrors.expDate;
-                                        setErrors(newErrors)
-                                    }
-                                    } />
+                                    const newErrors = { ...errors }
+                                    if (newErrors.expDate) delete newErrors.expDate;
+                                    setErrors(newErrors)
+                                }
+                                } />
                             </div>
                             <div>
-                            {errors && Object.keys(errors).length > 0 && errors.cvv && <p>{errors.cvv}</p> || <p id='hidden'>""</p>}
+                                {errors && Object.keys(errors).length > 0 && errors.cvv && <p>{errors.cvv}</p> || <p id='hidden'>""</p>}
                                 <label>CVV: </label>
                                 <input id='cvv' type='text' value={cvv} onChange={e => {
                                     setCvv(e.target.value)
-                                    const newErrors = {...errors}
-                                        if(newErrors.cvv) delete newErrors.cvv;
-                                        setErrors(newErrors)
-                                    }
-                                    } />
+                                    const newErrors = { ...errors }
+                                    if (newErrors.cvv) delete newErrors.cvv;
+                                    setErrors(newErrors)
+                                }
+                                } />
+                            </div>
+                            <div>
+                                <button id='checkout-submit-btn' type='submit'>Submit</button>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button type='submit'>Submit</button>
-                    </div>
                 </form>
             </div>
-            <div id='cartTotal'>
+            <div className='cartTotal'>
                 <div>
                     <div>
                         <div>
