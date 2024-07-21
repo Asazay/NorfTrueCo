@@ -19,10 +19,6 @@ const ShopPageItem = ({ item }) => {
         }
     }, [])
 
-    useEffect(() => {
-
-    }, [liked])
-
     const addToWishLst = (e) => {
         if(wishlist) console.log(wishlist)
         e.preventDefault()

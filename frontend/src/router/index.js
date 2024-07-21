@@ -6,6 +6,7 @@ import ItemPage from "../components/ItemPage/ItemPage";
 import CheckoutPage from "../components/CheckoutPage/CheckoutPage";
 import ConfirmationPage from "../components/ConfirmationPage/ConfirmationPage";
 import OrdersPage from "../components/OrdersPage/OrdersPage";
+import WishlistPage from "../components/WishlistPage/WishlistPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: '/orders',
         element: <OrdersPage />
+      },
+      {
+        path: '/wishlist',
+        element: <WishlistPage />
       },
       {
         path: '/forbidden',

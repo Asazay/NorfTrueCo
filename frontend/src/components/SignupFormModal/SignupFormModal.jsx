@@ -1,3 +1,4 @@
+import './Signup.css'
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,9 +16,9 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
- useEffect(() => {
+  useEffect(() => {
     if (sessionUser) return navigate('/')
- }, [navigate, sessionUser])
+  }, [navigate, sessionUser])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,72 +45,126 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div id="signup-form">
+      <div id='formDiv'><h1>Sign Up</h1></div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label>Email</label></div>
+          <div>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if(errors.email){
+                  let newErrors = {...errors}
+                  delete newErrors.email
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label> Username</label></div>
+          <div>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) =>  {
+                setUsername(e.target.value)
+                if(errors.username){
+                  let newErrors = {...errors}
+                  delete newErrors.username
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label>First Name</label></div>
+          <div>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) =>  {
+                setFirstName(e.target.value)
+                if(errors.firstName){
+                  let newErrors = {...errors}
+                  delete newErrors.firstName
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label>Last Name</label></div>
+          <div>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) =>  {
+                setLastName(e.target.value)
+                if(errors.lastName){
+                  let newErrors = {...errors}
+                  delete newErrors.lastName
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label>Password</label></div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) =>  {
+                setPassword(e.target.value)
+                if(errors.password){
+                  let newErrors = {...errors}
+                  delete newErrors.password
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
+        <div id="formDiv">
+          <div><label>Confirm Password</label></div>
+          <div>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) =>  {
+                setConfirmPassword(e.target.value)
+                if(errors.confirmPassword){
+                  let newErrors = {...errors}
+                  delete newErrors.confirmPassword
+                  setErrors(newErrors)
+                }
+              }}
+              required
+            />
+          </div>
+        </div>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <div id="signupBtnDiv"><button type="submit">Sign Up</button></div>
       </form>
-    </>
+    </div>
   );
 }
 

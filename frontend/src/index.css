@@ -38,7 +38,7 @@ body{
     border: solid #F0EDEE 3px;
     width: 100%;
     height: 75px;
-    background-color: #A70000;
+    background-color: #222222;
 }
 
 #body{
@@ -48,3 +48,22 @@ body{
     overflow-y: scroll;
     height: 100vh;
 }
+
+button{
+    /* border: none; */
+    color: whitesmoke;
+    background-color: #222222;
+    border: none;
+    min-height: 40px;
+    min-width: 40px;
+    margin: 5px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #555555
+}
+/* 
+#modal{
+    
+} */

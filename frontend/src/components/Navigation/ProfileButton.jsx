@@ -51,7 +51,7 @@ function ProfileButton({ user }) {
             <div><p style={{padding: 10}}>{'Hello, ' + user.username}</p></div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/orders'); closeMenu()}}>My Orders</button></li></div>
-            <div id="menu-clickable"><li><button>My Wishlist</button></li></div>
+            <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/wishlist'); closeMenu()}}>My Wishlist</button></li></div>
             <div id="menu-clickable">
               <li>
                 <button onClick={logout}>Log Out</button>

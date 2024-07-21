@@ -14,7 +14,6 @@
 
 #itemQuantity button:hover, #cart-btns button:hover{
     cursor: pointer;
-    color: #A70000;
     border-color: azure;
 }
 
@@ -29,7 +28,6 @@
 #shopping-cart{
     width: 800px;
     height: min-content;
-    border: solid #A70000 1px;
     background-color: transparent;
     border-radius: 15px;
     /* overflow: scroll; */

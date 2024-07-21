@@ -206,8 +206,10 @@ function ShopPage() {
                                 Color:<br />
                                 <input type='text' value={color} id='filterColor' onChange={e => { setColor(e.target.value); setErrors({}) }}></input>
                                 <label htmlFor='filterColor'></label>
+                                <div style={{display: 'flex'}}>
                                 <button onClick={(e) => AddColor(e)}>Add Color</button>
                                 <button onClick={(e) => removeColor(e)}>Remove color</button>
+                                </div>
                                 {colors && Object.values(colors).length > 0 && <div id='colorsArray'>[{Object.values(colors).map((color, i) => (<span key={i}>{color}, </span>))}]</div>}
                             </div>
                             <br />

@@ -19,6 +19,10 @@ const validateSignup = [
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.'),
+    check('firstName').exists({checkFalsy: true}).isAlpha()
+    .withMessage('Please provide a valid first name. (Ex: James)'),
+    check('lastName').exists({checkFalsy: true}).isAlpha()
+    .withMessage('Please provide a valid last name. (Ex: Williams)'),
     check('password')
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })
@@ -33,7 +37,7 @@ router.post(
     '/',
     validateSignup,
     async (req, res) => {
-      const { email, password, username } = req.body;
+      const { email, password, username, firstName, lastName } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({ email, username, hashedPassword });
   
@@ -41,6 +45,8 @@ router.post(
         id: user.id,
         email: user.email,
         username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName
       };
   
       await setTokenCookie(res, safeUser);

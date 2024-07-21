@@ -10,8 +10,9 @@ import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignupFormModal from '../SignupFormModal/SignupFormModal'
 import ShoppingCartModal from '../ShoppingCartModal/ShoppingCartModal.jsx';
 import OpenModalNavItem from '../ShoppingCartModal/OpenModalNavItem.jsx';
+import WishlistPage from '../WishlistPage/WishlistPage.jsx';
 
-function Navigation({ isLoaded}) {
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   const navigate = useNavigate()
   // const dispatch = useDispatch();
@@ -58,9 +59,9 @@ function Navigation({ isLoaded}) {
       <div id="user-icons">
         {
           <div id='nav-icon'>
-            <OpenModalNavItem 
-            iconEl={<i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>}
-            />
+            <button onClick={() => navigate('/wishlist')}>
+              <i className="fa-solid fa-heart" style={{ color: "#ffffff", fontSize: 20 }}></i>
+            </button>
           </div>
         }
         <div id='nav-icon'>
@@ -72,7 +73,7 @@ function Navigation({ isLoaded}) {
         <div id='nav-icon'>
           <OpenModalNavItem
             iconEl={<i className="fa-solid fa-bag-shopping" style={{ color: "#f0f2f4", fontSize: 20 }}></i>}
-            modalComponent={<ShoppingCartModal/>}
+            modalComponent={<ShoppingCartModal />}
           />
         </div>
       </div>

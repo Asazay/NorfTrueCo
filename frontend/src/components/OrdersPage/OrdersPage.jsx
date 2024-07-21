@@ -1,7 +1,7 @@
 import './Orders.css'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { getOrdersByUserIdThunk } from '../../redux/session';
 import OrdersPageTile from './OrdersPageTile';
 
