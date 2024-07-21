@@ -11,7 +11,7 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     return dispatch(sessionActions.thunkLogin({ credential, password }))
@@ -24,6 +24,21 @@ function LoginFormModal() {
         }
       });
   };
+
+  const handleDemoLogin = async (e) => {
+    setCredential('demo@user.io');
+    setPassword('password');
+
+    return dispatch(sessionActions.thunkLogin('demo@user.io', 'password'))
+    .then(closeModal)
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+        console.log(data.errors)
+      }
+    });
+  }
 
   return (
     <div id='login-form'>
@@ -61,6 +76,7 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <div id="loginBtnDiv"><button type="submit">Log In</button></div>
+        <div id="loginBtnDiv"><button id='demo-btn' type="submit" onClick={e => handleDemoLogin(e)}>Demo</button></div>
       </form>
     </div>
   );

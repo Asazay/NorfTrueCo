@@ -31,15 +31,18 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
+      // <li>
+      //   <OpenModalButton
+      //     buttonText="Log In"
+      //     modalComponent={<LoginFormModal />}
+      //   />
+      //   <OpenModalButton
+      //     buttonText="Sign Up"
+      //     modalComponent={<SignupFormModal />}
+      //   />
+      // </li>
       <li>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
+        <ProfileButton user={null} />
       </li>
     );
   }

@@ -24,13 +24,13 @@
 }
 
 #priceDiv {
-    color: #A70000;
+    color: black;
 }
 
 #imgDiv {
     width: 200px;
     height: 200px;
-    border: solid #A70000 1px;
+    border: solid #555555 1px;
     position: relative;
 }
 

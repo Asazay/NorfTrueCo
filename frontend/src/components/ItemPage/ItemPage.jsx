@@ -22,12 +22,14 @@ function ItemPage() {
 
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
-            const data = res.json();
-            if (data && data.errors) console.log(data.errors)
+            const data = await res.json();
+            if (data && data.errors) {
+                window.location.replace('/not-found')
+            }
         });
 
         dispatch(getReviewsByIdThunk(itemId)).catch(async res => {
-            const data = res.json();
+            const data = await res.json();
             if (data && data.errors) console.log(data.errors)
         })
     }, [dispatch])

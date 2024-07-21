@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../redux/session';
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import { useNavigate } from "react-router-dom";
 
 function ProfileButton({ user }) {
@@ -48,7 +48,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div id="user-info">
-            <div><p style={{padding: 10}}>{'Hello, ' + user.username}</p></div>
+            <div><p style={{padding: 10}}>{user && user.firstName && 'Hello, ' +  user.firstName.toUpperCase()}</p></div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/orders'); closeMenu()}}>My Orders</button></li></div>
             <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/wishlist'); closeMenu()}}>My Wishlist</button></li></div>
@@ -61,11 +61,13 @@ function ProfileButton({ user }) {
         ) : (
           <>
             <OpenModalMenuItem
+              className={'login-signup'}
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
             <OpenModalMenuItem
+              className={'login-signup'}
               itemText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}

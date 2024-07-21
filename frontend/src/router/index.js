@@ -7,6 +7,7 @@ import CheckoutPage from "../components/CheckoutPage/CheckoutPage";
 import ConfirmationPage from "../components/ConfirmationPage/ConfirmationPage";
 import OrdersPage from "../components/OrdersPage/OrdersPage";
 import WishlistPage from "../components/WishlistPage/WishlistPage";
+import ShopPageQuery from "../components/ShopPage/ShopPageQuery";
 
 export const router = createBrowserRouter([
   {
@@ -17,8 +18,12 @@ export const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path: "/shop/products/",
+        path: "/shop/products",
         element: <ShopPage />
+      },
+      {
+        path: '/shop/products/query/?',
+        element: <ShopPageQuery />
       },
       {
         path: '/shop/products/:itemId',
@@ -42,11 +47,18 @@ export const router = createBrowserRouter([
       },
       {
         path: '/forbidden',
-        element: <h1>403 Forbidden</h1>
+        element: <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <h1 style={{fontSize: '100px', margin: '0'}}>403</h1>
+          <h3>Forbidden</h3>
+          <p>Access to this resource denied</p>
+        </div>
       },
       {
         path: '*',
-        element: <h1>404 Page Not found</h1>
+        element: <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <h1 style={{fontSize: '100px', margin: '0'}}>404</h1>
+        <h3>Page not found {':('}</h3>
+      </div>
       }
     ],
   },

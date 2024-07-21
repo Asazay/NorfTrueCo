@@ -303,7 +303,7 @@ export const editReviewThunk = (itemId, reviewId, editedReview) => async dispatc
     return data;
   }
 
-  else if (res.status >= 400) {
+  else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -323,7 +323,7 @@ export const deleteReviewThunk = (itemId, reviewId) => async dispatch => {
     return data.message;
   }
 
-  else if (res.status >= 400) {
+  else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -340,7 +340,7 @@ export const getOrdersByUserIdThunk = (userId) => async dispatch => {
     return data;
   }
 
-  else if (res.status >= 400) {
+  else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -421,7 +421,7 @@ export const getOrderItemsByOrderNumberThunk = (orderNumber) => async dispatch =
     return data
   }
 
-  else if (res.status >= 400) {
+  else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }
@@ -442,7 +442,7 @@ export const deleteOrderItemByIdThunk = (orderNumber, itemId) => async dispatch 
     return data;
   }
 
-  else if (res.status >= 400) {
+  else if (res.status < 500) {
     const errMsgs = await res.json()
     return errMsgs;
   }

@@ -103,6 +103,11 @@ router.get('/:itemId', async (req, res, next) => {
     res.json({ item })
   }
 
-  else res.json({ error: 'Item not found' })
+  else {
+    res.status(404)
+    res.json({errors: {
+      notFound: 'Item not found'
+    }})
+  }
 })
 module.exports = router;

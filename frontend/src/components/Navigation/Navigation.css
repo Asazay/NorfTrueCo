@@ -1,13 +1,27 @@
 .profile-dropdown{
     display: flex;
     flex-direction: column;
-    background-color: #A70000;
-    color: white;
+    background-color: #222222;
+    color: whitesmoke;
     position: absolute;
     right: 43px;
-    top: 57px;
-    border: solid whitesmoke 2px;
+    top: 60px;
+    border: solid whitesmoke 1px;
     padding: 0;
+    width: 200px;
+}
+
+.login-signup{
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid whitesmoke 1px;
+}
+
+.login-signup:hover, .profile-dropdown #menu-clickable:hover{
+    background-color: #555555;
+    cursor: pointer;
 }
 
 #user-info{

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as sessionActions from "../../redux/session";
+import { useModal } from '../../context/modal';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const {closeModal} = useModal()
 
   useEffect(() => {
     if (sessionUser) return navigate('/')
@@ -38,6 +40,8 @@ function SignupFormModal() {
           setErrors(data.errors);
         }
       });
+
+      closeModal()
     }
     return setErrors({
       confirmPassword: "Confirm Password field must be the same as the Password field"
