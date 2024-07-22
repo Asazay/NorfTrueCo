@@ -54,7 +54,6 @@
 }
 
 #nav-menu li:hover{
-    color: red;
     cursor: pointer;
     background-color: #555555;
 }
@@ -135,6 +134,11 @@
     color: azure;
 }
 
+#companyName h2:hover{
+    color: lightgray;
+    -webkit-text-stroke: 1px azure;
+}
+
 #user-icons{
     display: flex;
     justify-content: space-between;
@@ -163,7 +167,6 @@
 
 #nav-icon p {
     margin: 0;
-    padding: 0 5px;
     align-self: center;
     color: azure;
 }

@@ -73,7 +73,7 @@ function ShopPageQuery() {
 
     return (
         <div id='body'>
-            <div id='shop-page'>
+            <div id='shop-page-query'>
                 <div>
                 </div>
                 <div id='item-grid'>

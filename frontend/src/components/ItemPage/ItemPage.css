@@ -15,13 +15,13 @@ h3{
     margin: 20px 100px;
 }
 
-#image-div{
+#image-div-itempage{
     border: solid black 1px;
     width: 40%;
     height: 100%;
 }
 
-#image-div img{
+#image-div-itempage img{
     width: 400px;
     height: 400px;
 }
@@ -43,7 +43,7 @@ h3{
     background-color: white;
     height: 100%;
     border: solid lightgray 1px;
-    width: 70%;
+    width: 60%;
     margin-left: 1px;
 }
 
