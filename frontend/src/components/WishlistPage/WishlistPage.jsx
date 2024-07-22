@@ -9,8 +9,6 @@ function WishlistPage() {
     useEffect(() => {
         if (localStorage.getItem('wishlist')) {
             let wishLst = JSON.parse(localStorage.getItem('wishlist'));
-            console.log(wishLst)
-
             setWishList(wishLst)
         }
     }, [])

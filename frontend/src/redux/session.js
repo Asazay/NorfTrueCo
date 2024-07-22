@@ -215,7 +215,6 @@ export const getItemByIdThunk = (itemId) => async dispatch => {
 }
 
 export const getFilteredItemsThunk = (query) => async (dispatch) => {
-  console.log(query)
   const res = await csrfFetch('/api/items/' + "?" + query)
   if (res.ok) {
     const data = await res.json();
@@ -250,7 +249,6 @@ export const getReviewByIdThunk = (itemId, reviewId) => async dispatch => {
 
   if(res.ok){
     const data = await res.json();
-    console.log(data)
     dispatch(getReviewById(data))
     return data
   }
@@ -416,7 +414,6 @@ export const getOrderItemsByOrderNumberThunk = (orderNumber) => async dispatch =
 
   if(res.ok){
     const data = await res.json();
-    console.log(data)
     dispatch(getOrderItemsByOrderNumber(data))
     return data
   }
@@ -437,7 +434,7 @@ export const deleteOrderItemByIdThunk = (orderNumber, itemId) => async dispatch 
 
   if(res.ok){
     const data = await res.json();
-    console.log(data)
+  
     dispatch(deleteOrderItemById(data));
     return data;
   }
@@ -545,7 +542,6 @@ function sessionReducer(state = initialState, action) {
       return {...state, orders: theOrders}
 
     case GET_ORDER_BY_ORDER_NUMBER:
-      console.log(action.payload)
       return {...state, orders: action.payload}
 
     case CREATE_ORDER:
@@ -559,13 +555,11 @@ function sessionReducer(state = initialState, action) {
       return {...state, orders: editOrder}
 
     case DELETE_ORDER:
-      console.log(action.payload)
       const deletedOrder = {...state.orders}
       delete deletedOrder[action.payload]
       return {...state, orders: deletedOrder}
 
     case GET_ORDER_ITEMS_BY_ORDER_NUMBER:
-      // console.log(action.payload)
       const theOrderItems = {}
       action.payload.forEach(orderItem => theOrderItems[orderItem.id] = orderItem)
       return {...state, order_items: theOrderItems}

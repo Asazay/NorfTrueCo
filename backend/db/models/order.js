@@ -60,7 +60,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isValid(value){
-          console.log("Logging value: ", value === 'processing')
           value = value.toLowerCase()
           if(value === 'processing' || value === 'shipped' || value === 'delivered') return
           else throw new Error('Status must be "processing", "shipped", or "delivered"')

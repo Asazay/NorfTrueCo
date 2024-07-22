@@ -60,10 +60,6 @@ function CheckoutPage() {
     }, [])
 
     useEffect(() => {
-        if (cart && cart.total) console.log('cart Total changed to', cart.total)
-    }, [])
-
-    useEffect(() => {
         if (states.includes(shipState)) {
             let stateIndex = states.findIndex((state) => state === shipState)
             if (cart && cart.total) {
@@ -103,8 +99,6 @@ function CheckoutPage() {
             expDate,
             cvv
         }
-
-        console.log(createOrderInfo)
 
         const order = await dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
             let data;
@@ -347,24 +341,20 @@ function CheckoutPage() {
                                 }
                                 } />
                             </div>
-                            <div>
-                                <button id='checkout-submit-btn' type='submit'>Submit</button>
-                            </div>
                         </div>
+                    </div>
+                    <div>
+                        <button type='submit'>Submit</button>
                     </div>
                 </form>
             </div>
-            <div className='cartTotal'>
+            <div id='cartTotal'>
                 <div>
-                    <div>
-                        <div>
-                            <p>Subtotal: ${cart && cart.total && cart.total.toFixed(2)}</p>
-                            <p>Shipping: ${shipping}</p>
-                            <p>Est. Taxes: {salesTax !== "" && salesTax >= 0 && `$${salesTax.toFixed(2)}` || 'TBD'}</p>
-                        </div>
-                        <div style={{ fontWeight: 'bold' }}>Total: ${total && total.toFixed(2) || cart && (cart.total + shipping).toFixed(2)}</div>
-                    </div>
+                    <p>Subtotal: ${cart && cart.total && cart.total.toFixed(2)}</p>
+                    <p>Shipping: ${shipping}</p>
+                    <p>Est. Taxes: {salesTax !== "" && salesTax >= 0 && `$${salesTax.toFixed(2)}` || 'TBD'}</p>
                 </div>
+                <div id='checkoutTotal' style={{ fontWeight: 'bold' }}>Total: ${total && total.toFixed(2) || cart && (cart.total + shipping).toFixed(2)}</div>
             </div>
         </div>
     )

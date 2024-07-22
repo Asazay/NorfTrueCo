@@ -25,7 +25,6 @@ function ShopPageQuery() {
                     const [key, val] = keyVal.split('=')
                     searchQuery[key] = val;
                 })
-                console.log(searchQuery)
             }
             else {
                 const [key, val] = params.split('=')
@@ -37,7 +36,7 @@ function ShopPageQuery() {
 
         dispatch(getFilteredItemsThunk(filterStr)).catch(async res => {
             const data = res.json();
-            if (data && data.errors) console.log(data.errors)
+            if (data && data.errors){}
         })
     }, [dispatch])
 
@@ -53,7 +52,6 @@ function ShopPageQuery() {
                     const [key, val] = keyVal.split('=')
                     searchQuery[key] = val;
                 })
-                console.log(searchQuery)
             }
             else {
                 const [key, val] = params.split('=')
@@ -65,7 +63,7 @@ function ShopPageQuery() {
 
         dispatch(getFilteredItemsThunk(filterStr)).catch(async res => {
             const data = res.json();
-            if (data && data.errors) console.log(data.errors)
+            if (data && data.errors) {}
         })
     }, [location])
 

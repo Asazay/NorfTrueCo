@@ -14,8 +14,6 @@ function UpdateReviewModal({ itemId, reviewId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    // console.log(review)
-
     useEffect(() => {
         setErrors({})
         if (comment.length < 10 || Number(stars) < 1) setDisable(true);

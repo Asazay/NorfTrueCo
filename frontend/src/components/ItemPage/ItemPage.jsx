@@ -30,7 +30,7 @@ function ItemPage() {
 
         dispatch(getReviewsByIdThunk(itemId)).catch(async res => {
             const data = await res.json();
-            if (data && data.errors) console.log(data.errors)
+            if (data && data.errors){}
         })
     }, [dispatch])
 
@@ -111,7 +111,6 @@ function ItemPage() {
     }, [])
 
     const addToWishLst = (e) => {
-        if (wishlist) console.log(wishlist)
         e.preventDefault()
 
         let wishLst;
@@ -163,7 +162,6 @@ function ItemPage() {
             setWishList(newWishLst)
             setLiked(false)
         }
-        if (wishlist) console.log(wishlist)
     }
 
     return (
@@ -218,7 +216,8 @@ function ItemPage() {
                 </div>
                 <div id='review-tiles-div'>
                     {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}
-                    {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews).map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} />))}
+                    {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews).map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} />))
+                    || <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}><h4 style={{justifySelf: 'center'}}>No Reviews</h4></div>}
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ const WishlistTile = ({ item, setWishList }) => {
 
         else localStorage.setItem('cart', JSON.stringify({
             items: {
-                [item.id]: {
+                [item.itemId]: {
                     itemId: item.itemId,
                     image: item.image,
                     name: item.name,
