@@ -33,7 +33,7 @@ router.get('/', allItemsQueryVal, async (req, res, next) => {
   let where = {};
 
   if (!page) page = 1;
-  if (!size) size = 16;
+  if (!size) size = 50;
 
   if (itemSize) {
     if (itemSize.includes(',')) itemSize = itemSize.split(',');

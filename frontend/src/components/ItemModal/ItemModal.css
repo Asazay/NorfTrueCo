@@ -13,25 +13,25 @@ h3{
     display: flex;
     flex-direction: column;
     padding: 10px;
-    width: 60vw;
-    height: 85vh;
+    /* height: 500px;  */
 }
 
-#image-div{
-    border: solid black 1px;
+#image-div-modal{
+    border: solid #555555 1px;
     width: 40%;
     height: 100%;
+    margin: 0 2px;
 }
 
-#image-div img{
-    width: 100%;
-    height: 100%;
+#image-div-modal img{
+    width: 250px;
+    height: 250px;
 }
 
-#item-content{
+#item-content-modal{
     display: flex;
 }
-#item-info{
+#item-info-modal{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -45,12 +45,12 @@ h3{
     width: 100%;
 }
 
-#item-info h2{
+#item-info-modal h2{
     margin: 0;
     padding: 0;
 }
 
-#item-info button{
+#item-info-modal button{
     width: 200px;
     height: 40px;
 }
@@ -73,20 +73,20 @@ h3{
     align-items: center;
 }
 
-#review-tiles-div{
-    overflow-y: scroll;
+#review-tiles-div-modal{
+    overflow-y: auto;
     padding: 0;
-    border-top: solid #A70000 1px;
+    border-top: solid #555555 1px;
 }
 
 #reviewDiv{
     display: flex;
     flex-direction: column;
     align-content: center;
-    height: max-content;
 }
 
 #review-tile-modal{
+    /* position: relative; */
     padding: 10px;
     background-color: rgb(210, 206, 206);
     margin-bottom: 10px;
