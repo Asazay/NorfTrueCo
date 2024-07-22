@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import MenuButton from './MenuButton.jsx';
+import SubMenuButton from "./SubMenuButton";
 import { useNavigate } from 'react-router-dom';
 // import * as sessionActions from '../../redux/session';
 import './Navigation.css';
@@ -51,9 +53,10 @@ function Navigation({ isLoaded }) {
     <div id='nav'>
       <div id='user-icons'>
         <div id='nav-icon'>
-          <button>
+          <li><MenuButton/></li>
+          {/* <button>
             <i className="fa-solid fa-bars" style={{ color: "#ffffff", fontSize: 24 }}></i>
-          </button>
+          </button> */}
           <p>Menu</p>
         </div>
       </div>
