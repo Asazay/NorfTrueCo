@@ -58,7 +58,6 @@ function ItemModal({ itemId }) {
         let cart;
 
         if (localStorage.getItem('cart')) {
-            console.log('getItem ran')
             cart = JSON.parse(localStorage.getItem('cart'))
             if (cart && !cart.items[item.id]) {
                 cart.items[item.id] = {

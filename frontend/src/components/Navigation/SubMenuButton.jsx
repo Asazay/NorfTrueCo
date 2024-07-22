@@ -36,13 +36,13 @@ function SubMenuButton({ menuOptName, theUlClassName, subMenuOptsArray, subMenuO
             <button onClick={e => {e.preventDefault(); navigate(`/shop/products/query/?gender=${menuOptName.toLowerCase()}`); closeMenu()}}>
                 {menuOptName ? menuOptName : "NULL"}
             </button>
-            <button className='arrow-symbol' onClick={toggleMenu}><i class="fa-solid fa-greater-than"></i></button>
+            <button className='arrow-symbol' onClick={toggleMenu}><i className="fa-solid fa-greater-than"></i></button>
             <ul className={ulClassName} ref={ulRef}>
                 <div id="nav-menu">
                     {(subMenuOptsArray.length && subMenuOptsLinks.length) && subMenuOptsArray.length === subMenuOptsLinks.length
                         && subMenuOptsArray.map((subMenuOpt, i) => {
                             return (
-                                <div id="menu-clickable"><li><button onClick={e => { e.preventDefault(); navigate(subMenuOptsLinks[i]); setShowMenu(false); closeMenu() }}>{subMenuOpt}</button></li></div>
+                                <div key={'subMenuDiv' + i} id="menu-clickable"><li><button onClick={e => { e.preventDefault(); navigate(subMenuOptsLinks[i]); setShowMenu(false); closeMenu() }}>{subMenuOpt}</button></li></div>
                             )
                         })
                     }

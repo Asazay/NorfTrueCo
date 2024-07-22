@@ -20,7 +20,6 @@ const ShopPageItem = ({ item }) => {
     }, [])
 
     const addToWishLst = (e) => {
-        if(wishlist) console.log(wishlist)
         e.preventDefault()
 
         let wishLst;
@@ -72,7 +71,6 @@ const ShopPageItem = ({ item }) => {
             setWishList(newWishLst)
             setLiked(false)
         }
-        if(wishlist) console.log(wishlist)
     }
 
     return (

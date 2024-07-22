@@ -43,7 +43,6 @@ function ShopPage() {
         if(e) e.preventDefault();
 
         const queryObj = {}
-
         if (gender) queryObj['gender'] = gender;
         if (Object.values(sizes).length > 0) queryObj.itemSize = Object.values(sizes);
         if (Object.values(colors).length > 0) queryObj.color = Object.values(colors);
@@ -58,7 +57,6 @@ function ShopPage() {
             const data = res.json();
             if (data && data.errors) console.log(data.errors)
         })
-        // console.log(filterQuery)
     }
 
     const resetFilter = (e) => {
@@ -76,7 +74,7 @@ function ShopPage() {
         document.getElementById('female').checked = false;
         dispatch(getItemsThunk()).catch(async res => {
             const data = res.json();
-            if (data && data.errors) console.log(data.errors)
+            if (data && data.errors) {}
         })
     }
 
@@ -123,7 +121,7 @@ function ShopPage() {
         if (!color) setErrors({ ...errors, color: "Color field cannot be blank" })
         else if (newColors[color]) setErrors({ ...errors, color: 'Color already added' })
         else {
-            newColors[color] = color
+            newColors[color.charAt(0).toUpperCase() + color.slice(1)] = color.charAt(0).toUpperCase() + color.slice(1);
             setColors(newColors)
         }
     }
@@ -145,7 +143,7 @@ function ShopPage() {
         else {
             dispatch(getItemsThunk()).catch(async res => {
                 const data = res.json();
-                if (data && data.errors) console.log(data.errors)
+                if (data && data.errors) {}
             })
         }
     }, [dispatch])

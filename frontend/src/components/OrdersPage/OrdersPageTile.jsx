@@ -44,7 +44,7 @@ function OrdersPageTile({ order }) {
 
     const handleDeleteOrder = () => {
         if (user && order) dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
-            console.log(res)
+
             // let data;
 
             // if (res) {
@@ -79,7 +79,6 @@ function OrdersPageTile({ order }) {
         }
 
         if (count === 1 || (count > 0 && (count - selectedCount) < 1)) return await dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
-            console.log(res)
             // let data;
 
             // if (res) {

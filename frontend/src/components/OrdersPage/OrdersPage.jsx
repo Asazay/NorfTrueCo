@@ -15,7 +15,6 @@ function OrdersPage(){
 
     useEffect(() => {
         if(user && user.id) dispatch(getOrdersByUserIdThunk(user.id)).catch(async res => {
-            console.log(res)
             // let data;
 
             // if (res) {

@@ -56,7 +56,6 @@ router.get('/', allItemsQueryVal, async (req, res, next) => {
     where.category = { [Op.in]: category }
   }
   if (gender) where.gender = { [Op.eq]: gender }
-  console.log(where)
   let allItems = await Item.findAll({
     where,
     offset: size * (page - 1),
