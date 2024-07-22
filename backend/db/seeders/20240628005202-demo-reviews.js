@@ -21,7 +21,7 @@ module.exports = {
    await Review.bulkCreate([
     {
       user_id: 2,
-      item_id: 4,
+      item_id: 9,
       comment: 'This is a great shirt. I Love it!',
       stars: 4
     },
@@ -29,6 +29,18 @@ module.exports = {
       user_id: 1,
       item_id: 2,
       comment: 'I really love this snapback. It has such a good quality!',
+      stars: 5
+    },
+    {
+      user_id: 3,
+      item_id: 11,
+      comment: 'I think its a nice product, but it shrunk a little.',
+      stars: 3
+    },
+    {
+      user_id: 2,
+      item_id: 11,
+      comment: "what's not to love about this!?",
       stars: 5
     },
    ])

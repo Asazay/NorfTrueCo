@@ -11,6 +11,67 @@
     width: 200px;
 }
 
+.menu-dropdown{
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+    color: whitesmoke;
+    position: absolute;
+    left: 41px;
+    top: 60px;
+    border: solid whitesmoke 1px;
+    padding: 0;
+    width: 200px;
+    z-index: 1;
+}
+
+.submenu-dropdown-men{
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+    color: whitesmoke;
+    position: absolute;
+    left: 200px;
+    top: 99px;
+    border: solid whitesmoke 1px;
+    padding: 0;
+    width: 200px;
+    z-index: 1;
+}
+
+.submenu-dropdown-women{
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+    color: whitesmoke;
+    position: absolute;
+    left: 200px;
+    top: 149px;
+    border: solid whitesmoke 1px;
+    padding: 0;
+    width: 200px;
+    z-index: 1;
+}
+
+#nav-menu li:hover{
+    cursor: pointer;
+    background-color: #555555;
+}
+
+#nav-menu-btn{
+    display: flex;
+    justify-content: space-between;
+}
+
+.arrow-symbol{
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.arrow-symbol:hover{
+    color: #555555;
+}
+
 .login-signup{
     min-height: 40px;
     display: flex;
@@ -26,7 +87,7 @@
 
 #user-info{
     align-self: center;
-    border: solid lightgrey 1px;
+    /* border: solid lightgrey 1px; */
     text-decoration: none;
     width: 100%;
     
@@ -34,7 +95,7 @@
 
 #user-info > #menu-clickable{
     padding: 5px;
-    border-bottom: solid white 1px;
+    /* border-bottom: solid white 1px; */
     width: max-content;
     /* margin: 0; */
     width: 100%;
@@ -50,10 +111,9 @@
     color: lightgrey;
     cursor: pointer;
 }
-
-/* #user-info div:hover{
+/* 
+#user-info div:hover{
     padding: 5px;
-    border: solid white 1px;
     width: max-content;
     margin: 0;
     width: 100%;
@@ -72,6 +132,11 @@
     margin: 0;
     font-size: 40px;
     color: azure;
+}
+
+#companyName h2:hover{
+    color: lightgray;
+    -webkit-text-stroke: 1px azure;
 }
 
 #user-icons{
@@ -102,7 +167,6 @@
 
 #nav-icon p {
     margin: 0;
-    padding: 0 5px;
     align-self: center;
     color: azure;
 }

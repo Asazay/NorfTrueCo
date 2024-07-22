@@ -53,12 +53,17 @@
     width: 100%;
 }
 
+#shop-page-query {
+    display: flex;
+    width: 100%;
+}
+
 #shop-page #filter-form {
     width: min-content;
     background-color: white;
 }
 
-#shop-page #item-grid, #wishlist-page #item-grid {
+#shop-page #item-grid, #wishlist-page #item-grid, #shop-page-query #item-grid {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 15vw));
@@ -78,8 +83,11 @@
 } */
 
 #no-results {
+    width: 100%;
+    align-items: center;
     justify-self: center;
     color: red;
+    border: solid green 2px;
 }
 
 #selectOptsDiv{
