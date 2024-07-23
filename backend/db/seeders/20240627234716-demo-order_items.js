@@ -21,38 +21,29 @@ module.exports = {
    await Order_Item.bulkCreate([
     {
       order_number: 2024001,
-      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
-      name: 'Norf True Snapback',
-      size: 'universal',
-      color: 'red',
-      price: 24.99,
-      quantity: 3,
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Hoodies/Men+red+hoodie.jpg',
+      name: 'Red Hoodie',
+      size: 'medium',
+      color: 'Red',
+      price: 29.99,
+      quantity: 1,
     },
     {
       order_number: 2024001,
-      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
-      name: 'Stay True Snapback',
-      size: 'universal',
-      color: 'red',
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/shorts/Men+shorts+black.jpg',
+      name: 'Black Shorts',
+      size: 'large',
+      color: 'Black',
       price: 24.99,
-      quantity: 5
-    },
-    {
-      order_number: 2024002,
-      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
-      name: 'World Peace',
-      size: 'small',
-      color: 'pink',
-      price: 21.99,
       quantity: 2
     },
     {
       order_number: 2024002,
-      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png',
-      name: 'Blue Dreamer',
+      image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/shorts/Women+shorts+blue.jpg',
+      name: 'Vintage Blue Shorts',
       size: 'small',
-      color: 'blue',
-      price: 39.99,
+      color: 'Blue',
+      price: 17.99,
       quantity: 1
     }
    ])

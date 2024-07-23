@@ -50,7 +50,15 @@ function CheckoutPage() {
 
 
     useEffect(() => {
-        if (localStorage.getItem('cart') !== null) {
+        if (user && user.username && localStorage.getItem('cart') !== null) {
+            let theCart = JSON.parse(localStorage.getItem('cart'));
+
+            if(theCart && theCart[user.username]){
+                setCart(theCart[user.username])
+            }
+        }
+
+        else if (!user && localStorage.getItem('cart') !== null) {
             setCart(JSON.parse(localStorage.getItem('cart')))
         }
         else if (localStorage.getItem('cart') === null) {

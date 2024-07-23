@@ -160,7 +160,7 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
                 }))
             });
 
-            if (unregOrderInfo && !itemArr.some(item => item ? true : false)) {
+            if (unregCustOrder && unregOrderInfo) {
                 return res.json(unregCustOrder)
             }
 
@@ -223,11 +223,11 @@ router.get('/:userId/:orderNumber', async (req, res, next) => {
     const { userId, orderNumber } = req.params;
     const where = {}
 
-    if (typeof Number(userId) !== 'number' || !userId) {
-        where.user_id = { [Op.eq]: null }
-    }
+    // if (typeof Number(userId) !== 'number' || !userId) {
+    //     where.user_id = { [Op.eq]: null }
+    // }
 
-    else where.user_id = { [Op.eq]: parseInt(userId) }
+    if(JSON.parse(userId) !== null && typeof parseInt(userId) === 'number')  where.user_id = { [Op.eq]: parseInt(userId) }
 
     where.order_number = {
         [Op.eq]: parseInt(orderNumber)

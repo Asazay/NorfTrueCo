@@ -27,9 +27,9 @@ h3{
 }
 
 #image-div{
-    border: solid black 1px;
-    width: 40%;
-    height: 100%;
+    border: solid lightgray 1px;
+    width: 30%;
+    height: 80%;
 }
 
 #image-div img{
@@ -37,7 +37,7 @@ h3{
     height: 400px; */
     width: 100%;
     height: 100%;
-    max-width: 400px;
+    /* max-width: 400px; */
     max-height: 400px;
 }
 
@@ -48,6 +48,11 @@ h3{
     padding: 0;
     max-height: 500px;
 }
+
+#item-content div div{
+    height: 100%;
+}
+
 #item-info{
     display: flex;
     flex-direction: column;
@@ -55,16 +60,22 @@ h3{
     justify-content: end;
     /* padding: 0 20px; */
     color: black;
-    width: 60%;
+    width: 70%;
     background-color: white;
-    height: 100%;
+    height: 80%;
     border: solid lightgray 1px;
     margin-left: 1px;
+    padding: 0 10px;
 }
 
 #item-info h2{
     margin: 0;
     padding: 0;
+}
+
+#item-info h3{
+    font-weight: bold;
+    font-size: 18px;
 }
 
 #item-info button{
@@ -94,7 +105,7 @@ h3{
 #review-tiles-div{
     overflow-y: scroll;
     padding: 0;
-    border-top: solid #A70000 1px;
+    border-top: solid #555555 1px;
 }
 
 #reviewDiv{

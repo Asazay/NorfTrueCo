@@ -66,9 +66,10 @@ function OrdersPageTile({ order }) {
         let selectedCount = 0;
         for (let item of selItems) {
             count += 1;
-            if(item.value === 'on') selectedCount += 1;
+           
             if (item.value === 'off') {
-                nonSelected = false;
+                selectedCount += 1;
+                if(nonSelected) nonSelected = false;
             }
         }
 
@@ -78,7 +79,7 @@ function OrdersPageTile({ order }) {
             return setErrors(newErrors)
         }
 
-        if (count === 1 || (count > 0 && (count - selectedCount) < 1)) return await dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
+        if (count === 1 || (count - selectedCount) < 1) return dispatch(deleteOrderThunk(user.id, order.order_number)).catch(async res => {
             // let data;
 
             // if (res) {
@@ -163,7 +164,7 @@ function OrdersPageTile({ order }) {
                     item && <div key={item.id} id='tile-column'>
                         {order.status && order.status !== 'shipped' && order.status !== 'delivered' && <div>
                         </div>}
-                        <div><img src={item.image} width={200} height={200} /></div>
+                        <div><img src={item.image} width={150} height={150} /></div>
                         <div id='item-attributes'>
                             <div id='h4-div'><h4>{item.name}</h4></div>
                             <div><p>Color: {item.color}</p></div>

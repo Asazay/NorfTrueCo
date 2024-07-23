@@ -18,7 +18,7 @@ function ItemModal({ itemId }) {
     // const { itemId } = useParams()
     const [itemSize, setItemSize] = useState('small')
     const navigate = useNavigate()
-    const {closeModal} = useModal();
+    const { closeModal } = useModal();
     const isItemModal = true;
 
     useEffect(() => {
@@ -57,9 +57,67 @@ function ItemModal({ itemId }) {
 
         let cart;
 
-        if (localStorage.getItem('cart')) {
+        if (user && user.username && localStorage.getItem('cart')) {
             cart = JSON.parse(localStorage.getItem('cart'))
-            if (cart && !cart.items[item.id]) {
+
+            if (cart && !cart[user.username]) {
+                console.log('Line 64')
+                let userCart = {};
+                userCart.items = {}
+                userCart.items[item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1,
+                }
+                cart[user.username] = userCart;
+            }
+
+            else if (cart && cart[user.username] && cart[user.username].items &&
+                JSON.stringify(cart[user.username].items) === '{}') {
+                    // console.log('Line 82')
+                    cart[user.username]['items'][item.id] = {
+                        itemId: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: itemSize,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description,
+                        quantity: 1
+                    }
+                }
+            
+            else if (cart && cart[user.username] && cart[user.username].items && !cart[user.username].items[item.id]){
+                cart[user.username]['items'][item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1
+                }
+                    }
+
+            else if (user && user.username && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.id]) {
+                cart[user.username].items[item.id].quantity += 1
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+        //////////////////////////////////////////////////
+
+        else if (!user && localStorage.getItem('cart')) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+
+            if(cart && !cart.items){
+                cart.items = {};
                 cart.items[item.id] = {
                     itemId: item.id,
                     image: item.image,
@@ -72,12 +130,42 @@ function ItemModal({ itemId }) {
                 }
             }
 
-            else if (cart && cart.items[item.id]) {
+            else if (cart && cart.items && !cart.items[item.id]) {
+                cart.items[item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1
+                }
+            }
+
+            else if (cart && cart.items && cart.items[item.id]) {
                 cart.items[item.id].quantity += 1
             }
 
             localStorage.setItem('cart', JSON.stringify(cart))
         }
+
+        else if (user && user.username) localStorage.setItem('cart', JSON.stringify({
+            [user.username]: {
+                items: {
+                    [item.id]: {
+                        itemId: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: itemSize,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description,
+                        quantity: 1
+                    }
+                }
+            }
+        }))
 
         else localStorage.setItem('cart', JSON.stringify({
             items: {
@@ -100,7 +188,7 @@ function ItemModal({ itemId }) {
     return (
         item && <div id='item-modal'>
             <div id='item-content-modal'>
-                <div style={{display: 'flex' }}>
+                <div style={{ display: 'flex' }}>
                     <div id='image-div-modal'>
                         <img src={item.image} alt='' />
                     </div>
@@ -142,8 +230,8 @@ function ItemModal({ itemId }) {
                 <div id='review-tiles-div-modal'>
                     {/* {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>} */}
                     {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews)
-                    .map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} isItemModal={isItemModal}/>)) || 
-                    <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}><h4 style={{justifySelf: 'center'}}>No Reviews</h4></div>}
+                        .map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} isItemModal={isItemModal} />)) ||
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}><h4 style={{ justifySelf: 'center' }}>No Reviews</h4></div>}
                 </div>
             </div>
         </div>
