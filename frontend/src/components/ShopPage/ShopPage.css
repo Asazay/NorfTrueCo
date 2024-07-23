@@ -4,7 +4,7 @@
     width: max-content;
     height: max-content;
     background-color: whitesmoke;
-    /* padding: 10px; */
+   padding-bottom: 25px;
 }
 
 .itemTile a {
@@ -51,6 +51,7 @@
 #shop-page {
     display: flex;
     width: 100%;
+    height: 100%;
 }
 
 #shop-page-query {
@@ -67,10 +68,9 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 15vw));
-    gap: calc(5%);
+    gap: calc(3%);
     padding: 10px 0;
-    margin: 1% 4%;
-    /* overflow-y: scroll; */
+    margin: 0% 4%;
 }
 
 #colorFilter p {

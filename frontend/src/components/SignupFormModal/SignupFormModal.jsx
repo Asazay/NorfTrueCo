@@ -26,7 +26,7 @@ function SignupFormModal() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
-      return dispatch(
+      dispatch(
         sessionActions.thunkSignup({
           email,
           username,
@@ -40,7 +40,6 @@ function SignupFormModal() {
           setErrors(data.errors);
         }
       });
-
       closeModal()
     }
     return setErrors({

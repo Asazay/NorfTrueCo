@@ -9,6 +9,7 @@
     border: solid whitesmoke 1px;
     padding: 0;
     width: 200px;
+    z-index: 1;
 }
 
 .menu-dropdown{

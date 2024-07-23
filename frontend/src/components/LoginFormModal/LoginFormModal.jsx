@@ -3,6 +3,7 @@ import * as sessionActions from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/modal";
 import "./LoginForm.css";
+import { useNavigate } from "react-router-dom";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -10,11 +11,12 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.thunkLogin({ credential, password }))
+    dispatch(sessionActions.thunkLogin({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
@@ -22,13 +24,16 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
+
+      
+    navigate('/')
   };
 
   const handleDemoLogin = async (e) => {
     setCredential('demo@user.io');
     setPassword('password');
 
-    return dispatch(sessionActions.thunkLogin('demo@user.io', 'password'))
+    dispatch(sessionActions.thunkLogin('demo@user.io', 'password'))
     .then(closeModal)
     .catch(async (res) => {
       const data = await res.json();
@@ -36,6 +41,8 @@ function LoginFormModal() {
         setErrors(data.errors);
       }
     });
+
+    navigate('/')
   }
 
   return (

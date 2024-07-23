@@ -58,9 +58,67 @@ function ItemPage() {
 
         let cart;
 
-        if (localStorage.getItem('cart')) {
+        if (user && user.username && localStorage.getItem('cart')) {
             cart = JSON.parse(localStorage.getItem('cart'))
-            if (cart && !cart.items[item.id]) {
+
+            if (cart && !cart[user.username]) {
+                console.log('Line 64')
+                let userCart = {};
+                userCart.items = {}
+                userCart.items[item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1,
+                }
+                cart[user.username] = userCart;
+            }
+
+            else if (cart && cart[user.username] && cart[user.username].items &&
+                JSON.stringify(cart[user.username].items) === '{}') {
+                    // console.log('Line 82')
+                    cart[user.username]['items'][item.id] = {
+                        itemId: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: itemSize,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description,
+                        quantity: 1
+                    }
+                }
+            
+            else if (cart && cart[user.username] && cart[user.username].items && !cart[user.username].items[item.id]){
+                cart[user.username]['items'][item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1
+                }
+                    }
+
+            else if (user && user.username && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.id]) {
+                cart[user.username].items[item.id].quantity += 1
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+        //////////////////////////////////////////////////
+
+        else if (!user && localStorage.getItem('cart')) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+
+            if(cart && !cart.items){
+                cart.items = {};
                 cart.items[item.id] = {
                     itemId: item.id,
                     image: item.image,
@@ -73,12 +131,42 @@ function ItemPage() {
                 }
             }
 
-            else if (cart && cart.items[item.id]) {
+            else if (cart && cart.items && !cart.items[item.id]) {
+                cart.items[item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1
+                }
+            }
+
+            else if (cart && cart.items && cart.items[item.id]) {
                 cart.items[item.id].quantity += 1
             }
 
             localStorage.setItem('cart', JSON.stringify(cart))
         }
+
+        else if (user && user.username) localStorage.setItem('cart', JSON.stringify({
+            [user.username]: {
+                items: {
+                    [item.id]: {
+                        itemId: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: itemSize,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description,
+                        quantity: 1
+                    }
+                }
+            }
+        }))
 
         else localStorage.setItem('cart', JSON.stringify({
             items: {

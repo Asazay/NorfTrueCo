@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 
 
 function ShoppingCartItem({ item, cart, setCart }) {
-    const [quantity, setQuantity] = useState(item ? item.quantity: "");
+    const user = useSelector(state => state.session.user)
+    const [quantity, setQuantity] = useState(item ? item.quantity : "");
+    // console.log(cart)
 
     useEffect(() => {
         if (item && item.quantity) setQuantity(item.quantity)
     }, []);
 
     const setNewQuantity = async (val) => {
-        if (cart && cart.items && cart.items[item.itemId] && cart.items[item.itemId].price) {
+        if (user && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.itemId] &&
+            cart[user.username].items[item.itemId].price) {
+            cart[user.username].items[item.itemId]['quantity'] = parseInt(val);
+            let newCart = { ...cart };
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            setCart(newCart)
+        }
+
+        else if (!user && cart && cart.items && cart.items[item.itemId] && cart.items[item.itemId].price) {
             cart.items[item.itemId]['quantity'] = parseInt(val);
-            let newCart = {...cart};
+            let newCart = { ...cart };
             localStorage.setItem('cart', JSON.stringify(newCart));
             setCart(newCart)
         }
@@ -27,9 +38,21 @@ function ShoppingCartItem({ item, cart, setCart }) {
 
 
     const removeItem = (e = null) => {
-        if(e) e.preventDefault()
-        if (cart) {
+        console.log(cart)
+        if (e) e.preventDefault()
+
+        if (user && user.username && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.itemId]) {
+            console.log(cart)
+            delete cart[user.username].items[item.itemId]
+            delete cart[user.username].total;
+            let newCart = { ...cart }
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            setCart(newCart)
+        }
+
+        else if (!user && cart) {
             delete cart.items[item.itemId]
+            delete cart.total;
             let newCart = { ...cart }
             localStorage.setItem('cart', JSON.stringify(newCart));
             setCart(newCart)
