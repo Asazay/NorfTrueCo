@@ -40,8 +40,7 @@ function ShopPage() {
     const navigate = useNavigate();
 
     const filterSubmit = (e = null) => {
-        if(e) e.preventDefault();
-
+        if (e) e.preventDefault();
         const queryObj = {}
         if (gender) queryObj['gender'] = gender;
         if (Object.values(sizes).length > 0) queryObj.itemSize = Object.values(sizes);
@@ -74,7 +73,7 @@ function ShopPage() {
         document.getElementById('female').checked = false;
         dispatch(getItemsThunk()).catch(async res => {
             const data = res.json();
-            if (data && data.errors) {}
+            if (data && data.errors) { }
         })
     }
 
@@ -118,32 +117,33 @@ function ShopPage() {
     const AddColor = (e) => {
         let newColors = { ...colors }
         let color = document.getElementById('filterColor').value;
+        color = color.toLowerCase()
         if (!color) setErrors({ ...errors, color: "Color field cannot be blank" })
         else if (newColors[color]) setErrors({ ...errors, color: 'Color already added' })
         else {
-            newColors[color.charAt(0).toUpperCase() + color.slice(1)] = color.charAt(0).toUpperCase() + color.slice(1);
+            newColors[color] = color;
             setColors(newColors)
         }
     }
 
     const removeColor = (e) => {
         let newColors = { ...colors }
-        let color = document.getElementById('filterColor').value;
-        if (!newColors[color]) setErrors({ ...errors, color: "Color isn't added" })
+        let color = e.target.value;
+        if (!newColors[color.toLowerCase()]) setErrors({ ...errors, color: "Color isn't added" })
         else {
-            delete newColors[color]
+            delete newColors[color.toLowerCase()]
             setColors(newColors)
         }
     }
 
     useEffect(() => {
-        if(window.location.href.includes('?')) {
+        if (window.location.href.includes('?')) {
             navigate('/shop/products/')
         }
         else {
             dispatch(getItemsThunk()).catch(async res => {
                 const data = res.json();
-                if (data && data.errors) {}
+                if (data && data.errors) { }
             })
         }
     }, [dispatch])
@@ -158,7 +158,11 @@ function ShopPage() {
                 <div>
                     <div id='filter-form'>
                         <fieldset>
-                            <legend>Filter:</legend>
+                            <legend></legend>
+                            <div id='filterBtnDiv' style={{padding: '5px 0'}}>
+                                <button disabled={minPrice < 0 || maxPrice < 0 || Object.keys(errors).length ? true : false} onClick={(e) => filterSubmit(e)}>Filter</button>
+                                <button onClick={e => resetFilter(e)}>Reset</button>
+                            </div>
                             <div>
                                 Gender:<br />
                                 <input name='gender' id='male' type='radio' value='men' onChange={(e) => setGender(e.target.value)} />
@@ -204,23 +208,54 @@ function ShopPage() {
                                 Color:<br />
                                 <input type='text' value={color} id='filterColor' onChange={e => { setColor(e.target.value); setErrors({}) }}></input>
                                 <label htmlFor='filterColor'></label>
-                                <div style={{display: 'flex'}}>
-                                <button onClick={(e) => AddColor(e)}>Add Color</button>
-                                <button onClick={(e) => removeColor(e)}>Remove color</button>
+                                <div style={{ display: 'flex' }}>
+                                    <button onClick={(e) => AddColor(e)}>Add Color</button>
+                                    {/* <button onClick={(e) => removeColor(e)}>Remove color</button> */}
                                 </div>
-                                {colors && Object.values(colors).length > 0 && <div id='colorsArray'>[{Object.values(colors).map((color, i) => (<span key={i}>{color}, </span>))}]</div>}
+                                {colors && Object.values(colors).length > 0 && <div id='colorsArray'><small style={{color: 'red'}}>* uncheck color to remove</small><ul>{Object.values(colors)
+                                    .map((color, i) => (
+                                        <li key={'li' + (i + 1)}>
+                                            <label>{color}
+                                                <input type='checkbox' value={color} onChange={e => removeColor(e)} checked/>
+                                            </label>
+                                        </li>
+                                    )
+                                    )}</ul></div>}
                             </div>
                             <br />
                             <div>
                                 Min Price(USD):<br />
                                 <label htmlFor='minPrice'></label>
-                                <input type='number' id='minPrice' value={minPrice} onChange={e => setMinPrice(e.target.value)} />
+                                {errors && errors.minPrice && <p>{errors.minPrice}</p>}
+                                <input type='number' id='minPrice' value={minPrice} onChange={e => {
+                                    if(e.target.value < 0 || e.target.value > 1000){
+                                        let newErrs = {...errors};
+                                        newErrs['minPrice'] = 'Min price must be between 0 and 1000'
+                                    }
+                                    else {
+                                        setMinPrice(e.target.value)
+                                        let newErrs = {...errors}
+                                        if(newErrs.minPrice) delete newErrs.minPrice
+                                        setErrors(newErrs)
+                                    }
+                                }} />
                             </div>
                             <br />
                             <div>
                                 Max Price(USD):<br />
                                 <label htmlFor='maxPrice'></label>
-                                <input type='number' id='maxPrice' value={maxPrice} onChange={e => setMaxPrice(e.target.value)} />
+                                <input type='number' id='maxPrice' value={maxPrice} onChange={e => {
+                                     if(e.target.value < 0 || e.target.value > 1000){
+                                        let newErrs = {...errors};
+                                        newErrs['maxPrice'] = 'Max price must be between 0 and 1000'
+                                    }
+                                    else {
+                                        setMaxPrice(e.target.value)
+                                        let newErrs = {...errors}
+                                        if(newErrs.maxPrice) delete newErrs.maxPrice
+                                        setErrors(newErrs)
+                                    }
+                                }} />
                             </div>
                             <br />
                             <div>
@@ -253,10 +288,6 @@ function ShopPage() {
                                     <input type='checkbox' id='accessories' value='accessories' checked={checked['accessories']} onChange={e => customSetCategories(e)} />
                                     <label htmlFor='accessories'>Accssories</label>
                                 </div>
-                            </div>
-                            <div id='filterBtnDiv'>
-                                <button disabled={minPrice < 0 || maxPrice < 0 || Object.keys(errors).length? true: false} onClick={(e) => filterSubmit(e)}>Filter</button>
-                                <button onClick={e => resetFilter(e)}>Reset</button>
                             </div>
                         </fieldset>
                     </div>

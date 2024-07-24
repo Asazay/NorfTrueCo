@@ -77,17 +77,24 @@
     color: red;
 }
 
-#colorsArray,
-/* #colorFilter button {
-    margin: 5px 0;
-} */
+ #colorsArray {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+#colorsArray ul{
+    list-style: none;
+    padding: 0;
+    margin: 1px;
+}
 
 #no-results {
     width: 100%;
     align-items: center;
     justify-self: center;
-    color: red;
-    border: solid green 2px;
+    color: black;
 }
 
 #selectOptsDiv{

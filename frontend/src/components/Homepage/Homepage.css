@@ -42,7 +42,9 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    width: 100%;
+    min-width: 200px;
+    width: 600px;
+    height: auto;
 }
 
 #featured-div img{
