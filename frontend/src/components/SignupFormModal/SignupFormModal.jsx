@@ -16,17 +16,18 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const {closeModal} = useModal()
+  const { closeModal } = useModal()
 
   useEffect(() => {
     if (sessionUser) return navigate('/')
   }, [navigate, sessionUser])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password === confirmPassword) {
       setErrors({});
-      dispatch(
+      let success = await dispatch(
         sessionActions.thunkSignup({
           email,
           username,
@@ -37,10 +38,13 @@ function SignupFormModal() {
       ).catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
-          setErrors(data.errors);
+          return setErrors(data.errors);
+          console.log(data.errors)
         }
       });
-      closeModal()
+
+      if (success) closeModal()
+      else return
     }
     return setErrors({
       confirmPassword: "Confirm Password field must be the same as the Password field"
@@ -55,12 +59,15 @@ function SignupFormModal() {
           <div><label>Email</label></div>
           <div>
             <input
+            pattern='\w{4,30}(@){1}[A-Za-z]{3,30}\.[A-Za-z]{2,3}'
+            onInvalid={e => e.target.setCustomValidity('Please enter a valid email. ex: user@user.com')}
+            onInput={e => e.target.setCustomValidity('')}
               type="text"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
-                if(errors.email){
-                  let newErrors = {...errors}
+                if (errors.email) {
+                  let newErrors = { ...errors }
                   delete newErrors.email
                   setErrors(newErrors)
                 }
@@ -74,12 +81,15 @@ function SignupFormModal() {
           <div><label> Username</label></div>
           <div>
             <input
+              pattern='[A-Za-z]{1}[A-Za-z0-9]{3}[A-Za-z0-9]*'
+              onInvalid={e => e.target.setCustomValidity('Please enter a valid username. ex: Mike123, badEx: 1Mike')}
+              onInput={e => e.target.setCustomValidity('')}
               type="text"
               value={username}
-              onChange={(e) =>  {
+              onChange={(e) => {
                 setUsername(e.target.value)
-                if(errors.username){
-                  let newErrors = {...errors}
+                if (errors.username) {
+                  let newErrors = { ...errors }
                   delete newErrors.username
                   setErrors(newErrors)
                 }
@@ -88,17 +98,20 @@ function SignupFormModal() {
             />
           </div>
         </div>
-        {errors.username && <p>{errors.username}</p>}
+        {errors && errors.username && <p>{errors.username}</p>}
         <div id="formDiv">
           <div><label>First Name</label></div>
           <div>
             <input
+              pattern='[A-Za-z]{3,16}'
+              onInvalid={e => e.target.setCustomValidity('Please enter a valid first name. ex: Mike')}
+              onInput={e => e.target.setCustomValidity('')}
               type="text"
               value={firstName}
-              onChange={(e) =>  {
+              onChange={(e) => {
                 setFirstName(e.target.value)
-                if(errors.firstName){
-                  let newErrors = {...errors}
+                if (errors.firstName) {
+                  let newErrors = { ...errors }
                   delete newErrors.firstName
                   setErrors(newErrors)
                 }
@@ -112,12 +125,15 @@ function SignupFormModal() {
           <div><label>Last Name</label></div>
           <div>
             <input
+              pattern='[A-Za-z]{3,16}'
+              onInvalid={e => e.target.setCustomValidity('Please enter a valid last name. ex: Jones')}
+              onInput={e => e.target.setCustomValidity('')}
               type="text"
               value={lastName}
-              onChange={(e) =>  {
+              onChange={(e) => {
                 setLastName(e.target.value)
-                if(errors.lastName){
-                  let newErrors = {...errors}
+                if (errors.lastName) {
+                  let newErrors = { ...errors }
                   delete newErrors.lastName
                   setErrors(newErrors)
                 }
@@ -131,12 +147,15 @@ function SignupFormModal() {
           <div><label>Password</label></div>
           <div>
             <input
+            pattern='.{6,30}'
+            onInvalid={e => e.target.setCustomValidity('Please enter a valid password. min. 6 characters')}
+            onInput={e => e.target.setCustomValidity('')}
               type="password"
               value={password}
-              onChange={(e) =>  {
+              onChange={(e) => {
                 setPassword(e.target.value)
-                if(errors.password){
-                  let newErrors = {...errors}
+                if (errors.password) {
+                  let newErrors = { ...errors }
                   delete newErrors.password
                   setErrors(newErrors)
                 }
@@ -152,10 +171,10 @@ function SignupFormModal() {
             <input
               type="password"
               value={confirmPassword}
-              onChange={(e) =>  {
+              onChange={(e) => {
                 setConfirmPassword(e.target.value)
-                if(errors.confirmPassword){
-                  let newErrors = {...errors}
+                if (errors.confirmPassword) {
+                  let newErrors = { ...errors }
                   delete newErrors.confirmPassword
                   setErrors(newErrors)
                 }
