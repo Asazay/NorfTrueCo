@@ -104,9 +104,10 @@ function CheckoutPage() {
 
         else if(!user && localStorage.getItem('wishlist') !== null){
             let theWishlist = JSON.parse(localStorage.getItem('wishlist'));
+            let theCart = JSON.parse(localStorage.getItem('cart'))
 
-            if(theWishlist && theWishlist.items && cart && cart.items){
-                Object.values(cart.items).forEach(item => {
+            if(theWishlist && theWishlist.items && theCart && theCart.items){
+                Object.values(theCart.items).forEach(item => {
                     if(theWishlist.items[item.itemId]){
                         delete theWishlist.items[item.itemId]
                     }
