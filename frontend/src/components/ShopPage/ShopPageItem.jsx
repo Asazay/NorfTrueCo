@@ -15,7 +15,7 @@ const ShopPageItem = ({ item }) => {
 
             setWishList(wishLst)
 
-            if (!user && item && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst.items[item.id]) {
+            if (item && item.id && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst[user.username].items[item.id]) {
                 setLiked(true)
             }
         }

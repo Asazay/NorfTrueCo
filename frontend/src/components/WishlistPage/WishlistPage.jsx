@@ -34,7 +34,8 @@ function WishlistPage() {
             user && user.username && wishlist && wishlist[user.username] && wishlist[user.username].items && 
             Object.values(wishlist[user.username].items).length < 1 && <div id='no-results-wishlist'><h2>Wishlist empty</h2></div>}
 
-            {(!user && !wishlist )|| wishlist && wishlist.items && Object.values(wishlist.items).length < 1 && <div id='no-results-wishlist'><h2>Wishlist empty</h2></div>}
+            {((!user && !wishlist ) || (!user && wishlist && !wishlist.items) || (!user && wishlist && wishlist.items && JSON.stringify(wishlist.items) == '{}')
+            ||( !user && wishlist && wishlist.items && Object.values(wishlist.items).length < 1)) && <div id='no-results-wishlist'><h2>Wishlist empty</h2></div>}
         </div>
     )
 }
