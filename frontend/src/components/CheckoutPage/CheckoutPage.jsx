@@ -84,6 +84,39 @@ function CheckoutPage() {
         }
     }, [shipState]);
 
+    useEffect(() => {
+        if(user && user.username && localStorage.getItem('wishlist') !== null){
+            let theWishlist = JSON.parse(localStorage.getItem('wishlist'))
+            let theCart = JSON.parse(localStorage.getItem('cart'))
+
+            if(theWishlist && theWishlist[user.username] && theWishlist[user.username].items &&
+                theCart && theCart[user.username] && theCart[user.username].items
+            ){
+                Object.values(theCart[user.username].items).forEach(item => {
+                    if(theWishlist[user.username].items[item.itemId]){
+                        delete theWishlist[user.username].items[item.itemId]
+                    }
+                });
+                localStorage.removeItem('wishlist');
+                localStorage.setItem('wishlist', JSON.stringify(theWishlist))
+            }
+        }
+
+        else if(!user && localStorage.getItem('wishlist') !== null){
+            let theWishlist = JSON.parse(localStorage.getItem('wishlist'));
+
+            if(theWishlist && theWishlist.items && cart && cart.items){
+                Object.values(cart.items).forEach(item => {
+                    if(theWishlist.items[item.itemId]){
+                        delete theWishlist.items[item.itemId]
+                    }
+                })
+                localStorage.removeItem('wishlist');
+                localStorage.setItem('wishlist', JSON.stringify(theWishlist))
+            }
+        }
+    }, [user])
+
     // useEffect(() => {
     //     let date = new Date()
     //     let currYear = date.getFullYear()

@@ -95,7 +95,6 @@ function OrdersPageTile({ order }) {
             for await (let selItem of selItems) {
             const [orderId, orderNumber] = selItem.id.split(',')
             if (selItem.value === 'off') {
-                console.log(orderId, orderNumber)
                 dispatch(deleteOrderItemByIdThunk(orderNumber, orderId)).catch(async res => {
                     console.log(res)
                     // let data;

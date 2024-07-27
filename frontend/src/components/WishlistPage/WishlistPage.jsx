@@ -18,10 +18,10 @@ function WishlistPage() {
     return (
         <div id='wishlist-page'>
             <div id='linkDiv'>
-                <NavLink to='/'>Home</NavLink>
-                <NavLink to='/shop/products'>Shop</NavLink>
+                <NavLink key={'homeNavLink'} to='/'>Home</NavLink>
+                <NavLink key={'shopNavLink'} to='/shop/products'>Shop</NavLink>
             </div>
-            <div id='wishlist-h1'><h1>Wishlist</h1></div>
+            <div id='wishlist-h1'><h1 key={'wishlist-h1'}>Wishlist</h1></div>
             <div id='item-grid'>
                 {(user && user.username && wishlist && wishlist[user.username] && wishlist[user.username].items && 
                 Object.keys(wishlist[user.username]).length > 0 && Object.values(wishlist[user.username].items)
