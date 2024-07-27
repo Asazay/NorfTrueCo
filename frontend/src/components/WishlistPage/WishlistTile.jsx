@@ -11,15 +11,22 @@ const WishlistTile = ({ item, setWishList }) => {
     }, [item])
 
     const removeFromWishLst = (e = null) => {
-
         if (e) e.preventDefault()
-        let wishLst = JSON.parse(localStorage.getItem('wishlist'))
-        if (wishLst && wishLst.items) {
-            let newWishLst = { ...wishLst }
-            delete newWishLst.items[item.itemId]
-            localStorage.setItem('wishlist', JSON.stringify(newWishLst));
-            setWishList(newWishLst)
-        }
+            let wishLst = JSON.parse(localStorage.getItem('wishlist'))
+    
+            if (user && user.username && wishLst && wishLst[user.username] && wishLst[user.username].items) {
+                let newWishLst = { ...wishLst }
+                delete newWishLst[user.username].items[item.id]
+                localStorage.setItem('wishlist', JSON.stringify(newWishLst));
+                setWishList(newWishLst)
+            }
+    
+            if (!user && wishLst && wishLst.items) {
+                let newWishLst = { ...wishLst }
+                delete newWishLst.items[item.id]
+                localStorage.setItem('wishlist', JSON.stringify(newWishLst));
+                setWishList(newWishLst)
+            }
     }
 
     const addToCart = (e) => {

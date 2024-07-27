@@ -17,7 +17,7 @@ const validateCheckout = [
         .withMessage('Last name is invalid. (Ex: Williams)'),
     check('billAddress').exists({ checkFalsy: true }).notEmpty()
         .custom(async (value) => {
-            if (!value.match(/[0-9]{3,5}\s[A-Za-z]+\s?[A-Za-z]*\s?[A-Za-z]*/g)) throw new Error('Address is invalid. (Ex: 1234 Rodeo Way')
+            if (!value.match(/[0-9]{3,5}\s[A-Za-z]+\s?[A-Za-z]*\s?[A-Za-z]*/g)) throw new Error('Address is invalid. (Ex: 1234 Rodeo Way)')
         }),
     check('billCity').exists({ checkFalsy: true }).notEmpty().isAlpha()
         .withMessage('City is invalid. (Ex: Atlanta)'),
@@ -51,9 +51,18 @@ const validateCheckout = [
         if (val.split('/').length < 2) throw new Error('Expiration date is invalid. (Ex. 11/25)')
         if (val.length !== 5) throw new Error('Expiration date is invalid. (Ex. 11/25)')
         val = val.split('/');
-        if (typeof parseInt(val[0]) !== 'number' || typeof parseInt(val[1]) !== 'number') throw new Error('Expiration date is invalid. (Ex. 11/25)')
+
+        let date = new Date();
+        let currYear = date.getFullYear().toString().slice(-2)
+
+        if (typeof parseInt(val[0]) !== 'number' || typeof parseInt(val[1]) !== 'number'
+            || parseInt(val[0]) > 12 || parseInt(val[0]) > 31 || parseInt(val[1]) < currYear) throw new Error('Expiration date is invalid. (Ex. 11/25 - mm/yy)')
+    
     }),
-    check('cvv').exists({ checkFalsy: true }).notEmpty().custom(async val => typeof Number(val) === 'number')
+    check('cvv').exists({ checkFalsy: true }).notEmpty().custom(async val => {
+        if (typeof parseInt(val) !== 'number' || val.length !== 3 || !val || val.includes(' ')) throw new Error('CVV is invalid. (Ex: 123)')
+        else return
+    })
         .withMessage('CVV is invalid. (Ex: 123)'),
     handleValidationErrors
 ]
@@ -92,10 +101,10 @@ router.get('/:userId', async (req, res, next) => {
                 attributes: ['id', 'order_number', 'image', 'name', 'size', 'color',
                     'price', 'quantity'
                 ],
-                order:[['createdAt']]
+                order: [['createdAt']]
             })
 
-            if(orderInfo && orderItems){
+            if (orderInfo && orderItems) {
                 orderInfo = await orderInfo.toJSON()
                 order.Order_Information = orderInfo;
                 order.Order_Items = orderItems;
@@ -103,10 +112,10 @@ router.get('/:userId', async (req, res, next) => {
             }
             else {
                 res.status(400)
-                res.json({error: 'Couldnt retrieve orders'})
+                res.json({ error: 'Couldnt retrieve orders' })
             }
         })));
-        
+
         res.json(orderArray)
     }
     else {
@@ -118,7 +127,7 @@ router.get('/:userId', async (req, res, next) => {
 router.post('/:userId', validateCheckout, async (req, res, next) => {
 
     const { userId } = req.params;
-  
+
     const { items, firstName, lastName, email, billAddress, billCity, billState,
         billZipCode, shipAddress, shipCity, shipState, ShipZipCode, cardNumber, orderTotal } = req.body;
 
@@ -227,7 +236,7 @@ router.get('/:userId/:orderNumber', async (req, res, next) => {
     //     where.user_id = { [Op.eq]: null }
     // }
 
-    if(JSON.parse(userId) !== null && typeof parseInt(userId) === 'number')  where.user_id = { [Op.eq]: parseInt(userId) }
+    if (JSON.parse(userId) !== null && typeof parseInt(userId) === 'number') where.user_id = { [Op.eq]: parseInt(userId) }
 
     where.order_number = {
         [Op.eq]: parseInt(orderNumber)
@@ -259,7 +268,7 @@ router.get('/:userId/:orderNumber', async (req, res, next) => {
 });
 
 router.delete('/:userId/:orderNumber', async (req, res, next) => {
-    const {userId, orderNumber} = req.params
+    const { userId, orderNumber } = req.params
 
     const order = await Order.findOne({
         where: {
@@ -272,7 +281,7 @@ router.delete('/:userId/:orderNumber', async (req, res, next) => {
         }
     });
 
-    if(order){
+    if (order) {
         await order.destroy()
 
         const orderItems = await Order_Item.findAll({
@@ -283,7 +292,7 @@ router.delete('/:userId/:orderNumber', async (req, res, next) => {
             }
         });
 
-        if(orderItems){
+        if (orderItems) {
             orderItems.forEach(async item => {
                 await item.destroy()
             });
@@ -297,14 +306,14 @@ router.delete('/:userId/:orderNumber', async (req, res, next) => {
             }
         });
 
-        if(orderInfo){
+        if (orderInfo) {
             await orderInfo.destroy()
         }
 
         return res.json(order.order_number)
     }
 
-    else if(!order) return res.json({error: 'Couldnt find order'})
+    else if (!order) return res.json({ error: 'Couldnt find order' })
 
     return res.json(order.order_number)
 })

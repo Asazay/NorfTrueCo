@@ -8,19 +8,40 @@ function CreateReviewModal({itemId}) {
 //   const item = useSelector((state) => state.session.items);
   const [comment, setComment] = useState("");
   const [stars, setStars] = useState(0);
-  const [disable, setDisable] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const {closeModal} = useModal();
 
-  useEffect(() => {
-    setErrors({})
-    if (comment.length < 10 || Number(stars) < 1) setDisable(true);
-    else setDisable(false);
-  }, [comment, stars]);
 
   const submitReview = async (e) => {
     e.preventDefault();
+
+    console.log("submit review")
+
+    let regExp = /[a-zA-Z]/g;
+
+    if(comment.length < 10) {
+      let newErrs = {...errors}
+      newErrs.comment = 'Comment must contain 10 characters or more.'
+      setErrors(newErrs)
+      return
+    }
+
+    if (!regExp.test(comment.trim())) {
+      let newErrs = {...errors}
+      newErrs.comment = 'Comment cannot be all spaces :)'
+      setErrors(newErrs)
+      return
+    }
+
+    if(Number(stars) < 1){
+      let newErrs = {...errors}
+      newErrs.comment = 'Stars must be selected.'
+      setErrors(newErrs)
+      return
+    }
+
     const newReview = {
       comment,
       stars,
@@ -47,8 +68,13 @@ function CreateReviewModal({itemId}) {
           rows={10}
           placeholder="Leave your review here..."
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={(e) => {setComment(e.target.value); setErrors({})}}
+          required
         ></textarea>
+      </div>
+      <div >
+      {errors && errors.comment && <p id='error'>{errors.comment}</p>}
+      {errors && errors.stars && <p id='error'>{errors.stars}</p>}
       </div>
       <div id="starDiv">
         <div className="rate">

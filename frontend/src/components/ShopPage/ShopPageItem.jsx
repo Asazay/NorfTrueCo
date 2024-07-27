@@ -2,13 +2,25 @@ import { NavLink } from "react-router-dom";
 import ItemModal from '../ItemModal/ItemModal';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ShopPageItem = ({ item }) => {
     const [liked, setLiked] = useState(false)
     const [wishlist, setWishList] = useState();
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
-        if (localStorage.getItem('wishlist')) {
+        if (user && user.username && localStorage.getItem('wishlist')) {
+            let wishLst = JSON.parse(localStorage.getItem('wishlist'));
+
+            setWishList(wishLst)
+
+            if (!user && item && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst.items[item.id]) {
+                setLiked(true)
+            }
+        }
+
+        if (!user && localStorage.getItem('wishlist')) {
             let wishLst = JSON.parse(localStorage.getItem('wishlist'));
 
             setWishList(wishLst)
@@ -24,11 +36,11 @@ const ShopPageItem = ({ item }) => {
 
         let wishLst;
 
-        if (localStorage.getItem('wishlist')) {
+        if (user && user.username && localStorage.getItem('wishlist')) {
             wishLst = JSON.parse(localStorage.getItem('wishlist'))
-            if (wishLst && !wishLst.items[item.id]) {
-                wishLst.items[item.id] = {
-                    itemId: item.id,
+            if (wishLst && wishLst[user.username] && !wishLst[user.username].items[item.id]) {
+                wishLst[user.username].items[item.id] = {
+                    id: item.id,
                     image: item.image,
                     name: item.name,
                     size: item.size,
@@ -42,11 +54,62 @@ const ShopPageItem = ({ item }) => {
             setLiked(true)
         }
 
-        else {
+        else if (!user && localStorage.getItem('wishlist')) {
+            wishLst = JSON.parse(localStorage.getItem('wishlist'))
+            if (item && item.id && wishLst && wishLst.items && !wishLst.items[item.id]) {
+                wishLst.items[item.id] = {
+                    id: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: item.size,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description
+                }
+            }
+
+            else if (item && item.id && wishLst && !wishLst.items) {
+                wishLst.items = {
+                    [item.id]: {
+                        id: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: item.size,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description
+                    }
+                }
+            }
+            
+            localStorage.setItem('wishlist', JSON.stringify(wishLst))
+            setLiked(true)
+        }
+
+        else if (user && user.username && !localStorage.getItem('wishlist')) {
+            localStorage.setItem('wishlist', JSON.stringify({
+                [user.username]: {
+                    items: {
+                        [item.id]: {
+                            id: item.id,
+                            image: item.image,
+                            name: item.name,
+                            size: item.size,
+                            color: item.color,
+                            price: item.price,
+                            description: item.description
+                        }
+                    }
+                }
+            }));
+            setLiked(true)
+        }
+
+        else if (!user && !localStorage.getItem('wishlist')) {
             localStorage.setItem('wishlist', JSON.stringify({
                 items: {
                     [item.id]: {
-                        itemId: item.id,
+                        id: item.id,
                         image: item.image,
                         name: item.name,
                         size: item.size,
@@ -61,10 +124,19 @@ const ShopPageItem = ({ item }) => {
     }
 
     const removeFromWishLst = (e = null) => {
-       
+
         if (e) e.preventDefault()
         let wishLst = JSON.parse(localStorage.getItem('wishlist'))
-        if (wishLst && wishLst.items) {
+
+        if (user && user.username && wishLst && wishLst[user.username] && wishLst[user.username].items) {
+            let newWishLst = { ...wishLst }
+            delete newWishLst[user.username].items[item.id]
+            localStorage.setItem('wishlist', JSON.stringify(newWishLst));
+            setWishList(newWishLst)
+            setLiked(false)
+        }
+
+        if (!user && wishLst && wishLst.items) {
             let newWishLst = { ...wishLst }
             delete newWishLst.items[item.id]
             localStorage.setItem('wishlist', JSON.stringify(newWishLst));

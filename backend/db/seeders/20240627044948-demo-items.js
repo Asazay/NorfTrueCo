@@ -13,7 +13,7 @@ module.exports = {
       {
         name: 'Black Snapback',
         size: 'universal',
-        color: 'Black',
+        color: 'black',
         price: 14.99,
         category: 'hats',
         gender: 'men',
@@ -24,7 +24,7 @@ module.exports = {
       {
         name: 'Blue Snapback',
         size: 'universal',
-        color: 'Blue',
+        color: 'blue',
         price: 14.99,
         category: 'hats',
         gender: 'men',
@@ -35,7 +35,7 @@ module.exports = {
       {
         name: 'Red Snapback',
         size: 'universal',
-        color: 'Red',
+        color: 'red',
         price: 14.99,
         category: 'hats',
         gender: 'men',
@@ -46,7 +46,7 @@ module.exports = {
       {
         name: 'White Snapback',
         size: 'universal',
-        color: 'White',
+        color: 'white',
         price: 14.99,
         category: 'hats',
         gender: 'men',
@@ -58,7 +58,7 @@ module.exports = {
       {
         name: 'Black Hoodie',
         size: 'medium',
-        color: 'Black',
+        color: 'black',
         price: 29.99,
         category: 'hoodies',
         gender: 'men',
@@ -69,7 +69,7 @@ module.exports = {
       {
         name: 'Red Hoodie',
         size: 'large',
-        color: 'Red',
+        color: 'red',
         price: 29.99,
         category: 'hoodies',
         gender: 'men',
@@ -80,7 +80,7 @@ module.exports = {
       {
         name: 'Grey Hoodie',
         size: 'small',
-        color: 'Grey',
+        color: 'grey',
         price: 29.99,
         category: 'hoodies',
         gender: 'women',
@@ -91,7 +91,7 @@ module.exports = {
       {
         name: 'Purple Hoodie',
         size: 'xl',
-        color: 'Purple',
+        color: 'purple',
         price: 29.99,
         category: 'hoodies',
         gender: 'women',
@@ -103,7 +103,7 @@ module.exports = {
       {
         name: 'Black Shirt',
         size: 'xxl',
-        color: 'Black',
+        color: 'black',
         price: 19.99,
         category: 'shirts',
         gender: 'men',
@@ -114,7 +114,7 @@ module.exports = {
       {
         name: 'Blue Shirt',
         size: '3xl',
-        color: 'Blue',
+        color: 'blue',
         price: 19.99,
         category: 'shirts',
         gender: 'men',
@@ -125,7 +125,7 @@ module.exports = {
       {
         name: 'Red Shirt',
         size: '3xl',
-        color: 'Red',
+        color: 'red',
         price: 19.99,
         category: 'shirts',
         gender: 'men',
@@ -136,7 +136,7 @@ module.exports = {
       {
         name: 'Pink Shirt',
         size: 'medium',
-        color: 'Pink',
+        color: 'pink',
         price: 19.99,
         category: 'shirts',
         gender: 'women',
@@ -147,7 +147,7 @@ module.exports = {
       {
         name: 'Yellow Shirt',
         size: 'xxl',
-        color: 'Yellow',
+        color: 'yellow',
         price: 19.99,
         category: 'shirts',
         gender: 'women',
@@ -159,7 +159,7 @@ module.exports = {
       {
         name: 'Black Pants',
         size: 'medium',
-        color: 'Black',
+        color: 'black',
         price: 34.99,
         category: 'pants',
         gender: 'men',
@@ -170,7 +170,7 @@ module.exports = {
       {
         name: 'Red Pants',
         size: 'large',
-        color: 'Black',
+        color: 'black',
         price: 34.99,
         category: 'pants',
         gender: 'men',
@@ -181,7 +181,7 @@ module.exports = {
       {
         name: 'White Pants',
         size: 'xxl',
-        color: 'White',
+        color: 'white',
         price: 34.99,
         category: 'pants',
         gender: 'men',
@@ -192,7 +192,7 @@ module.exports = {
       {
         name: 'Vintage Blue Pants',
         size: 'medium',
-        color: 'Blue',
+        color: 'blue',
         price: 39.99,
         category: 'pants',
         gender: 'women',
@@ -203,7 +203,7 @@ module.exports = {
       {
         name: 'Vintage Pink Pants',
         size: 'small',
-        color: 'Pink',
+        color: 'pink',
         price: 39.99,
         category: 'pants',
         gender: 'women',
@@ -215,7 +215,7 @@ module.exports = {
       {
         name: 'Black Shorts',
         size: 'medium',
-        color: 'Black',
+        color: 'black',
         price: 24.99,
         category: 'shorts',
         gender: 'men',
@@ -226,7 +226,7 @@ module.exports = {
       {
         name: 'Red Shorts',
         size: 'large',
-        color: 'Black',
+        color: 'black',
         price: 24.99,
         category: 'shorts',
         gender: 'men',
@@ -237,7 +237,7 @@ module.exports = {
       {
         name: 'Vintage Pink Shorts',
         size: 'small',
-        color: 'Pink',
+        color: 'pink',
         price: 17.99,
         category: 'shorts',
         gender: 'women',
@@ -248,7 +248,7 @@ module.exports = {
       {
         name: 'Vintage Blue Shorts',
         size: 'large',
-        color: 'Blue',
+        color: 'blue',
         price: 17.99,
         category: 'shorts',
         gender: 'women',
@@ -260,7 +260,7 @@ module.exports = {
       {
         name: 'Black Socks',
         size: 'large',
-        color: 'Black',
+        color: 'black',
         price: 4.99,
         category: 'socks',
         gender: 'men',
@@ -271,7 +271,7 @@ module.exports = {
       {
         name: 'Blue Socks',
         size: 'small',
-        color: 'Blue',
+        color: 'blue',
         price: 4.99,
         category: 'socks',
         gender: 'men',
@@ -282,7 +282,7 @@ module.exports = {
       {
         name: 'Pink Socks',
         size: 'xl',
-        color: 'Pink',
+        color: 'pink',
         price: 7.99,
         category: 'socks',
         gender: 'women',
@@ -293,7 +293,7 @@ module.exports = {
       {
         name: 'Red Socks',
         size: 'small',
-        color: 'Red',
+        color: 'red',
         price: 7.99,
         category: 'socks',
         gender: 'women',
@@ -305,7 +305,7 @@ module.exports = {
       {
         name: 'Black Belt',
         size: 'medium',
-        color: 'Black',
+        color: 'black',
         price: 8.99,
         category: 'accessories',
         gender: 'men',
@@ -316,7 +316,7 @@ module.exports = {
       {
         name: 'Black Messenger Bag',
         size: 'universal',
-        color: 'Black',
+        color: 'black',
         price: 129.99,
         category: 'accessories',
         gender: 'men',
@@ -327,7 +327,7 @@ module.exports = {
       {
         name: 'Octo Glasses',
         size: 'universal',
-        color: 'Blue',
+        color: 'blue',
         price: 12.99,
         category: 'accessories',
         gender: 'men',
@@ -338,7 +338,7 @@ module.exports = {
       {
         name: 'Pink Scarf',
         size: 'universal',
-        color: 'Pink',
+        color: 'pink',
         price: 14.99,
         category: 'accessories',
         gender: 'women',

@@ -18,7 +18,7 @@ function Homepage() {
             </div>
             <div id='main-page'>
                 <div id='featured-div'>
-                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Men+Collection+Image.jpg' />
+                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Men+collection+image+new+new.avif' alt=''/>
                     <button onClick={() => navigate('/shop/products/query/?gender=men')}>Shop Men's</button>
                 </div>
                 <div id='featured-div'>
@@ -33,7 +33,7 @@ function Homepage() {
                         </div>
                 </div>
                 <div id='featured-div'>
-                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Women+Collection+Image.jpg' />
+                    <img src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Women+Fall+Collection+Image.jpg' alt=''/>
                     <button onClick={() => navigate('/shop/products/query/?gender=women')}>Shop Women's</button>
                 </div>
             </div>
