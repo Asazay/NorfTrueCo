@@ -26,7 +26,6 @@ function ShoppingCartModal() {
 
         setTotal(cartTotal)
         if (user && user.username && cart && cart[user.username]){
-            console.log(cart)
             cart[user.username].total = cartTotal;
         }
 
@@ -94,7 +93,6 @@ function ShoppingCartModal() {
                 setCart(userCart)
                 setEmpty(false)
                 setTotal(cartTotal)
-                console.log(userCart)
             }
         }
 
@@ -110,7 +108,6 @@ function ShoppingCartModal() {
             setCart(userCart)
             setEmpty(false)
             setTotal(cartTotal)
-            console.log(userCart)
         }
         else setLocked(true)
     }, []);

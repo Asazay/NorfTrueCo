@@ -15,7 +15,7 @@ const ShopPageItem = ({ item }) => {
 
             setWishList(wishLst)
 
-            if (!user && item && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst.items[item.id]) {
+            if (item && item.id && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst[user.username].items[item.id]) {
                 setLiked(true)
             }
         }
@@ -50,6 +50,24 @@ const ShopPageItem = ({ item }) => {
                 }
             }
 
+            else if (user && user.username && wishLst && !wishLst[user.username]) {
+                wishLst = JSON.parse(localStorage.getItem('wishlist'))
+                wishLst[user.username] = {
+                    items: {
+                        [item.id]: {
+                            id: item.id,
+                            image: item.image,
+                            name: item.name,
+                            size: item.size,
+                            color: item.color,
+                            price: item.price,
+                            description: item.description
+                        }
+                    }
+                }
+                setLiked(true)
+            }
+
             localStorage.setItem('wishlist', JSON.stringify(wishLst))
             setLiked(true)
         }
@@ -81,7 +99,7 @@ const ShopPageItem = ({ item }) => {
                     }
                 }
             }
-            
+
             localStorage.setItem('wishlist', JSON.stringify(wishLst))
             setLiked(true)
         }
@@ -128,7 +146,7 @@ const ShopPageItem = ({ item }) => {
         if (e) e.preventDefault()
         let wishLst = JSON.parse(localStorage.getItem('wishlist'))
 
-        if (user && user.username && wishLst && wishLst[user.username] && wishLst[user.username].items) {
+        if (user && user.username && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst[user.username].items[item.id]) {
             let newWishLst = { ...wishLst }
             delete newWishLst[user.username].items[item.id]
             localStorage.setItem('wishlist', JSON.stringify(newWishLst));

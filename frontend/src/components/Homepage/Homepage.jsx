@@ -23,6 +23,10 @@ function Homepage() {
                 </div>
                 <div id='featured-div'>
                     <div id='p-button'>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <img style={{width: '200px', height: '200px', alignSelf: 'center', padding: 0}} src='https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Norf-True-Logo.png' alt=''></img>
+
+                        </div>
                         <p id='featured-p'>
                             Norf True Co. is not just a brand its creativity, passion, and love.
                             Check out our latest collections and styles to feed your fashion desires!

@@ -59,7 +59,7 @@ function SignupFormModal() {
           <div><label>Email</label></div>
           <div>
             <input
-            pattern='\w{4,30}(@){1}[A-Za-z]{3,30}\.[A-Za-z]{2,3}'
+            pattern='\w{3git ,30}(@){1}[A-Za-z]{3,30}\.[A-Za-z]{2,3}'
             onInvalid={e => e.target.setCustomValidity('Please enter a valid email. ex: user@user.com')}
             onInput={e => e.target.setCustomValidity('')}
               type="text"

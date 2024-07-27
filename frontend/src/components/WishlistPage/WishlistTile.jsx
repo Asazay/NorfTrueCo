@@ -38,7 +38,6 @@ const WishlistTile = ({ item, setWishList }) => {
             cart = JSON.parse(localStorage.getItem('cart'))
 
             if (cart && !cart[user.username]) {
-                console.log('Line 64')
                 let userCart = {};
                 userCart.items = {}
                 userCart.items[item.id] = {
@@ -56,7 +55,6 @@ const WishlistTile = ({ item, setWishList }) => {
 
             else if (cart && cart[user.username] && cart[user.username].items &&
                 JSON.stringify(cart[user.username].items) === '{}') {
-                    // console.log('Line 82')
                     cart[user.username]['items'][item.id] = {
                         itemId: item.id,
                         image: item.image,
@@ -163,7 +161,7 @@ const WishlistTile = ({ item, setWishList }) => {
     }
 
     return (
-        <div id={item.id} className="itemTile-wishlist">
+        <div key={item.id} id={item.id} className="itemTile-wishlist">
             <NavLink to={`/shop/products/${item.itemId}`}>
                 <div id="imgDiv">
                     <img src={item.image} alt="" />

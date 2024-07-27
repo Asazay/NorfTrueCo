@@ -19,7 +19,7 @@ body{
     /* margin: 5px 40px; */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: min-content;
 }
 
 #root{

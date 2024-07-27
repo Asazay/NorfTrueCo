@@ -7,7 +7,6 @@ function ShoppingCartItem({ item, cart, setCart }) {
     const user = useSelector(state => state.session.user)
     const [quantity, setQuantity] = useState(item ? item.quantity : "");
     const [errors, setErrors] = useState({})
-    // console.log(cart)
 
     useEffect(() => {
         if (item && item.quantity) setQuantity(item.quantity)
@@ -39,11 +38,9 @@ function ShoppingCartItem({ item, cart, setCart }) {
 
 
     const removeItem = (e = null) => {
-        console.log(cart)
         if (e) e.preventDefault()
 
         if (user && user.username && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.itemId]) {
-            console.log(cart)
             delete cart[user.username].items[item.itemId]
             delete cart[user.username].total;
             let newCart = { ...cart }

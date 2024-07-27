@@ -62,7 +62,6 @@ function ItemPage() {
             cart = JSON.parse(localStorage.getItem('cart'))
 
             if (cart && !cart[user.username]) {
-                console.log('Line 64')
                 let userCart = {};
                 userCart.items = {}
                 userCart.items[item.id] = {
