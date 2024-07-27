@@ -292,7 +292,7 @@ function ShopPage() {
                         </fieldset>
                     </div>
                 </div>
-                <div id='item-grid'>
+               { items && items.length > 0 && <div id='item-grid'>
                     {items && items.length > 0 &&
                         <>
                             {items?.map((item) => {
@@ -301,8 +301,9 @@ function ShopPage() {
                                 )
                             })}
                         </>
-                    } {items && !items.length && <div id='no-results'><h2>No results</h2></div>}
-                </div>
+                    }
+                </div>}
+                {items && !items.length && <div id='no-results'><h2>No results</h2></div>}
             </div>
         </div>
     )

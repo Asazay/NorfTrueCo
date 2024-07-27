@@ -1,30 +1,33 @@
-#error{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -25px;
+#createReviewForm div{
+    margin: 2px 0;
+    height: max-content;
 }
-#error p {
-  color: red;
-  justify-self: center;
-  width: max-content;
+
+p#error {
+    color: red;
+    justify-self: center;
+    width: max-content;
+    margin: 0;
 }
 
 textarea {
-  border: solid black 2px;
+    border: solid black 2px;
 }
 
-#buttonDiv{
+#buttonDiv {
     width: 100%;
 }
 
-#buttonDiv button{
+#buttonDiv button {
     width: 100%;
 }
 
-#starDiv{
+#starDiv {
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
 }
 
 .rate {
@@ -32,33 +35,39 @@ textarea {
     height: 46px;
     padding: 0 10px;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+
+.rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
 }
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
-.rate:not(:checked) > label:before {
+
+.rate:not(:checked)>label:before {
     content: '★ ';
 }
-.rate > input:checked ~ label {
-    color: #ffc700;    
+
+.rate>input:checked~label {
+    color: #ffc700;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #deb217;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
     color: #c59b08;
 }

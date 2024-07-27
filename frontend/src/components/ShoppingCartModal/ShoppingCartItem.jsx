@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 function ShoppingCartItem({ item, cart, setCart }) {
     const user = useSelector(state => state.session.user)
     const [quantity, setQuantity] = useState(item ? item.quantity : "");
+    const [errors, setErrors] = useState({})
     // console.log(cart)
 
     useEffect(() => {
@@ -68,7 +69,21 @@ function ShoppingCartItem({ item, cart, setCart }) {
                 <div id="itemName-color" className="itemEl"><span>{item && item.color && item.color.toUpperCase()}</span></div>
                 <div id="itemPrice" className="itemEl"><span>${item.price}</span></div>
                 <div id="itemQuantity" className="itemEl">
-                    <input type='number' value={quantity} min={0} max={25} onChange={(e) => setQuantity(e.target.value)} />
+                    <input type='number' value={quantity} min={0} max={25} onChange={(e) => {
+                        if(e.target.value < 0 || e.target.value > 25){
+                            let newErrs = {...errors};
+                            newErrs.quantity = 'Quantity must be between 0 and 25'
+                            setErrors(newErrs)
+                        }
+                        else {
+                            if(errors.quantity){
+                                let newErrs = {...errors}
+                                delete newErrs.quantity
+                                setErrors(newErrs)
+                            }
+                            setQuantity(e.target.value)
+                        }
+                    }} />
                     <button onClick={e => removeItem(e)}>Remove</button>
                 </div>
             </div>

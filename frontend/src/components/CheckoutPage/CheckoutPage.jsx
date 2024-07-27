@@ -84,6 +84,11 @@ function CheckoutPage() {
         }
     }, [shipState]);
 
+    // useEffect(() => {
+    //     let date = new Date()
+    //     let currYear = date.getFullYear()
+    // }, [expDate,cvv])
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -117,6 +122,7 @@ function CheckoutPage() {
 
             if (data && data.errors) {
                 setErrors(data.errors)
+                document.body.scrollTop = document.documentElement.scrollTop = 200;
             }
         });
 

@@ -11,6 +11,7 @@ function ShopPageQuery() {
     const items = useSelector(state => state.session.items);
     const dispatch = useDispatch();
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -36,7 +37,7 @@ function ShopPageQuery() {
 
         dispatch(getFilteredItemsThunk(filterStr)).catch(async res => {
             const data = res.json();
-            if (data && data.errors){}
+            if (data && data.errors) { }
         })
     }, [dispatch])
 
@@ -63,7 +64,7 @@ function ShopPageQuery() {
 
         dispatch(getFilteredItemsThunk(filterStr)).catch(async res => {
             const data = res.json();
-            if (data && data.errors) {}
+            if (data && data.errors) { }
         })
     }, [location])
 
@@ -71,9 +72,15 @@ function ShopPageQuery() {
 
     return (
         <div id='body'>
+            {items && !items.length &&
+                <div id='no-results'>
+                    <div>
+                        <button onClick={() => navigate('/')}>Home</button>
+                        <button onClick={() => navigate('/shop/products')}>Shop All</button>
+                    </div>
+                    <h2>No results</h2>
+                </div>}
             <div id='shop-page-query'>
-                <div>
-                </div>
                 <div id='item-grid'>
                     {items && items.length > 0 &&
                         <>
@@ -83,7 +90,7 @@ function ShopPageQuery() {
                                 )
                             })}
                         </>
-                    } {items && !items.length && <div id='no-results'><h2>No results</h2></div>}
+                    }
                 </div>
             </div>
         </div>
