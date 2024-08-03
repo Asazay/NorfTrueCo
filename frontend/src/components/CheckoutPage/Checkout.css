@@ -83,3 +83,8 @@
 #customer-info p{
     color: red;
 }
+
+#same-as-ship{
+    display: flex;
+    width: max-content;
+}
