@@ -76,6 +76,12 @@ h2{
 
 .itemEl{
     width: 133px;
+    display: flex;
+    align-items: center;
+}
+
+.itemEl span{
+    height: max-content;
 }
 
 #total-div{

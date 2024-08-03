@@ -81,7 +81,10 @@ function ShoppingCartItem({ item, cart, setCart }) {
                             setQuantity(e.target.value)
                         }
                     }} />
-                    <button onClick={e => removeItem(e)}>Remove</button>
+                    <button style={{marginLeft: '5px', border: 'none', color: 'red', width: '30px'}} onClick={e => {
+                        e.preventDefault()
+                        removeItem(e)
+                    }}>Remove</button>
                 </div>
             </div>
         </>

@@ -38,8 +38,8 @@ function MenuButton() {
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 <div id="nav-menu">
-                    <div id="menu-clickable"><li><button onClick={e => { e.preventDefault(); navigate('/'); closeMenu() }}>Home</button></li></div>
-                    <div id="menu-clickable"><li><button onClick={e => { e.preventDefault(); navigate('/shop/products'); closeMenu() }}>Shop All</button></li></div>
+                    <div id="menu-clickable"><button className='non-submenu' onClick={e => { e.preventDefault(); navigate('/'); closeMenu() }}>Home</button></div>
+                    <div id="menu-clickable"><button className='non-submenu' onClick={e => { e.preventDefault(); navigate('/shop/products'); closeMenu() }}>Shop All</button></div>
                     <div id="menu-clickable">
                         <li>
                             <SubMenuButton theUlClassName={'men'} menuOptName={'Men'} 

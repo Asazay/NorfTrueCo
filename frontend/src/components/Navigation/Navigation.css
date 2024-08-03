@@ -54,6 +54,11 @@
     z-index: 1;
 }
 
+.non-submenu{
+    width: 100%;
+    text-align: left;
+}
+
 #nav-menu li:hover{
     cursor: pointer;
     background-color: #555555;
@@ -64,9 +69,11 @@
     justify-content: space-between;
 }
 
-.arrow-symbol{
+button.arrow-symbol {
     color: whitesmoke;
     text-decoration: none;
+    text-align: right;
+    width: 20%;
 }
 
 .arrow-symbol:hover{
@@ -98,9 +105,21 @@
     padding: 5px;
     /* border-bottom: solid white 1px; */
     width: max-content;
-    /* margin: 0; */
-    width: 100%;
     font-size: 16px;
+} 
+
+#menu-clickable:hover{
+    width: 100%;
+    background-color: #555555;
+}
+#menu-clickable li button{
+    width: 80%;
+    text-align: left;
+}
+
+#menu-clickable button:hover{
+    color: lightgrey;
+    cursor: pointer;
 }
 
 #user-info > #menu-clickable:hover{
@@ -112,6 +131,18 @@
     color: lightgrey;
     cursor: pointer;
 }
+
+#button-submenu{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1px;
+}
+
+#subMenuBtn{
+ 
+}
+
 /* 
 #user-info div:hover{
     padding: 5px;

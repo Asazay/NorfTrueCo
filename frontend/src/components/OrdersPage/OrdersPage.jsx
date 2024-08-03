@@ -37,8 +37,8 @@ function OrdersPage(){
     return (
         <div id='orders-page'>
             <div id='linkDiv'>
-                <NavLink to='/'>Home</NavLink>
-                <NavLink to='/shop/products'>Shop</NavLink>
+                <NavLink style={{fontSize: '26px'}} to='/'>Home |</NavLink>
+                <NavLink style={{fontSize: '26px'}} to='/shop/products'>Shop</NavLink>
             </div>
             <div id='orders-h1'><h2>Orders</h2></div>
             <div id='orders-div'>

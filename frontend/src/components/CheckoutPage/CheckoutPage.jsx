@@ -29,6 +29,7 @@ function CheckoutPage() {
     const [salesTax, setSalesTax] = useState(0)
     const [total, setTotal] = useState(0)
     const [errors, setErrors] = useState({});
+    const [sameShip, setSameShip] = useState(false)
 
     const shipping = 5.99;
 
@@ -53,7 +54,7 @@ function CheckoutPage() {
         if (user && user.username && localStorage.getItem('cart') !== null) {
             let theCart = JSON.parse(localStorage.getItem('cart'));
 
-            if(theCart && theCart[user.username]){
+            if (theCart && theCart[user.username]) {
                 setCart(theCart[user.username])
             }
         }
@@ -85,15 +86,15 @@ function CheckoutPage() {
     }, [shipState]);
 
     useEffect(() => {
-        if(user && user.username && localStorage.getItem('wishlist') !== null){
+        if (user && user.username && localStorage.getItem('wishlist') !== null) {
             let theWishlist = JSON.parse(localStorage.getItem('wishlist'))
             let theCart = JSON.parse(localStorage.getItem('cart'))
 
-            if(theWishlist && theWishlist[user.username] && theWishlist[user.username].items &&
+            if (theWishlist && theWishlist[user.username] && theWishlist[user.username].items &&
                 theCart && theCart[user.username] && theCart[user.username].items
-            ){
+            ) {
                 Object.values(theCart[user.username].items).forEach(item => {
-                    if(theWishlist[user.username].items[item.itemId]){
+                    if (theWishlist[user.username].items[item.itemId]) {
                         delete theWishlist[user.username].items[item.itemId]
                     }
                 });
@@ -102,13 +103,13 @@ function CheckoutPage() {
             }
         }
 
-        else if(!user && localStorage.getItem('wishlist') !== null){
+        else if (!user && localStorage.getItem('wishlist') !== null) {
             let theWishlist = JSON.parse(localStorage.getItem('wishlist'));
             let theCart = JSON.parse(localStorage.getItem('cart'))
 
-            if(theWishlist && theWishlist.items && theCart && theCart.items){
+            if (theWishlist && theWishlist.items && theCart && theCart.items) {
                 Object.values(theCart.items).forEach(item => {
-                    if(theWishlist.items[item.itemId]){
+                    if (theWishlist.items[item.itemId]) {
                         delete theWishlist.items[item.itemId]
                     }
                 })
@@ -118,10 +119,21 @@ function CheckoutPage() {
         }
     }, [user])
 
-    // useEffect(() => {
-    //     let date = new Date()
-    //     let currYear = date.getFullYear()
-    // }, [expDate,cvv])
+    useEffect(() => {
+        if (sameShip) {
+            if (shipAddress && shipCity && shipState && shipZipCode) {
+                setBillAddress(shipAddress)
+                setBillCity(shipCity)
+                setBillState(shipState)
+                setBillZipCode(shipZipCode)
+            }
+            else {
+                let newErrors = { ...errors }
+                newErrors.sameShip = 'You must fill out the shipping address.'
+                setErrors(newErrors)
+            }
+        }
+    }, [sameShip])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -272,6 +284,21 @@ function CheckoutPage() {
                     </div>
                     <div id='customer-bill-address'>
                         <h2>Billing Address</h2>
+                        <section id='same-as-ship'>
+                            <label style={{ width: 'max-content', height: 'min-content', alignSelf: 'center' }}>Same as shipping:</label>
+                            <input type='checkbox' value={sameShip} style={{ marginLeft: '10px', alignSelf: 'flex-end' }}
+                                onChange={(e => {
+                                    setSameShip(prev => !prev)
+                                    if (errors.sameShip) {
+                                        let newErrs = { ...errors };
+                                        delete newErrs.sameShip
+                                        setErrors(newErrs)
+                                    }
+                                })}
+                            />
+                        </section>
+
+                        {errors && errors.sameShip && <p>{errors.sameShip}</p>}
                         <div>
                             <div>
                                 {errors && Object.keys(errors).length > 0 && errors.billAddress && <p>{errors.billAddress}</p> || <p id='hidden'>""</p>}

@@ -18,8 +18,8 @@ function WishlistPage() {
     return (
         <div id='wishlist-page'>
             <div id='linkDiv'>
-                <NavLink key={'homeNavLink'} to='/'>Home</NavLink>
-                <NavLink key={'shopNavLink'} to='/shop/products'>Shop</NavLink>
+                <NavLink style={{fontSize: '26px'}} key={'homeNavLink'} to='/'>Home</NavLink>
+                <NavLink style={{fontSize: '26px'}} key={'shopNavLink'} to='/shop/products'>Shop</NavLink>
             </div>
             <div id='wishlist-h1'><h1 key={'wishlist-h1'}>Wishlist</h1></div>
             <div id='item-grid'>

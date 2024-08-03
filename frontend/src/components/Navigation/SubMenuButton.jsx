@@ -33,10 +33,14 @@ function SubMenuButton({ menuOptName, theUlClassName, subMenuOptsArray, subMenuO
 
     return (
         <div id="nav-menu-btn">
-            <button onClick={e => {e.preventDefault(); navigate(`/shop/products/query/?gender=${menuOptName.toLowerCase()}`); closeMenu()}}>
-                {menuOptName ? menuOptName : "NULL"}
-            </button>
-            <button className='arrow-symbol' onClick={toggleMenu}><i className="fa-solid fa-greater-than"></i></button>
+            <div id="button-submenu">
+                <div style={{width: '80%'}}>
+                    <button id='subMenuBtn' onClick={e => { e.preventDefault(); navigate(`/shop/products/query/?gender=${menuOptName.toLowerCase()}`); closeMenu() }}>
+                        {menuOptName ? menuOptName : "NULL"}
+                    </button>
+                </div>
+                <div style={{width: '20%'}}><button className='arrow-symbol' onClick={toggleMenu}><i className="fa-solid fa-greater-than"></i></button></div>
+            </div>
             <ul className={ulClassName} ref={ulRef}>
                 <div id="nav-menu">
                     {(subMenuOptsArray.length && subMenuOptsLinks.length) && subMenuOptsArray.length === subMenuOptsLinks.length
