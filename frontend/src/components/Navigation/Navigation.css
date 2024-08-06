@@ -108,12 +108,17 @@ button.arrow-symbol {
     font-size: 16px;
 } 
 
-#menu-clickable:hover{
+#menu-clickable:hover, #menu-clickable-user:hover{
     width: 100%;
     background-color: #555555;
 }
 #menu-clickable li button{
     width: 80%;
+    text-align: left;
+}
+
+#menu-clickable-user li button{
+    width: 100%;
     text-align: left;
 }
 

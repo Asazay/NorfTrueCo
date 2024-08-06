@@ -98,7 +98,7 @@ router.get('/:userId', async (req, res, next) => {
                         [Op.eq]: parseInt(order.order_number)
                     }
                 },
-                attributes: ['id', 'order_number', 'image', 'name', 'size', 'color',
+                attributes: ['id', 'order_number', 'item_id', 'image', 'name', 'size', 'color',
                     'price', 'quantity'
                 ],
                 order: [['createdAt']]
@@ -162,10 +162,10 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
             const itemArr = [];
 
             Object.values(items).forEach(async item => {
-                const { image, name, size, color, price, quantity } = item;
+                const { id, image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                    order_number: orderNum, image, name, size, color, price, quantity
+                    order_number: orderNum, item_id: id, image, name, size, color, price, quantity
                 }))
             });
 
@@ -211,10 +211,10 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
             const itemArr = [];
 
             Object.values(items).forEach(async item => {
-                const { image, name, size, color, price, quantity } = item;
+                const { id, image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                    order_number: orderNum, image, name, size, color, price, quantity
+                    order_number: orderNum, item_id: id, image, name, size, color, price, quantity
                 }))
             });
 

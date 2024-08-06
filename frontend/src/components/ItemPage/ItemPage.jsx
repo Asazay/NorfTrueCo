@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemByIdThunk } from "../../redux/session";
 import { getReviewsByIdThunk } from '../../redux/session';
+import { getOrdersByUserIdThunk } from '../../redux/session';
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ReviewTile from './ReviewTitle';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
@@ -11,14 +12,20 @@ import CreateReviewModal from '../CreateReviewModal/CreateReviewModal';
 function ItemPage() {
     const item = useSelector(state => state.session.item);
     const user = useSelector(state => state.session.user);
-    const reviews = useSelector(state => state.session.reviews)
+    const reviews = useSelector(state => state.session.reviews);
+    const orders = useSelector(state => state.session.orders);
+
     const dispatch = useDispatch()
     const { itemId } = useParams()
     const [itemSize, setItemSize] = useState('small')
     const navigate = useNavigate()
     const [liked, setLiked] = useState(false)
     const [wishlist, setWishList] = useState();
+    const [itemOrdered, setItemOrdered] = useState(false)
 
+    useEffect(() => {
+        console.log(itemOrdered)
+    }, [itemOrdered])
 
     useEffect(() => {
         dispatch(getItemByIdThunk(itemId)).catch(async res => {
@@ -30,14 +37,36 @@ function ItemPage() {
 
         dispatch(getReviewsByIdThunk(itemId)).catch(async res => {
             const data = await res.json();
-            if (data && data.errors){}
+            if (data && data.errors) { }
         })
-    }, [dispatch])
+    }, [dispatch]);
 
     useEffect(() => {
+        setItemOrdered(false)
+        
         if (item && item.size && item.size === 'universal') setItemSize('universal')
-    }, [item])
 
+        if (orders && Object.values(orders).length > 0 && item && item.id) {
+            for(let order of Object.values(orders)){
+                if(order && Object.values(order.Order_Items).length){
+                    for (let ordIte of Object.values(order.Order_Items)){
+                        if(parseInt(ordIte.item_id) === parseInt(item.id)) {
+                            setItemOrdered(true)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+
+    }, [item, orders])
+
+    useEffect(() => {
+        if (user && user.id) dispatch(getOrdersByUserIdThunk(user.id)).catch(async res => {
+            const data = await res.json();
+            if (data && data.errors) { }
+        });
+    }, [user])
 
     const userCommented = () => {
         let value = false;
@@ -79,20 +108,7 @@ function ItemPage() {
 
             else if (cart && cart[user.username] && cart[user.username].items &&
                 JSON.stringify(cart[user.username].items) === '{}') {
-                    // console.log('Line 82')
-                    cart[user.username]['items'][item.id] = {
-                        itemId: item.id,
-                        image: item.image,
-                        name: item.name,
-                        size: itemSize,
-                        color: item.color,
-                        price: item.price,
-                        description: item.description,
-                        quantity: 1
-                    }
-                }
-            
-            else if (cart && cart[user.username] && cart[user.username].items && !cart[user.username].items[item.id]){
+                // console.log('Line 82')
                 cart[user.username]['items'][item.id] = {
                     itemId: item.id,
                     image: item.image,
@@ -103,7 +119,20 @@ function ItemPage() {
                     description: item.description,
                     quantity: 1
                 }
-                    }
+            }
+
+            else if (cart && cart[user.username] && cart[user.username].items && !cart[user.username].items[item.id]) {
+                cart[user.username]['items'][item.id] = {
+                    itemId: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: itemSize,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description,
+                    quantity: 1
+                }
+            }
 
             else if (user && user.username && cart && cart[user.username] && cart[user.username].items && cart[user.username].items[item.id]) {
                 cart[user.username].items[item.id].quantity += 1
@@ -116,7 +145,7 @@ function ItemPage() {
         else if (!user && localStorage.getItem('cart')) {
             cart = JSON.parse(localStorage.getItem('cart'));
 
-            if(cart && !cart.items){
+            if (cart && !cart.items) {
                 cart.items = {};
                 cart.items[item.id] = {
                     itemId: item.id,
@@ -254,7 +283,7 @@ function ItemPage() {
     return (
         item && <div id='item-page'>
             <div id='item-content'>
-                <div style={{ display: 'flex', width: '100%', padding: '0'}}>
+                <div style={{ display: 'flex', width: '100%', padding: '0' }}>
                     <div id='image-div'>
                         {liked && <button id='page-item-heart' onClick={e => removeFromWishLst(e)}>
                             <i className="fa-solid fa-heart" style={{ color: '#d70404', fontSize: '24px' }}>
@@ -302,9 +331,9 @@ function ItemPage() {
 
                 </div>
                 <div id='review-tiles-div'>
-                    {user && userCommented() === false && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}
+                    {user && userCommented() === false && itemOrdered === true && <div id='submitReviewDiv'><OpenModalButton itemText={'Submit a review'} modalComponent={<CreateReviewModal itemId={item.id} />} /></div>}
                     {reviews && Object.values(reviews.reviews).length > 0 && Object.values(reviews.reviews).map(review => (<ReviewTile key={review.id} review={review} userCommented={userCommented()} />))
-                    || <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}><h4 style={{justifySelf: 'center'}}>No Reviews</h4></div>}
+                        || <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}><h4 style={{ justifySelf: 'center' }}>No Reviews</h4></div>}
                 </div>
             </div>
         </div>
