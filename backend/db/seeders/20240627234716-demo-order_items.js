@@ -21,6 +21,7 @@ module.exports = {
    await Order_Item.bulkCreate([
     {
       order_number: 2024001,
+      item_id: 6,
       image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/Hoodies/Men+red+hoodie.jpg',
       name: 'Red Hoodie',
       size: 'medium',
@@ -30,6 +31,7 @@ module.exports = {
     },
     {
       order_number: 2024001,
+      item_id: 19,
       image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/shorts/Men+shorts+black.jpg',
       name: 'Black Shorts',
       size: 'large',
@@ -39,6 +41,7 @@ module.exports = {
     },
     {
       order_number: 2024002,
+      item_id: 22,
       image: 'https://capstone-project-bucket.s3.us-east-2.amazonaws.com/shorts/Women+shorts+blue.jpg',
       name: 'Vintage Blue Shorts',
       size: 'small',

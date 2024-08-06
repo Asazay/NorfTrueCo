@@ -52,9 +52,9 @@ function ProfileButton({ user }) {
           <div id="user-info">
             <div><p style={{padding: 10}}>{user && user.firstName && 'Hello, ' +  user.firstName.toUpperCase()}</p></div>
             {/* <li>{user.firstName} {user.lastName}</li> */}
-            <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/orders'); closeMenu()}}>My Orders</button></li></div>
-            <div id="menu-clickable"><li><button onClick={e => {e.preventDefault(); navigate('/wishlist'); closeMenu()}}>My Wishlist</button></li></div>
-            <div id="menu-clickable">
+            <div id="menu-clickable-user"><li><button onClick={e => {e.preventDefault(); navigate('/orders'); closeMenu()}}>My Orders</button></li></div>
+            <div id="menu-clickable-user"><li><button onClick={e => {e.preventDefault(); navigate('/wishlist'); closeMenu()}}>My Wishlist</button></li></div>
+            <div id="menu-clickable-user">
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
