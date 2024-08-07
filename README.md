@@ -39,18 +39,10 @@ On Norf True Co. users can:
   * cd frontend && npm install
   * cd ../backend && npm install
 
-3. Set up environment variables
-* Create a .env and .flaskenv file in the root directory and add your configuration details:
-   * .flaskenv `FLASK_APP=app
-FLASK_DEBUG=true
-FLASK_RUN_PORT=8000
-`
-   * .env `DATABASE_URL=sqlite:///dev.db`
-
-5. Run database migrations & seed
+3. Run database migrations & seed
  * from main folder - cd backend && npx dotenv sequelize db:migrate && npx dotenv sequelize db:seed:all
 
-5. Run the frontend and backend servers
+4. Run the frontend and backend servers
 * Using two terminal windows from main folder.
   * cd frontend && npm start
   * cd backend && npm start
