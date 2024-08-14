@@ -23,6 +23,8 @@ function ItemPage() {
     const [wishlist, setWishList] = useState();
     const [itemOrdered, setItemOrdered] = useState(false)
 
+    
+
     useEffect(() => {
         console.log(itemOrdered)
     }, [itemOrdered])
@@ -215,7 +217,19 @@ function ItemPage() {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('wishlist')) {
+        setLiked(false)
+        
+        if (user && user.username && localStorage.getItem('wishlist')) {
+            let wishLst = JSON.parse(localStorage.getItem('wishlist'));
+
+            setWishList(wishLst)
+
+            if (item && item.id && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst[user.username].items[item.id]) {
+                setLiked(true)
+            }
+        }
+
+        if (!user && localStorage.getItem('wishlist')) {
             let wishLst = JSON.parse(localStorage.getItem('wishlist'));
 
             setWishList(wishLst)
@@ -224,7 +238,7 @@ function ItemPage() {
                 setLiked(true)
             }
         }
-    }, [])
+    }, [user, item])
 
     const addToWishLst = (e) => {
         e.preventDefault()
