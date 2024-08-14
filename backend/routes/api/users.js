@@ -27,7 +27,6 @@ const validateSignup = [
     check('password')
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })
-      .isAlpha()
       .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
   ];
