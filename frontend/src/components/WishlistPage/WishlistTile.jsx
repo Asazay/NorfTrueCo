@@ -7,6 +7,7 @@ const WishlistTile = ({ item, setWishList }) => {
     const user = useSelector(state => state.session.user)
 
     useEffect(() => {
+        console.log(item.id)
         if (item && item.size && item.size === 'universal') setItemSize('universal')
     }, [item])
 
@@ -161,8 +162,8 @@ const WishlistTile = ({ item, setWishList }) => {
     }
 
     return (
-        <div key={item.id} id={item.id} className="itemTile-wishlist">
-            <NavLink to={`/shop/products/${item.itemId}`}>
+        item && item.id && <div key={item.id} id={item.id} className="itemTile-wishlist">
+            <NavLink to={`/shop/products/${item.id}`}>
                 <div id="imgDiv">
                     <img src={item.image} alt="" />
                 </div>
