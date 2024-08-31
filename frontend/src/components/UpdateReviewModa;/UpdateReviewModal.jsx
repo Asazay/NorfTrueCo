@@ -23,6 +23,29 @@ function UpdateReviewModal({ itemId, reviewId }) {
     useEffect(() => {
        if(review && review.comment && review.stars){
         setComment(review.comment)
+        setStars(Number(review.stars))
+        switch(Number(review.stars)){
+            case 1: {
+                document.getElementById('star1').setAttribute('checked', true);
+                break;
+            }
+            case 2: {
+                document.getElementById('star2').setAttribute('checked', true);
+                break;
+            }
+            case 3: {
+                document.getElementById('star13').setAttribute('checked', true);
+                break;
+            }
+            case 4: {
+                document.getElementById('star4').setAttribute('checked', true);
+                break;
+            }
+            case 5: {
+                document.getElementById('star5').setAttribute('checked', true);
+                break;
+            }
+        }
        }
     }, [review])
 
