@@ -14,6 +14,11 @@ function CreateReviewModal({itemId}) {
   const {closeModal} = useModal();
 
 
+  useEffect(() => {
+    if(comment.length < 10 || !stars) setDisable(true)
+    else setDisable(false)
+  }, [comment, stars])
+
   const submitReview = async (e) => {
     e.preventDefault();
 
@@ -122,10 +127,12 @@ function CreateReviewModal({itemId}) {
         <b>Stars</b>
       </div>
       <div id="buttonDiv">
-        <button className='button' type="submit" onClick={e => submitReview(e)} disabled={disable}>
+        <button className={disable ? 'button-disabled' : 'button'} type="submit" onClick={e => submitReview(e)} disabled={disable}>
           Submit Your Review
         </button>
+        <button onClick={() => closeModal()}>Cancel</button>
       </div>
+      {disable && <p style={{color: 'red', fontSize: '12px', textAlign: 'center'}}>Comment must be at least 10 characters and stars must be selected</p>}
     </form>
   );
 }
