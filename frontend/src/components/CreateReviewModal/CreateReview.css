@@ -22,6 +22,10 @@ textarea {
     width: 100%;
 }
 
+.button-disabled{
+    background-color: #555555;
+}
+
 #starDiv {
     display: flex;
     align-items: center;
