@@ -159,10 +159,6 @@ function ShopPage() {
                     <div id='filter-form'>
                         <fieldset>
                             <legend></legend>
-                            <div id='filterBtnDiv' style={{padding: '5px 0'}}>
-                                <button disabled={minPrice < 0 || maxPrice < 0 || Object.keys(errors).length ? true : false} onClick={(e) => filterSubmit(e)}>Filter</button>
-                                <button onClick={e => resetFilter(e)}>Reset</button>
-                            </div>
                             <div>
                                 Gender:<br />
                                 <input name='gender' id='male' type='radio' value='men' onChange={(e) => setGender(e.target.value)} />
@@ -288,6 +284,10 @@ function ShopPage() {
                                     <input type='checkbox' id='accessories' value='accessories' checked={checked['accessories']} onChange={e => customSetCategories(e)} />
                                     <label htmlFor='accessories'>Accssories</label>
                                 </div>
+                            </div>
+                            <div id='filterBtnDiv' style={{padding: '5px 0'}}>
+                                <button disabled={minPrice < 0 || maxPrice < 0 || Object.keys(errors).length ? true : false} onClick={(e) => filterSubmit(e)}>Apply Filter</button>
+                                <button onClick={e => resetFilter(e)}>Reset</button>
                             </div>
                         </fieldset>
                     </div>
