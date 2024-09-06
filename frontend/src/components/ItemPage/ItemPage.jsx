@@ -245,11 +245,11 @@ function ItemPage() {
 
         let wishLst;
 
-        if (localStorage.getItem('wishlist')) {
+        if (user && user.username && localStorage.getItem('wishlist')) {
             wishLst = JSON.parse(localStorage.getItem('wishlist'))
-            if (wishLst && !wishLst.items[item.id]) {
-                wishLst.items[item.id] = {
-                    itemId: item.id,
+            if (wishLst && wishLst[user.username] && !wishLst[user.username].items[item.id]) {
+                wishLst[user.username].items[item.id] = {
+                    id: item.id,
                     image: item.image,
                     name: item.name,
                     size: item.size,
@@ -259,15 +259,84 @@ function ItemPage() {
                 }
             }
 
+            else if (user && user.username && wishLst && !wishLst[user.username]) {
+                wishLst = JSON.parse(localStorage.getItem('wishlist'))
+                wishLst[user.username] = {
+                    items: {
+                        [item.id]: {
+                            id: item.id,
+                            image: item.image,
+                            name: item.name,
+                            size: item.size,
+                            color: item.color,
+                            price: item.price,
+                            description: item.description
+                        }
+                    }
+                }
+                setLiked(true)
+            }
+
             localStorage.setItem('wishlist', JSON.stringify(wishLst))
             setLiked(true)
         }
 
-        else {
+        else if (!user && localStorage.getItem('wishlist')) {
+            wishLst = JSON.parse(localStorage.getItem('wishlist'))
+            if (item && item.id && wishLst && wishLst.items && !wishLst.items[item.id]) {
+                wishLst.items[item.id] = {
+                    id: item.id,
+                    image: item.image,
+                    name: item.name,
+                    size: item.size,
+                    color: item.color,
+                    price: item.price,
+                    description: item.description
+                }
+            }
+
+            else if (item && item.id && wishLst && !wishLst.items) {
+                wishLst.items = {
+                    [item.id]: {
+                        id: item.id,
+                        image: item.image,
+                        name: item.name,
+                        size: item.size,
+                        color: item.color,
+                        price: item.price,
+                        description: item.description
+                    }
+                }
+            }
+
+            localStorage.setItem('wishlist', JSON.stringify(wishLst))
+            setLiked(true)
+        }
+
+        else if (user && user.username && !localStorage.getItem('wishlist')) {
+            localStorage.setItem('wishlist', JSON.stringify({
+                [user.username]: {
+                    items: {
+                        [item.id]: {
+                            id: item.id,
+                            image: item.image,
+                            name: item.name,
+                            size: item.size,
+                            color: item.color,
+                            price: item.price,
+                            description: item.description
+                        }
+                    }
+                }
+            }));
+            setLiked(true)
+        }
+
+        else if (!user && !localStorage.getItem('wishlist')) {
             localStorage.setItem('wishlist', JSON.stringify({
                 items: {
                     [item.id]: {
-                        itemId: item.id,
+                        id: item.id,
                         image: item.image,
                         name: item.name,
                         size: item.size,
@@ -285,7 +354,16 @@ function ItemPage() {
 
         if (e) e.preventDefault()
         let wishLst = JSON.parse(localStorage.getItem('wishlist'))
-        if (wishLst && wishLst.items) {
+
+        if (user && user.username && wishLst && wishLst[user.username] && wishLst[user.username].items && wishLst[user.username].items[item.id]) {
+            let newWishLst = { ...wishLst }
+            delete newWishLst[user.username].items[item.id]
+            localStorage.setItem('wishlist', JSON.stringify(newWishLst));
+            setWishList(newWishLst)
+            setLiked(false)
+        }
+
+        if (!user && wishLst && wishLst.items) {
             let newWishLst = { ...wishLst }
             delete newWishLst.items[item.id]
             localStorage.setItem('wishlist', JSON.stringify(newWishLst));
