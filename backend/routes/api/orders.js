@@ -162,10 +162,10 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
             const itemArr = [];
 
             Object.values(items).forEach(async item => {
-                const { id, image, name, size, color, price, quantity } = item;
+                const { itemId, image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                    order_number: orderNum, item_id: id, image, name, size, color, price, quantity
+                    order_number: orderNum, item_id: itemId, image, name, size, color, price, quantity
                 }))
             });
 
@@ -211,10 +211,10 @@ router.post('/:userId', validateCheckout, async (req, res, next) => {
             const itemArr = [];
 
             Object.values(items).forEach(async item => {
-                const { id, image, name, size, color, price, quantity } = item;
+                const { itemId, image, name, size, color, price, quantity } = item;
 
                 itemArr.push(await Order_Item.create({
-                    order_number: orderNum, item_id: id, image, name, size, color, price, quantity
+                    order_number: orderNum, item_id: itemId, image, name, size, color, price, quantity
                 }))
             });
 
