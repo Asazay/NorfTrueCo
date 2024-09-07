@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { createOrderThunk } from '../../redux/session';
 
 function CheckoutPage() {
+    window.history.replaceState(null, "", '/')
     const [cart, setCart] = useState(null)
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -49,24 +50,33 @@ function CheckoutPage() {
         .0650, .06, .05, .04
     ]
 
-
     useEffect(() => {
-        if (user && user.username && localStorage.getItem('cart') !== null) {
-            let theCart = JSON.parse(localStorage.getItem('cart'));
+        // if(localStorage.getItem('cart') === '{}') setEmpty(true)
 
-            if (theCart && theCart[user.username]) {
-                setCart(theCart[user.username])
+        if (user && user.username && localStorage.getItem('cart') !== null) {
+            let userCart = JSON.parse(localStorage.getItem('cart'))
+            if (userCart && userCart[user.username] && userCart[user.username].items) {
+                let cartTotal = Object.values(userCart[user.username].items).reduce((acc, item) => acc += item.price * item.quantity, 0);
+                userCart[user.username].total = cartTotal;
+                setCart(userCart[user.username])
+                setTotal(cartTotal)
+                console.log(userCart)
             }
         }
 
         else if (!user && localStorage.getItem('cart') !== null) {
-            setCart(JSON.parse(localStorage.getItem('cart')))
+            let userCart = JSON.parse(localStorage.getItem('cart'))
+            let cartTotal;
+
+            if(userCart && userCart.items){
+                cartTotal = Object.values(userCart.items).reduce((acc, item) => acc += item.price * item.quantity, 0);
+            }
+
+            userCart.total = cartTotal;
+            setCart(userCart)
+            setTotal(cartTotal)
         }
-        else if (localStorage.getItem('cart') === null) {
-            setCart(null)
-            navigate(`/`)
-        }
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (states.includes(shipState)) {
@@ -137,7 +147,6 @@ function CheckoutPage() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
         const createOrderInfo = {
             items: cart ? cart.items : null,
             orderTotal: total ? total.toFixed(2) : 0,
@@ -159,21 +168,23 @@ function CheckoutPage() {
             cvv
         }
 
-        const order = await dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
-            let data;
-
-            if (res) {
-                data = await res.json();
+        if(!Object.keys(errors).length){
+            const order = await dispatch(createOrderThunk(user ? user.id : null, createOrderInfo)).catch(async res => {
+                let data;
+    
+                if (res) {
+                    data = await res.json();
+                }
+    
+                if (data && data.errors) {
+                    setErrors(data.errors)
+                    document.body.scrollTop = document.documentElement.scrollTop = 200;
+                }
+            });
+    
+            if (order && order.order_number) {
+                navigate(`/Confirmation/?cfn=${order.order_number}`)
             }
-
-            if (data && data.errors) {
-                setErrors(data.errors)
-                document.body.scrollTop = document.documentElement.scrollTop = 200;
-            }
-        });
-
-        if (order && order.order_number) {
-            navigate(`/Confirmation/?cfn=${order.order_number}`)
         }
     }
 
@@ -429,7 +440,7 @@ function CheckoutPage() {
                     <p>Shipping: ${shipping}</p>
                     <p>Est. Taxes: {salesTax !== "" && salesTax >= 0 && `$${salesTax.toFixed(2)}` || 'TBD'}</p>
                 </div>
-                <div id='checkoutTotal' style={{ fontWeight: 'bold' }}>Total: ${total && total.toFixed(2) || cart && (cart.total + shipping).toFixed(2)}</div>
+                <div id='checkoutTotal' style={{ fontWeight: 'bold' }}>Total: ${total && total.toFixed(2) || cart && shipping && (cart.total + shipping).toFixed(2)}</div>
             </div>
         </div>
     )

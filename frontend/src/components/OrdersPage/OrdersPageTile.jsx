@@ -29,14 +29,14 @@ function OrdersPageTile({ order }) {
     }, [order])
 
     useEffect(() => {
-        if(confirmDeleteOrder){
+        if (confirmDeleteOrder) {
             handleDeleteOrder()
             setConfirmDeleteOrder(false)
         }
     }, [confirmDeleteOrder]);
 
     useEffect(() => {
-        if(confirmDeleteItem){
+        if (confirmDeleteItem) {
             handleDeleteSelected()
             setConfirmDeleteItem(false)
         }
@@ -66,10 +66,10 @@ function OrdersPageTile({ order }) {
         let selectedCount = 0;
         for (let item of selItems) {
             count += 1;
-           
+
             if (item.value === 'off') {
                 selectedCount += 1;
-                if(nonSelected) nonSelected = false;
+                if (nonSelected) nonSelected = false;
             }
         }
 
@@ -92,7 +92,7 @@ function OrdersPageTile({ order }) {
             // }
         });
 
-            for await (let selItem of selItems) {
+        for await (let selItem of selItems) {
             const [orderId, orderNumber] = selItem.id.split(',')
             if (selItem.value === 'off') {
                 dispatch(deleteOrderItemByIdThunk(orderNumber, orderId)).catch(async res => {
@@ -115,7 +115,7 @@ function OrdersPageTile({ order }) {
     const changeChecked = (e) => {
         if (e.target.value === 'on') e.target.value = 'off'
         else if (e.target.value === 'off') e.target.value = 'on'
-        let updateErrors = {...errors}
+        let updateErrors = { ...errors }
         delete updateErrors['selected']
         setErrors(updateErrors)
     }
@@ -189,23 +189,23 @@ function OrdersPageTile({ order }) {
                             modalFunction={setConfirmDeleteOrder}
                         />}
                             itemText={'Cancel Order'}
-                    />
+                        />
                         {/* <button onClick={e => handleDeleteOrder(e)}>Cancel Order</button> */}
                     </div>
                     }
                     {order.status && order.status !== 'shipped' && order.status !== 'delivered' && <div>
                         <OpenModalButton modalComponent={<ConfirmModal title={'Confirm remove item'}
-                        question={'Are you sure you want to remove the selected item(s)?'}
-                        bodyTxt={'Item(s) will be removed. The final reciept will be emailed once order is processed'}
-                        confirmTxt={'Confirm'}
-                        cancelTxt={'Cancel'}
-                        modalFunction={setConfirmDeleteItem}
+                            question={'Are you sure you want to remove the selected item(s)?'}
+                            bodyTxt={'Item(s) will be removed. The final reciept will be emailed once order is processed'}
+                            confirmTxt={'Confirm'}
+                            cancelTxt={'Cancel'}
+                            modalFunction={setConfirmDeleteItem}
                         />}
-                        itemText={'Remove item(s)'}
-                        openFunction={checkIsSelected}
-                    />
+                            itemText={'Remove item(s)'}
+                            openFunction={checkIsSelected}
+                        />
                         {/* <button onClick={e => handleDeleteSelected(e)}>Remove selected item(s)</button> */}
-                    </div>}{(errors && errors.selected && <p style={{ color: 'red'}}>{errors.selected}</p>) || <p style={{visibility: 'hidden', }}>''</p>}
+                    </div>}{(errors && errors.selected && <p style={{ color: 'red' }}>{errors.selected}</p>) || <p style={{ visibility: 'hidden', }}>''</p>}
                 </div>
             </div>
         </div>
